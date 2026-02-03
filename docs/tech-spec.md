@@ -32,8 +32,8 @@ This document outlines the technical architecture, design decisions, and impleme
 
 ### Tooling
 - Package Manager: pnpm 
-- Linting: ESLint
-- Formatting: Prettier
+- Linting: Biome
+- Formatting: Biome
 - Testing: Vitest 
 
 ---
