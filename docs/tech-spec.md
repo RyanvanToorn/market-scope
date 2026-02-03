@@ -30,12 +30,6 @@ This document outlines the technical architecture, design decisions, and impleme
 - TypeScript
 - Vite
 
-### Backend (if applicable)
-- Language / Framework:
-- API Type: REST / GraphQL
-- Authentication:
-- Hosting:
-
 ### Tooling
 - Package Manager: pnpm 
 - Linting: ESLint
