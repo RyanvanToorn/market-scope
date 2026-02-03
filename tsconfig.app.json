@@ -16,7 +16,8 @@
       "@components/*": ["src/components/*"],
       "@features/*": ["src/features/*"],
       "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@utils/*": ["src/utils/*"],
     },
 
     /* Bundler mode */
