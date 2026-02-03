@@ -42,3 +42,73 @@
 5. Handle rate limiting and error states
 6. Add data caching and request throttling
 7. Implement mock data for development and testing
+
+---
+
+## Phase 4: Core Features (MVP)
+**Goal:** Deliver a usable, end-to-end dashboard experience.
+
+1. Market overview dashboard
+2. Instrument search and selection
+3. Interactive price charts
+4. Timeframe switching
+5. Basic market metrics (price, change, volume)
+6. Loading, empty, and error states
+7. Responsive layout support
+
+---
+
+## Phase 5: Charting & Analysis
+**Goal:** Enhance data visualization and insight.
+
+1. Candlestick and line chart support
+2. Technical indicators (e.g. SMA, EMA, RSI)
+3. Chart overlays and toggles
+4. Zooming and panning interactions
+5. Performance optimizations for large datasets
+
+---
+
+## Phase 6: User Experience Enhancements
+**Goal:** Improve usability and polish.
+
+1. Watchlists
+2. Persistent user preferences
+3. Dark / light mode
+4. Keyboard shortcuts
+5. Accessibility improvements
+6. UI animations and transitions
+
+---
+
+## Phase 7: Testing & Quality
+**Goal:** Ensure reliability and maintainability.
+
+1. Unit tests for data transformations
+2. Component tests for core UI
+3. Integration tests for API flows
+4. End-to-end tests for critical paths
+5. Performance and bundle size analysis
+
+---
+
+## Phase 8: Deployment & CI/CD
+**Goal:** Ship and iterate confidently.
+
+1. Configure production builds
+2. Set up hosting and deployment
+3. Environment-specific configuration
+4. CI pipeline for linting and tests
+5. Deployment documentation
+
+---
+
+## Phase 9: Future Enhancements
+**Goal:** Extend MarketScope beyond MVP.
+
+1. Alerts and notifications
+2. Advanced indicators
+3. Comparison views
+4. Exportable data and charts
+5. User accounts and authentication
+6. Backend aggregation and caching layer
