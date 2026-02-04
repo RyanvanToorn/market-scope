@@ -1,4 +1,3 @@
-import type { Error } from "@interfaces/error";
 import type { Listing } from "@interfaces/listing";
 import { parseCSV } from "@utils/csv-parser";
 
