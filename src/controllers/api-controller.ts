@@ -14,23 +14,17 @@ export class APIController {
 	}
 
 	async getTimeSeriesDaily(symbol: string): Promise<TimeSeriesData | undefined> {
-		const dailyData: TimeSeriesData | undefined = (await this.client.getTimeSeriesDaily(symbol)) as
-			| TimeSeriesData
-			| undefined;
+		const dailyData: TimeSeriesData | undefined = (await this.client.getTimeSeriesDaily(symbol)) as TimeSeriesData | undefined;
 		return dailyData;
 	}
 
 	async getTimeSeriesWeekly(symbol: string): Promise<TimeSeriesData | undefined> {
-		const dailyData: TimeSeriesData | undefined = (await this.client.getTimeSeriesWeekly(symbol)) as
-			| TimeSeriesData
-			| undefined;
+		const dailyData: TimeSeriesData | undefined = (await this.client.getTimeSeriesWeekly(symbol)) as TimeSeriesData | undefined;
 		return dailyData;
 	}
 
 	async getTimeSeriesMonthly(symbol: string): Promise<TimeSeriesData | undefined> {
-		const dailyData: TimeSeriesData | undefined = (await this.client.getTimeSeriesMonthly(
-			symbol,
-		)) as TimeSeriesData | undefined;
+		const dailyData: TimeSeriesData | undefined = (await this.client.getTimeSeriesMonthly(symbol)) as TimeSeriesData | undefined;
 		return dailyData;
 	}
 }
