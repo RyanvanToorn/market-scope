@@ -32,14 +32,10 @@ export class AlphaVantageClient {
 
 	public async getListingStatus(): Promise<Listing[] | TypeError> {
 		try {
-			const response = await fetch(
-				`${this.baseUrl}?function=LISTING_STATUS&apikey=${this.apiKey}`,
-			);
+			const response = await fetch(`${this.baseUrl}?function=LISTING_STATUS&apikey=${this.apiKey}`);
 
 			if (!response.ok) {
-				throw new Error(
-					`getListingStatus - HTTP error! Status: ${response.status}`,
-				);
+				throw new Error(`getListingStatus - HTTP error! Status: ${response.status}`);
 			}
 
 			const csvData = await response.text();
@@ -52,18 +48,12 @@ export class AlphaVantageClient {
 		}
 	}
 
-	public async getTimeSeriesDaily(
-		symbol: string,
-	): Promise<TimeSeriesData | TypeError> {
+	public async getTimeSeriesDaily(symbol: string): Promise<TimeSeriesData | TypeError> {
 		try {
-			const response = await fetch(
-				`${this.baseUrl}?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${this.apiKey}`,
-			);
+			const response = await fetch(`${this.baseUrl}?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${this.apiKey}`);
 
 			if (!response.ok) {
-				throw new Error(
-					`getTimeSeriesDaily - HTTP error! Status: ${response.status}`,
-				);
+				throw new Error(`getTimeSeriesDaily - HTTP error! Status: ${response.status}`);
 			}
 
 			const rawData = await response.json();
@@ -74,18 +64,12 @@ export class AlphaVantageClient {
 		}
 	}
 
-	public async getTimeSeriesWeekly(
-		symbol: string,
-	): Promise<TimeSeriesData | TypeError> {
+	public async getTimeSeriesWeekly(symbol: string): Promise<TimeSeriesData | TypeError> {
 		try {
-			const response = await fetch(
-				`${this.baseUrl}?function=TIME_SERIES_WEEKLY&symbol=${symbol}&apikey=${this.apiKey}`,
-			);
+			const response = await fetch(`${this.baseUrl}?function=TIME_SERIES_WEEKLY&symbol=${symbol}&apikey=${this.apiKey}`);
 
 			if (!response.ok) {
-				throw new Error(
-					`getTimeSeriesWeekly - HTTP error! Status: ${response.status}`,
-				);
+				throw new Error(`getTimeSeriesWeekly - HTTP error! Status: ${response.status}`);
 			}
 
 			const rawData = await response.json();
@@ -96,18 +80,12 @@ export class AlphaVantageClient {
 		}
 	}
 
-	public async getTimeSeriesMonthly(
-		symbol: string,
-	): Promise<TimeSeriesData | TypeError> {
+	public async getTimeSeriesMonthly(symbol: string): Promise<TimeSeriesData | TypeError> {
 		try {
-			const response = await fetch(
-				`${this.baseUrl}?function=TIME_SERIES_MONTHLY&symbol=${symbol}&apikey=${this.apiKey}`,
-			);
+			const response = await fetch(`${this.baseUrl}?function=TIME_SERIES_MONTHLY&symbol=${symbol}&apikey=${this.apiKey}`);
 
 			if (!response.ok) {
-				throw new Error(
-					`getTimeSeriesMonthly - HTTP error! Status: ${response.status}`,
-				);
+				throw new Error(`getTimeSeriesMonthly - HTTP error! Status: ${response.status}`);
 			}
 
 			const rawData = await response.json();
@@ -130,9 +108,7 @@ export class AlphaVantageClient {
 		const timeSeries: Record<string, PricePoint> = {};
 
 		// Handle different time series keys (Daily, Weekly, Monthly)
-		const timeSeriesKey = Object.keys(rawData).find((key) =>
-			key.startsWith("Time Series"),
-		);
+		const timeSeriesKey = Object.keys(rawData).find((key) => key.startsWith("Time Series"));
 
 		if (!timeSeriesKey) {
 			throw new Error("No time series data found in response");
