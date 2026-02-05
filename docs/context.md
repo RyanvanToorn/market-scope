@@ -1,0 +1,9 @@
+# MarketScope – Project Context Summary
+
+MarketScope is a personal portfolio project designed to serve as a multi-asset trading and market dashboard. Its goal is to allow users to track, view, and analyze data for a variety of financial instruments, including stocks, ETFs, indices, currencies, and cryptocurrencies. The app is being built using React + TypeScript on the frontend, with a layered architecture that separates base UI components, standardized wrapper components, and higher-level feature components.
+
+The frontend uses MUI (Material-UI) as the base UI library, with all components wrapped in custom modules to enforce consistent theming, styling, and behavior. Component-specific styles are managed via CSS Modules (ComponentName.module.css), while MUI’s sx and styled API are used for dynamic styling where appropriate. The project is structured with src/components for reusable UI primitives and src/features for composed functional features like watchlists, search, and charting dashboards.
+
+MarketScope interacts with external financial APIs (initially Alpha Vantage) to fetch market data. The architecture is designed to include an API client layer that handles raw HTTP requests and response parsing, and a controller/facade layer that normalizes data and exposes high-level methods to the frontend features. This separation ensures clean abstraction, easy testing, and future-proofing for potential backend migration (e.g., to C# or Node.js).
+
+The project emphasizes professional-grade frontend architecture, including consistent naming conventions (PascalCase for components and types, lowercase for folder structures), centralized theming, and modular, testable design. The goal is to showcase both technical competence and architectural best practices, while building a functional dashboard for live market data analysis.
