@@ -6,7 +6,7 @@ export interface AvatarProps extends StandardComponentProps {
   children?: React.ReactNode;
 }
 
-export function Avatar(props: AvatarProps) {
+export function Avatar(props: AvatarProps): React.ReactElement | null {
   return (
     <MUIAvatar id={props.id} className={`${styles.Avatar} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

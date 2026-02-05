@@ -7,7 +7,7 @@ export interface ButtonProps extends StandardComponentProps {
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
 }
 
-export function Button(props: ButtonProps) {
+export function Button(props: ButtonProps): React.ReactElement | null {
   return (
     <MUIButton id={props.id} className={`${styles.Button} ${props.extendedClass}`} sx={props.sx} color={props.color}>
       {props.children}

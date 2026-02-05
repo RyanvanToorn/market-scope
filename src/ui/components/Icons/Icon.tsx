@@ -6,7 +6,7 @@ export interface IconProps extends StandardComponentProps {
   children?: React.ReactNode;
 }
 
-export function Icon(props: IconProps) {
+export function Icon(props: IconProps): React.ReactElement | null {
   return (
     <MUIIcon id={props.id} className={`${styles.Icon} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

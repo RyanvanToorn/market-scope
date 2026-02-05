@@ -6,7 +6,7 @@ export interface BoxProps extends StandardComponentProps {
   children?: React.ReactNode;
 }
 
-export function Box(props: BoxProps) {
+export function Box(props: BoxProps): React.ReactElement | null {
   return (
     <MUIBox id={props.id} className={`${styles.Box} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

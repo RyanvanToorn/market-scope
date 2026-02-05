@@ -6,7 +6,7 @@ export interface TabsProps extends StandardComponentProps {
   children?: React.ReactNode;
 }
 
-export function Tabs(props: TabsProps) {
+export function Tabs(props: TabsProps): React.ReactElement | null {
   return (
     <MUITabs id={props.id} className={`${styles.Tabs} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

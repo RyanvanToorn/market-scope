@@ -6,7 +6,7 @@ export interface DividerProps extends StandardComponentProps {
     orientation: 'horizontal' | 'vertical';
 }
 
-export function Divider(props: DividerProps) {
+export function Divider(props: DividerProps): React.ReactElement | null {
   return (
     <MUIDivider id={props.id} className={`${styles.Divider} ${props.extendedClass}`} sx={props.sx} />
   );

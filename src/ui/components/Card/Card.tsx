@@ -7,7 +7,7 @@ export interface CardProps extends StandardComponentProps {
   raised?: boolean;
 }
 
-export function Card(props: CardProps) {
+export function Card(props: CardProps): React.ReactElement | null {
   return (
     <MUICard id={props.id} className={`${styles.Card} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

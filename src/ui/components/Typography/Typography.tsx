@@ -6,7 +6,7 @@ export interface TypographyProps extends StandardComponentProps {
   children?: React.ReactNode;
 }
 
-export function Typography(props: TypographyProps) {
+export function Typography(props: TypographyProps): React.ReactElement | null {
   return (
     <MUITypography id={props.id} className={`${styles.Typography} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

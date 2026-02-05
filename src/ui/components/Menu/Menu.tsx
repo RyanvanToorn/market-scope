@@ -6,7 +6,7 @@ export interface MenuProps extends StandardComponentProps {
   children?: React.ReactNode;
 }
 
-export function Menu(props: MenuProps) {
+export function Menu(props: MenuProps): React.ReactElement | null {
   return (
     <MUIMenu id={props.id} className={`${styles.Menu} ${props.extendedClass}`} sx={props.sx}>
       {props.children}

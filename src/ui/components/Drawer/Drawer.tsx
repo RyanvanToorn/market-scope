@@ -7,7 +7,7 @@ export interface DrawerProps extends StandardComponentProps {
   anchor?: 'bottom' | 'left' | 'right' | 'top'
 }
 
-export function Drawer(props: DrawerProps) {
+export function Drawer(props: DrawerProps): React.ReactElement | null {
   return (
     <MUIDrawer id={props.id} className={`${styles.Drawer} ${props.extendedClass}`} sx={props.sx}>
       {props.children}
