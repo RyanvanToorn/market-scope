@@ -1,0 +1,15 @@
+import type { StandardComponentProps } from '@interfaces/standard-component-props';
+import { Tabs as MUITabs } from '@mui/material';
+import styles from './Tabs.module.css';
+
+export interface TabsProps extends StandardComponentProps {
+  children?: React.ReactNode;
+}
+
+export function Tabs(props: TabsProps) {
+  return (
+    <MUITabs id={props.id} className={`${styles.Tabs} ${props.extendedClass}`} sx={props.sx}>
+      {props.children}
+    </MUITabs>
+  );
+}
