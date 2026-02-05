@@ -1,10 +1,13 @@
-import { APIButton } from "@features/api-button/api-button"
+import { BasicLayout } from "@layouts/BasicLayout"
 
 function App() {
 
   return (
     <>
-    <APIButton/>
+    <BasicLayout>
+      
+    </BasicLayout>
+    
     </>
   )
 }
