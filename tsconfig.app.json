@@ -6,6 +6,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "types": ["vite/client"],
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
@@ -21,8 +22,8 @@
       "@utils/*": ["src/utils/*"],
     },
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    /* CSS Module type declarations */
+    "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
