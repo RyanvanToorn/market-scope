@@ -1,4 +1,5 @@
-import { BasicLayout } from "@layouts/BasicLayout"
+import { BasicLayout } from "@layouts/BasicLayout";
+import './index.css';
 
 function App() {
 
