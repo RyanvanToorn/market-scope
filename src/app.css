@@ -1,3 +1,21 @@
+:root{
+    /* App Specific Colour Theme (Palette 3: Graphite + Mint) */
+    --color-background: #0E0F13;
+    --color-surface: #151821;
+    --color-surface-elevated: #1C2230;
+
+    --color-text-primary: #F2F4F8;
+    --color-text-muted: #A6B0C3;
+
+    --color-primary: #2DD4BF;
+    --color-secondary: #38BDF8;
+    --color-accent: #F472B6;
+
+    --color-warning: #EAB308;
+    --color-error: #F43F5E;
+    --color-success: #22C55E;
+}
+
 .standard-button{
     
 }
