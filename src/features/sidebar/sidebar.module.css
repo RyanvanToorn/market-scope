@@ -1,0 +1,8 @@
+.SidebarContainer{
+    width: 30vw;
+    height: 100%;
+    position: absolute;
+    top:3rem;
+    right:0;
+    background-color: grey;
+}
