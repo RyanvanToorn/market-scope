@@ -8,7 +8,7 @@ export interface TabsProps extends StandardComponentProps {
 
 export function Tabs(props: TabsProps): React.ReactElement | null {
   return (
-    <MUITabs id={props.id} className={`${styles.Tabs} ${props.extendedClass}`} sx={props.sx}>
+    <MUITabs id={props.id} className={`${styles.Tabs} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}
     </MUITabs>
   );

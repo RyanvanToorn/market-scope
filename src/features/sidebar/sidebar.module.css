@@ -5,4 +5,16 @@
     top:3rem;
     right:0;
     background-color: grey;
+    padding: 0.25rem;
+}
+
+.SidebarHeader{
+    width: 100%;
+    min-height: 2rem;
+}
+
+.SidebarBody{
+    width: 100%;
+    flex-grow: 1;
+    min-height: 2rem;
 }

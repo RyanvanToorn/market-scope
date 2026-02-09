@@ -3,6 +3,7 @@ import styles from "./sidebar.module.css";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import CloseIcon from '@mui/icons-material/Close';
+import { Paper } from "@components/Paper/Paper";
 
 export interface SidebarProps{
     isOpen: boolean;
@@ -22,15 +23,19 @@ export function Sidebar(props: SidebarProps): React.ReactElement | null{
         <Box extendedClass={styles.SidebarContainer}>
             <Box extendedClass={styles.Sidebar}>
                 <Box extendedClass={styles.SidebarHeader}>
-                    <Box extendedClass={styles.SidebarHeaderButtonBox}>
-                        <Button extendedClass="standard-button" onClick={props.onClose} variant="contained">
-                            <Icon icon={CloseIcon}/>
-                        </Button>
-                    </Box>
-                    {props.headerContents}
+                    <Paper>
+                        <Box extendedClass={styles.SidebarHeaderButtonBox}>
+                            <Button extendedClass="standard-button" onClick={props.onClose} variant="contained">
+                                <Icon icon={CloseIcon}/>
+                            </Button>
+                        </Box>
+                        {props.headerContents}
+                    </Paper>
                 </Box>
                 <Box extendedClass={styles.SidebarBody}>
-                    {props.bodyContents}
+                    <Paper>
+                        {props.bodyContents}
+                    </Paper>
                 </Box>
             </Box>
         </Box>

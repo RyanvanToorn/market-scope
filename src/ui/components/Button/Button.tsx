@@ -11,7 +11,7 @@ export interface ButtonProps extends StandardComponentProps {
 
 export function Button(props: ButtonProps): React.ReactElement | null {
   return (
-    <MUIButton id={props.id} className={`${styles.Button} ${props.extendedClass}`} onClick={props.onClick} sx={props.sx} color={props.color} variant={props.variant}>
+    <MUIButton id={props.id} className={`${styles.Button} ${props.extendedClass ?? ''}`} onClick={props.onClick} sx={props.sx} color={props.color} variant={props.variant}>
       {props.children}
     </MUIButton>
   );

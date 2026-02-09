@@ -8,7 +8,7 @@ export interface TypographyProps extends StandardComponentProps {
 
 export function Typography(props: TypographyProps): React.ReactElement | null {
   return (
-    <MUITypography id={props.id} className={`${styles.Typography} ${props.extendedClass}`} sx={props.sx}>
+    <MUITypography id={props.id} className={`${styles.Typography} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}
     </MUITypography>
   );

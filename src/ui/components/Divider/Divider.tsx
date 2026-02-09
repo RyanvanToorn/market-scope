@@ -8,6 +8,6 @@ export interface DividerProps extends StandardComponentProps {
 
 export function Divider(props: DividerProps): React.ReactElement | null {
   return (
-    <MUIDivider id={props.id} className={`${styles.Divider} ${props.extendedClass}`} sx={props.sx} />
+    <MUIDivider id={props.id} className={`${styles.Divider} ${props.extendedClass ?? ''}`} sx={props.sx} />
   );
 }

@@ -12,7 +12,7 @@ export function Icon(props: IconProps): React.ReactElement | null {
     <MUIIcon
       id={props.id}
       component={props.icon}
-      className={`${styles.Icon} ${props.extendedClass}`}
+      className={`${styles.Icon} ${props.extendedClass ?? ''}`}
       sx={props.sx}
     />
   );

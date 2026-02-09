@@ -8,7 +8,7 @@ export interface PaperProps extends StandardComponentProps {
 
 export function Paper(props: PaperProps): React.ReactElement | null {
   return (
-    <MUIPaper id={props.id} className={`${styles.Paper} ${props.extendedClass}`} sx={props.sx}>
+    <MUIPaper id={props.id} className={`${styles.Paper} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}
     </MUIPaper>
   );

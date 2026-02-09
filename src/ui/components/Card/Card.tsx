@@ -9,7 +9,7 @@ export interface CardProps extends StandardComponentProps {
 
 export function Card(props: CardProps): React.ReactElement | null {
   return (
-    <MUICard id={props.id} className={`${styles.Card} ${props.extendedClass}`} sx={props.sx}>
+    <MUICard id={props.id} className={`${styles.Card} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}
     </MUICard>
   );
