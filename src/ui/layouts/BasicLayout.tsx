@@ -37,10 +37,10 @@ export function BasicLayout(): React.ReactElement | null {
                     </Box>
 
                     <Box extendedClass={styles.LinkContainer}>
-                        <Link extendedClass={styles.Link}/>
-                        <Link extendedClass={styles.Link}/>
-                        <Link extendedClass={styles.Link}/>
-                        <Link extendedClass={styles.Link}/>
+                        <Link href={"#"} extendedClass={styles.Link} contents={"test 1"}/>
+                        <Link href={"#"} extendedClass={styles.Link} contents={"test 2"}/>
+                        <Link href={"#"} extendedClass={styles.Link} contents={"test 3"}/>
+                        <Link href={"#"} extendedClass={styles.Link} contents={"test 4"}/>
                     </Box>
                     
                 </AppBar>
