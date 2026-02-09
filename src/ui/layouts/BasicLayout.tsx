@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Menu } from "@components/Menu/Menu";
 import logo from "@assets/Logo.png";
 import { Typography } from "@components/Typography/Typography";
+import { Link } from "@components/Link/Link";
 
 
 
@@ -33,6 +34,13 @@ export function BasicLayout(): React.ReactElement | null {
                     <Menu isOpen={isMenuOpen}/>
                     <Box extendedClass={styles.TitleContainer}>
                         <Typography text={"Market Scope"} variant='h1' extendedClass={styles.Title} sx={titleSx}/>
+                    </Box>
+
+                    <Box extendedClass={styles.LinkContainer}>
+                        <Link extendedClass={styles.Link}/>
+                        <Link extendedClass={styles.Link}/>
+                        <Link extendedClass={styles.Link}/>
+                        <Link extendedClass={styles.Link}/>
                     </Box>
                     
                 </AppBar>
