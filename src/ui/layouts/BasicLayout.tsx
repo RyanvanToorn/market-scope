@@ -7,6 +7,7 @@ import { Sidebar } from "@features/sidebar/sidebar";
 import { useState } from "react";
 import { Menu } from "@components/Menu/Menu";
 import logo from "@assets/Logo.png";
+import { Typography } from "@components/Typography/Typography";
 
 
 
@@ -30,6 +31,10 @@ export function BasicLayout(): React.ReactElement | null {
             <Box extendedClass={styles.BasicLayoutTop}>
                 <AppBar extendedClass={styles.AppBar}>
                     <Menu isOpen={isMenuOpen}/>
+                    <Box extendedClass={styles.TitleContainer}>
+                        <Typography text={"Market Scope"} variant='h1' extendedClass={styles.Title} sx={titleSx}/>
+                    </Box>
+                    
                 </AppBar>
             </Box>
 
@@ -50,4 +55,9 @@ export function BasicLayout(): React.ReactElement | null {
         </Box>
         </Box>
     )
+}
+
+const titleSx = {
+    fontSize: "2rem",
+    fontFamily: "'Fjalla One', sans-serif",
 }

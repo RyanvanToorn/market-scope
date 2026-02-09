@@ -21,3 +21,16 @@
     min-height: 3rem;
     min-width: 100vw;
 }
+
+.TitleContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width:fit-content;
+    flex: 1;
+    padding: 0rem 3rem;
+}
+
+.Title{
+    
+}
