@@ -20,7 +20,7 @@ export function BasicMenu(props: BasicMenuProps): React.ReactElement | null{
 
     return (
         <>
-            <Button onClick={toggleMenu}>
+            <Button onClick={toggleMenu} variant="contained">
                 <Icon icon={MenuIcon}/>
             </Button>
             <Menu isOpen={isMenuOpen}>

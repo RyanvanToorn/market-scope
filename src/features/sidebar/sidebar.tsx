@@ -23,7 +23,7 @@ export function Sidebar(props: SidebarProps): React.ReactElement | null{
             <Box extendedClass={styles.Sidebar}>
                 <Box extendedClass={styles.SidebarHeader}>
                     <Box extendedClass={styles.SidebarHeaderButtonBox}>
-                        <Button extendedClass="standard-button" onClick={props.onClose}>
+                        <Button extendedClass="standard-button" onClick={props.onClose} variant="contained">
                             <Icon icon={CloseIcon}/>
                         </Button>
                     </Box>
