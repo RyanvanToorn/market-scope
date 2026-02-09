@@ -3,6 +3,7 @@ import styles from "./sidebar.module.css";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import CloseIcon from '@mui/icons-material/Close';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import { Paper } from "@components/Paper/Paper";
@@ -30,6 +31,10 @@ export function Sidebar(props: SidebarProps): React.ReactElement | null{
         setIsExpanded(!isExpanded);
     }
 
+    function detailOnClick(){
+        console.log("Detail clicked");
+    }
+
     if(!props.isOpen){
         return null
     }
@@ -41,12 +46,16 @@ export function Sidebar(props: SidebarProps): React.ReactElement | null{
                 <Box extendedClass={styles.SidebarHeader}>
                     <Paper extendedClass={styles.SidebarPaper}>
                         <Box extendedClass={styles.SidebarHeaderButtonBox}>
-                            <Button extendedClass="standard-button" onClick={toggleExpand} variant="contained">
+                            <Button extendedClass="standard-button" onClick={detailOnClick} variant="contained" sx={actionButtonSx}>
+                                <Icon icon={MoreVertIcon}/>
+                            </Button>
+                            <Button extendedClass="standard-button" onClick={toggleExpand} variant="contained" sx={actionButtonSx}>
                                 <Icon icon={isExpanded ? CloseFullscreenIcon : OpenInFullIcon}/>
                             </Button>
-                            <Button extendedClass="standard-button" onClick={props.onClose} variant="contained">
+                            <Button extendedClass="standard-button" onClick={props.onClose} variant="contained" sx={actionButtonSx}>
                                 <Icon icon={CloseIcon}/>
                             </Button>
+
                         </Box>
                         {props.headerContents}
                     </Paper>
@@ -60,3 +69,10 @@ export function Sidebar(props: SidebarProps): React.ReactElement | null{
         </Box>
     );
 } 
+
+const actionButtonSx = {
+    padding: "0.5rem",
+    marginLeft: "0.25rem",
+    marginRight: "0.25rem",
+    minWidth: "2rem"
+}
