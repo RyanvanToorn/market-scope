@@ -1,7 +1,7 @@
 import { Button } from "@components/Button/Button";
-import { Icon } from "@components/Icons/Icon";
+import { Icon } from "@components/Icon/Icon";
 import { Menu } from "@components/Menu/Menu";
-import { MenuIcon } from '@mui/icons-material/';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 
 

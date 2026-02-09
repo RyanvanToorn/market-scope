@@ -1,6 +1,8 @@
 import { Box } from "@components/Box/Box";
 import styles from "./sidebar.module.css";
 import { Button } from "@components/Button/Button";
+import { Icon } from "@components/Icon/Icon";
+import CloseIcon from '@mui/icons-material/Close';
 
 export interface SidebarProps{
     isOpen: boolean;
@@ -22,7 +24,7 @@ export function Sidebar(props: SidebarProps): React.ReactElement | null{
                 <Box extendedClass={styles.SidebarHeader}>
                     <Box extendedClass={styles.SidebarHeaderButtonBox}>
                         <Button extendedClass="standard-button" onClick={props.onClose}>
-                            {"X"}
+                            <Icon icon={CloseIcon}/>
                         </Button>
                     </Box>
                     {props.headerContents}

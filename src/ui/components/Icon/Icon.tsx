@@ -1,6 +1,6 @@
 import type { StandardComponentProps } from '@interfaces/standard-component-props';
-import { SvgIcon as MUIIcon} from '@mui/material/';
-import type { SvgIconProps } from '@mui/material/';
+import { SvgIcon as MUIIcon} from '@mui/material';
+import type { SvgIconProps } from '@mui/material';
 import styles from './Icon.module.css';
 
 export interface IconProps extends StandardComponentProps {
