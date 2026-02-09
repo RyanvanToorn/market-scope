@@ -8,6 +8,11 @@ export interface IconProps extends StandardComponentProps {
 }
 
 export function Icon(props: IconProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUIIcon
       id={props.id}

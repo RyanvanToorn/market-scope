@@ -9,6 +9,11 @@ export interface TabProps extends StandardComponentProps{
 }
 
 export function Tab(props: TabProps): React.ReactElement | null {
+
+    if (props.isVisible === false){
+        return null;
+    }
+
     return (
         <MUITab value={props.value} label={props.label} disabled={props.disabled} className={`${styles.Tab} ${props.extendedClass? props.extendedClass : ''}`}/>
     );

@@ -7,6 +7,11 @@ export interface BoxProps extends StandardComponentProps {
 }
 
 export function Box(props: BoxProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUIBox id={props.id} className={`${styles.Box} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}

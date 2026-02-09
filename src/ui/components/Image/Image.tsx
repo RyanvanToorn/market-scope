@@ -10,6 +10,9 @@ export interface ImageProps extends StandardComponentProps{
 
 export function Image(props: ImageProps): React.ReactElement | null {
 
+    if (props.isVisible === false){
+        return null;
+  }
 
     return (
         <img id={props.id} src={props.url} alt={props.alt} width={props.width? props.width : 600} height={props.height? props.height : 600} className={`${styles.Image} ${props.extendedClass ? props.extendedClass:''}`}/>

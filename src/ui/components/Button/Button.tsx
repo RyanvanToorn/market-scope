@@ -10,6 +10,11 @@ export interface ButtonProps extends StandardComponentProps {
 }
 
 export function Button(props: ButtonProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUIButton id={props.id} className={`${styles.Button} ${props.extendedClass ?? ''}`} onClick={props.onClick} sx={props.sx} color={props.color} variant={props.variant}>
       {props.children}

@@ -5,4 +5,5 @@ export interface StandardComponentProps {
 	extendedClass?: string;
 	style?: React.CSSProperties;
 	sx?: SxProps<Theme>;
+	isVisible?: boolean;
 }

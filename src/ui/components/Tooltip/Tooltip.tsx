@@ -7,6 +7,11 @@ export interface TooltipProps extends StandardComponentProps {
 }
 
 export function Tooltip(props: TooltipProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+    }
+
   return (
     <MUITooltip id={props.id} className={`${styles.Tooltip} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}

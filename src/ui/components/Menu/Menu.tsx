@@ -8,6 +8,11 @@ export interface MenuProps extends StandardComponentProps {
 }
 
 export function Menu(props: MenuProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUIMenu open={props.isOpen} id={props.id} className={`${styles.Menu} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}

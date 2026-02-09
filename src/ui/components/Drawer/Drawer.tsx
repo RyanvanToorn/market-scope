@@ -8,6 +8,11 @@ export interface DrawerProps extends StandardComponentProps {
 }
 
 export function Drawer(props: DrawerProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUIDrawer id={props.id} className={`${styles.Drawer} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}

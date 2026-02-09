@@ -8,6 +8,11 @@ export interface CardProps extends StandardComponentProps {
 }
 
 export function Card(props: CardProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUICard id={props.id} className={`${styles.Card} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}

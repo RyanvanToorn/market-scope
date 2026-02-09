@@ -9,6 +9,11 @@ export interface AppBarProps extends StandardComponentProps{
 }
 
 export function AppBar(props: AppBarProps): React.ReactElement | null{
+
+    if (props.isVisible === false){
+        return null;
+    }
+
     return (
         <MUIAppBar position='relative' id={props.id} className={`${styles.AppBar} ${props.extendedClass ?? ''}`} sx={props.sx}>
             {props.children}

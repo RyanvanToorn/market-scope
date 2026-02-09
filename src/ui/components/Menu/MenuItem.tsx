@@ -7,6 +7,11 @@ export interface MenuItemProps extends StandardComponentProps{
 }
 
 export function MenuItem(props: MenuItemProps): React.ReactElement | null  {
+
+    if (props.isVisible === false){
+        return null;
+    }
+
     return (
         <MUIMenuItem id={props.id} className={`${styles.MenuItem} ${props.extendedClass ?? ''}`} sx={props.sx}>
             {props.contents}

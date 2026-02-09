@@ -7,6 +7,11 @@ export interface AvatarProps extends StandardComponentProps {
 }
 
 export function Avatar(props: AvatarProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+  }
+
   return (
     <MUIAvatar id={props.id} className={`${styles.Avatar} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.children}

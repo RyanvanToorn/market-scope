@@ -9,6 +9,11 @@ export interface TypographyProps extends StandardComponentProps {
 }
 
 export function Typography(props: TypographyProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+    }
+
   return (
     <MUITypography id={props.id} className={`${styles.Typography} ${props.extendedClass ?? ''}`} sx={props.sx}>
       {props.text}

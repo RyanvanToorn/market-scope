@@ -10,6 +10,11 @@ export interface LinkProps extends StandardComponentProps{
 };
 
 export function Link(props: LinkProps): React.ReactElement | null  {
+
+    if (props.isVisible === false){
+        return null;
+  }
+
     return (
     <MUILink onClick={props.onClick} href={props.href} id={props.id} className={`${styles.Link} ${props.extendedClass ?? ''}`} sx={props.sx} underline={props.underline}>
         {props.contents}
