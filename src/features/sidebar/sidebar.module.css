@@ -16,7 +16,6 @@
 .Sidebar{
     height: 100%;
     width: 100%;
-    padding: 0.25rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -24,20 +23,19 @@
 
 .SidebarHeader{
     width: 100%;
-    min-height: 2rem;
-    margin: 0.25rem;
+    min-height: 4rem;
+    padding: 0.25rem;
 }
 
 .SidebarBody{
     width: 100%;
     flex-grow: 1;
     min-height: 2rem;
-    margin: 0.25rem;
+    padding: 0.25rem;
 }
 
 
 /* Sub Components */
-
 .SidebarPaper{
     height:100%;
     width: 100%;
