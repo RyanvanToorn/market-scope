@@ -87,7 +87,3 @@ const titleSx = {
 	fontSize: "2rem",
 	fontFamily: "'Fjalla One', sans-serif",
 };
-
-const debugTextSx = {
-	color: "white"
-}
