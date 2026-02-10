@@ -1,36 +1,44 @@
-.BasicLayout{
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+.BasicLayout {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 }
 
-
-.BasicLayoutTop{
-    min-width: 100vw;
-    min-height: 3rem;
+.BasicLayoutTop {
+	min-width: 100vw;
+	min-height: 3rem;
 }
 
-.BasicLayoutMiddle{
-    flex-grow: 1;
-    min-width: 100vw;
+.BasicLayoutMiddle {
+	flex-grow: 1;
+	min-width: 100vw;
 }
 
-.BasicLayoutBottom{
-    min-height: 3rem;
-    min-width: 100vw;
+.BasicLayoutBottom {
+	min-height: 3rem;
+	min-width: 100vw;
 }
 
-.TitleContainer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width:fit-content;
-    flex: 1;
-    padding: 0rem 3rem;
+.TitleContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0rem 3rem;
 }
 
-.Title{
-    
+.Title {
+}
+
+.LinkContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.Link {
+	padding: 0rem 2rem;
+	background-color: white;
 }
