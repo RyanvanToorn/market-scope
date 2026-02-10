@@ -1,8 +1,8 @@
-import { RootRoute, Route, createRouter, RootRouteWithContext } from '@tanstack/react-router'
-import BasicLayout from './ui/layouts/BasicLayout'
-import Dashboard from './screens/Dashboard/Dashboard'
-import AssetSearch from './screens/AssetSearch/AssetSearch'
-import Watchlist from './screens/Watchlist/Watchlist'
+import { RootRoute, Route, createRouter, createRootRouteWithContext  } from '@tanstack/react-router'
+import {BasicLayout} from '@layouts/BasicLayout'
+import {Dashboard} from '@screens/Dashboard/Dashboard'
+import {Settings} from '@screens/Settings/Settings'
+import {Watchlist} from '@screens/Watchlist/Watchlist'
 
 // Root route wraps the persistent layout
 const rootRoute = new RootRoute({
@@ -16,11 +16,11 @@ const dashboardRoute = new Route({
   component: Dashboard,
 })
 
-// Asset Search route
+// Settings route
 const searchRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: '/search',
-  component: AssetSearch,
+  path: '/settings',
+  component: Settings,
 })
 
 // Watchlist route

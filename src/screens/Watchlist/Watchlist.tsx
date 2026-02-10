@@ -1,14 +1,14 @@
 import { Box } from "@components/Box/Box";
 import styles from "./Watchlist.module.css";
+import { BasicLayout } from "@layouts/BasicLayout";
 
-export interface WatchilistProps{
+export interface WatchlistProps{
     temp?: string;
 }
 
-export function Watchlist(props: WatchilistProps): React.ReactElement | null {
+export function Watchlist(props: WatchlistProps): React.ReactElement | null {
     return (
         <Box extendedClass={styles.Watchlist}>
-            {props.temp}
         </Box>
     );
 }
