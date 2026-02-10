@@ -46,13 +46,12 @@ export function BasicLayout(): React.ReactElement | null {
 					<Menu isOpen={isMenuOpen} />
 					<Box extendedClass={styles.TitleContainer}>
 						<Typography text={"Market Scope"} variant="h1" extendedClass={styles.Title} sx={titleSx} />
-						<Typography text={displayText} sx={{ color: "white", marginLeft: "1rem", fontSize: "1.2rem" }} />
 					</Box>
 
 					<Box extendedClass={styles.LinkContainer}>
-						<Link href={"#"} extendedClass={styles.Link} contents={"Stocks"} />
-						<Link href={"#"} extendedClass={styles.Link} contents={"Crypto"} />
-						<Link href={"#"} extendedClass={styles.Link} contents={"Indices"} />
+						<Link href={"dashboard"} extendedClass={styles.Link} contents={"Dashboard"} />
+						<Link href={"watchlist"} extendedClass={styles.Link} contents={"Watchlist"} />
+						<Link href={"settings"} extendedClass={styles.Link} contents={"Settings"} />
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
 						<Button onClick={openSidebar} extendedClass={styles.AccountButton}>
@@ -75,6 +74,11 @@ export function BasicLayout(): React.ReactElement | null {
 			<Box extendedClass={styles.BasicLayoutBottom}>
 				<Box extendedClass={styles.BottombarContainer}></Box>
 			</Box>
+
+			<Typography
+				text={displayText}
+				sx={{ color: "lime", marginLeft: "0.5rem", marginBottom: "0.5rem", fontSize: "0.5rem", position: "absolute", bottom: "0px", left: "0px" }}
+			/>
 		</Box>
 	);
 }
