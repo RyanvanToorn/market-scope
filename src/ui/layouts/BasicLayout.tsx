@@ -9,23 +9,20 @@ import { Typography } from "@components/Typography/Typography";
 import { Link } from "@components/Link/Link";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useLocation } from "@tanstack/react-router";
 
-
-
 export function BasicLayout(): React.ReactElement | null {
+	const location = useLocation();
 
-	  const location = useLocation()
-  
-  // Map routes to display text
-  const displayTextMap: Record<string, string> = {
-    '/dashboard': 'Dashboard',
-    '/settings': 'Settings',
-    '/watchlist': 'Watchlist',
-  };
-  
-	const displayText = displayTextMap[location.pathname] || '';
+	// Map routes to display text
+	const displayTextMap: Record<string, string> = {
+		"/dashboard": "Dashboard",
+		"/settings": "Settings",
+		"/watchlist": "Watchlist",
+	};
+
+	const displayText = displayTextMap[location.pathname] || "";
 
 	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
 	const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
@@ -36,7 +33,7 @@ export function BasicLayout(): React.ReactElement | null {
 
 	const openSidebar = () => {
 		setSidebarOpen(true);
-	}
+	};
 
 	const toggleMenu = () => {
 		setMenuOpen(!setMenuOpen);
@@ -49,7 +46,7 @@ export function BasicLayout(): React.ReactElement | null {
 					<Menu isOpen={isMenuOpen} />
 					<Box extendedClass={styles.TitleContainer}>
 						<Typography text={"Market Scope"} variant="h1" extendedClass={styles.Title} sx={titleSx} />
-						<Typography text={displayText} sx={{ color: 'white', marginLeft: '1rem', fontSize: '1.2rem' }}/>
+						<Typography text={displayText} sx={{ color: "white", marginLeft: "1rem", fontSize: "1.2rem" }} />
 					</Box>
 
 					<Box extendedClass={styles.LinkContainer}>
@@ -59,10 +56,9 @@ export function BasicLayout(): React.ReactElement | null {
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
 						<Button onClick={openSidebar} extendedClass={styles.AccountButton}>
-						<Icon icon={AccountCircleIcon} extendedClass={styles.AccountButtonIcon}/>
+							<Icon icon={AccountCircleIcon} extendedClass={styles.AccountButtonIcon} />
 						</Button>
 					</Box>
-					
 				</AppBar>
 			</Box>
 
