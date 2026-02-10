@@ -1,4 +1,4 @@
-import { RootRoute, Route, createRouter } from "@tanstack/react-router";
+import { RootRoute, Route, createRouter, redirect } from "@tanstack/react-router";
 import { BasicLayout } from "@layouts/BasicLayout";
 import { Dashboard } from "@screens/Dashboard/Dashboard";
 import { Settings } from "@screens/Settings/Settings";
@@ -7,6 +7,13 @@ import { Watchlist } from "@screens/Watchlist/Watchlist";
 // Root route wraps the persistent layout
 const rootRoute = new RootRoute({
 	component: BasicLayout,
+	beforeLoad: async ({ location }) => {
+		if (location.pathname === "/") {
+			throw redirect({
+				to: "/dashboard",
+			});
+		}
+	},
 });
 
 // Dashboard route
