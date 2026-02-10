@@ -42,3 +42,14 @@
 	padding: 0rem 2rem;
 	background-color: white;
 }
+
+.AccountButtonIcon{
+	color: white;
+}
+
+.AccountContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	flex:1;
+}

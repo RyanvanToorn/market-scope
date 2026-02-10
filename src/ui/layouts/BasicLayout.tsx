@@ -7,14 +7,22 @@ import { useState } from "react";
 import { Menu } from "@components/Menu/Menu";
 import { Typography } from "@components/Typography/Typography";
 import { Link } from "@components/Link/Link";
+import { Button } from "@components/Button/Button";
+import { Icon } from "@components/Icon/Icon";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 export function BasicLayout(): React.ReactElement | null {
-	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
+	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
 	const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
 	const closeSidebar = () => {
 		setSidebarOpen(false);
 	};
+
+	const openSidebar = () => {
+		setSidebarOpen(true);
+	}
 
 	const toggleMenu = () => {
 		setMenuOpen(!setMenuOpen);
@@ -34,6 +42,12 @@ export function BasicLayout(): React.ReactElement | null {
 						<Link href={"#"} extendedClass={styles.Link} contents={"Crypto"} />
 						<Link href={"#"} extendedClass={styles.Link} contents={"Indices"} />
 					</Box>
+					<Box extendedClass={styles.AccountContainer}>
+						<Button onClick={openSidebar} extendedClass={styles.AccountButton}>
+						<Icon icon={AccountCircleIcon} extendedClass={styles.AccountButtonIcon}/>
+						</Button>
+					</Box>
+					
 				</AppBar>
 			</Box>
 
