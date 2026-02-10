@@ -10,6 +10,9 @@ import { Link } from "@components/Link/Link";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation } from "@tanstack/react-router";
 
 export function BasicLayout(): React.ReactElement | null {
@@ -49,9 +52,9 @@ export function BasicLayout(): React.ReactElement | null {
 					</Box>
 
 					<Box extendedClass={styles.LinkContainer}>
-						<Link href={"dashboard"} extendedClass={styles.Link} contents={"Dashboard"} />
-						<Link href={"watchlist"} extendedClass={styles.Link} contents={"Watchlist"} />
-						<Link href={"settings"} extendedClass={styles.Link} contents={"Settings"} />
+						<DashboardLink />
+						<WatchlistLink />
+						<SettingsLink />
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
 						<Button onClick={openSidebar} extendedClass={styles.AccountButton}>
@@ -87,3 +90,57 @@ const titleSx = {
 	fontSize: "2rem",
 	fontFamily: "'Fjalla One', sans-serif",
 };
+
+const linkTextSx = {
+	fontFamily: "'Fjalla One', sans-serif",
+};
+
+const linkIconSx = {
+	fontSize: "2rem",
+};
+
+// Move to features and make generic
+function DashboardLink(): React.ReactElement | null {
+	return (
+		<Link
+			href={"dashboard"}
+			extendedClass={styles.Link}
+			contents={
+				<Box extendedClass={styles.LinkWrapper}>
+					<Icon icon={SpaceDashboardIcon} extendedClass={styles.LinkIcon} sx={linkIconSx} />
+					<Typography text={"Dashboard"} extendedClass={styles.LinkText} sx={linkTextSx} />
+				</Box>
+			}
+		/>
+	);
+}
+
+function WatchlistLink(): React.ReactElement | null {
+	return (
+		<Link
+			href={"watchlist"}
+			extendedClass={styles.Link}
+			contents={
+				<Box extendedClass={styles.LinkWrapper}>
+					<Icon icon={ListAltIcon} extendedClass={styles.LinkIcon} sx={linkIconSx} />
+					<Typography text={"Watchlist"} extendedClass={styles.LinkText} sx={linkTextSx} />
+				</Box>
+			}
+		/>
+	);
+}
+
+function SettingsLink(): React.ReactElement | null {
+	return (
+		<Link
+			href={"settings"}
+			extendedClass={styles.Link}
+			contents={
+				<Box extendedClass={styles.LinkWrapper}>
+					<Icon icon={SettingsIcon} extendedClass={styles.LinkIcon} sx={linkIconSx} />
+					<Typography text={"Settings"} extendedClass={styles.LinkText} sx={linkTextSx} />
+				</Box>
+			}
+		/>
+	);
+}
