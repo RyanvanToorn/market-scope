@@ -24,7 +24,7 @@ const dashboardRoute = new Route({
 });
 
 // Settings route
-const searchRoute = new Route({
+const settingsRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/settings",
 	component: Settings,
@@ -38,7 +38,7 @@ const watchlistRoute = new Route({
 });
 
 // Create the route tree
-const routeTree = rootRoute.addChildren([dashboardRoute, searchRoute, watchlistRoute]);
+const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute]);
 
 // Create and export the router
 export const router = createRouter({ routeTree });

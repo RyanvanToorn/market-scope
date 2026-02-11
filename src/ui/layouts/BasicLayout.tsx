@@ -14,7 +14,13 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation } from "@tanstack/react-router";
 
-export function BasicLayout(): React.ReactElement | null {
+export interface BasicLayoutProps{
+	sidebarHeaderContents?: React.ReactNode;
+	sidebarBodyContents?: React.ReactNode;
+	layoutContent?: React.ReactNode;
+}
+
+export function BasicLayout(props: BasicLayoutProps): React.ReactElement | null {
 	const location = useLocation();
 
 	// Map routes to display text
@@ -65,10 +71,11 @@ export function BasicLayout(): React.ReactElement | null {
 
 			<Box extendedClass={styles.BasicLayoutMiddle}>
 				<Box extendedClass={styles.ContentContainer}>
+
 				</Box>
 
 				<Box extendedClass={styles.SidebarContainer}>
-					<Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+					<Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} headerContents={props.sidebarHeaderContents} bodyContents={props.sidebarBodyContents}/>
 				</Box>
 			</Box>
 
