@@ -10,16 +10,15 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import React from "react";
-import { Sidebar } from "@features/sidebar/Sidebar";
+import { Sidebar } from "@features/sidebar/sidebar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ScreenLink } from "@features/screen-link/ScreenLink";
 import type { Theme } from "@mui/material";
+import { Outlet } from "@tanstack/react-router";
 
 
 export type BasicLayoutState = {
 	title: string;
-	layoutBodyContents?: React.ReactNode | null;
-	layoutFooterContents?: React.ReactNode | null;
 	sidebarHeaderContents?: React.ReactNode | null;
 	sidebarBodyContents?: React.ReactNode | null;
 }
@@ -32,6 +31,14 @@ type BasicLayoutContextType = {
 
 const BasicLayoutContext = React.createContext<BasicLayoutContextType | null>(null)
 
+export function useBasicLayout() {
+	const context = React.useContext(BasicLayoutContext);
+	if (!context) {
+		throw new Error('useBasicLayout must be used within BasicLayout');
+	}
+	return context;
+}
+
 export function BasicLayout(): React.ReactElement | null {
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -40,9 +47,9 @@ export function BasicLayout(): React.ReactElement | null {
 	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
 	const [layout, setLayout] = useState<BasicLayoutState>({
-    	title: 'Test',
-    	layoutBodyContents: null,
+    	title: 'Initial',
     	sidebarBodyContents: null,
+		sidebarHeaderContents: null,
   	})
 
 	const closeSidebar = () => {
@@ -83,11 +90,11 @@ export function BasicLayout(): React.ReactElement | null {
 
 			<Box extendedClass={styles.BasicLayoutMiddle}>
 				<Box extendedClass={styles.ContentContainer}>
-
+					<Outlet />
 				</Box>
 
 				<Box extendedClass={styles.SidebarContainer}>
-					<Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+					<Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} headerContents={layout.sidebarHeaderContents} bodyContents={layout.sidebarBodyContents} />
 				</Box>
 			</Box>
 

@@ -1,20 +1,26 @@
 import { Box } from "@components/Box/Box";
 import styles from "./Dashboard.module.css";
+import { useBasicLayout } from "@layouts/BasicLayout";
+import { useEffect } from "react";
 
 export interface DashboardProps {
-	temp?: string;
+  temp?: string;
 }
 
 export function Dashboard(props: DashboardProps): React.ReactElement | null {
-	return (
-		<Box extendedClass={styles.DashboardContainer}>
-			{props.temp}
-			<Box extendedClass={styles.Dashboard}>
-				{props.temp}
-				<Box extendedClass={styles.DashboardTopRow}></Box>
-				<Box extendedClass={styles.DashboardMiddleRow}></Box>
-				<Box extendedClass={styles.DashboardBottomRow}></Box>
-			</Box>
-		</Box>
-	);
+  const { setLayout } = useBasicLayout();
+
+  useEffect(() => {
+    setLayout((prev) => ({
+      ...prev,
+      title: "Dashboard",
+    }));
+  }, [setLayout]);
+
+  return (
+    <Box extendedClass={styles.Dashboard}>
+      {props.temp}
+      <h1>Dashboard</h1>
+    </Box>
+  );
 }
