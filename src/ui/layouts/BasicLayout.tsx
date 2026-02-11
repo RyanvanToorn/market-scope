@@ -3,7 +3,6 @@ import styles from "./BasicLayout.module.css";
 import { AppBar } from "@components/AppBar/AppBar";
 import { Sidebar } from "@features/sidebar/sidebar";
 import { useState } from "react";
-import { Menu } from "@components/Menu/Menu";
 import { Typography } from "@components/Typography/Typography";
 import { Link } from "@components/Link/Link";
 import { Button } from "@components/Button/Button";
@@ -14,6 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation } from "@tanstack/react-router";
 import React from "react";
+import { BasicMenu, type BasicMenuItem } from "@features/basic-menu/basic-menu";
 
 export type BasicLayoutState = {
 	title: string;
@@ -36,13 +36,14 @@ export function BasicLayout(): React.ReactElement | null {
 	console.log("Location: ",location.href);
 
 	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
-	const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
 	const [layout, setLayout] = useState<BasicLayoutState>({
     	title: 'Test',
     	layoutBodyContents: null,
     	sidebarBodyContents: null,
   	})
+
+	const menuItems: BasicMenuItem[] = [{label: "Item 1"},{label: "Item 2"},{label: "Item 3"}]
 
 	const closeSidebar = () => {
 		setSidebarOpen(false);
@@ -52,16 +53,14 @@ export function BasicLayout(): React.ReactElement | null {
 		setSidebarOpen(!isSidebarOpen);
 	};
 
-	const closeMenu = () => {
-		setMenuOpen(false);
-	};
+
 
 	return (
 		<BasicLayoutContext.Provider value={{ layout, setLayout }}>
 		<Box extendedClass={styles.BasicLayout}>
 			<Box extendedClass={styles.BasicLayoutTop}>
 				<AppBar extendedClass={styles.AppBar}>
-					<Menu isOpen={isMenuOpen} onClose={closeMenu} />
+					<BasicMenu menuItems={menuItems} />
 					<Box extendedClass={styles.TitleContainer}>
 						<Typography text={"Market Scope"} variant="h1" extendedClass={styles.Title} sx={titleSx} />
 					</Box>

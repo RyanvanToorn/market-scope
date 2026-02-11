@@ -9,14 +9,14 @@ import styles from "./basic-menu.styles.module.css";
 import { useState } from "react";
 import { Typography } from "@components/Typography/Typography";
 
-export interface BasicMenuItems {
+export interface BasicMenuItem {
     label: string;
     icon?: React.ElementType<SvgIconProps>;
     onClick?: ()=>void;
 }
 
 export interface BasicMenuProps {
-    menuItems: BasicMenuItems[];
+    menuItems: BasicMenuItem[];
 }
 
 export function BasicMenu(props: BasicMenuProps): React.ReactElement | null{
