@@ -2,6 +2,7 @@ import { Box } from "@components/Box/Box";
 import styles from "./Settings.module.css";
 import { useEffect } from "react";
 import { useBasicLayout } from "@layouts/BasicLayout";
+import { Paper } from "@components/Paper/Paper";
 
 export interface SettingsProps {
 	temp?: string;
@@ -17,7 +18,10 @@ export function Settings(props: SettingsProps): React.ReactElement | null {
         }));
     }, [setLayout]);
 
-    return <Box extendedClass={styles.Settings}>
-        {props.temp}
-    </Box>;
+    return (
+    <Box extendedClass={styles.Settings}>
+        <Paper extendedClass={styles.SettingsPaper}>
+            {props.temp}
+        </Paper>
+    </Box>);
 }
