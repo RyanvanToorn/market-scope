@@ -48,8 +48,8 @@ export function BasicLayout(): React.ReactElement | null {
 		setSidebarOpen(false);
 	};
 
-	const openSidebar = () => {
-		setSidebarOpen(true);
+	const toggleSidebar = () => {
+		setSidebarOpen(!isSidebarOpen);
 	};
 
 	const closeMenu = () => {
@@ -72,7 +72,7 @@ export function BasicLayout(): React.ReactElement | null {
 						<SettingsLink />
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
-						<Button onClick={openSidebar} extendedClass={styles.AccountButton}>
+						<Button onClick={toggleSidebar} extendedClass={styles.AccountButton}>
 							<Icon icon={AccountCircleIcon} extendedClass={styles.AccountButtonIcon} />
 						</Button>
 					</Box>
