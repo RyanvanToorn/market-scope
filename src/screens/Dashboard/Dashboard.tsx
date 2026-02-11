@@ -8,7 +8,9 @@ export interface DashboardProps {
 export function Dashboard(props: DashboardProps): React.ReactElement | null {
 	return (
 		<Box extendedClass={styles.DashboardContainer}>
+			{props.temp}
 			<Box extendedClass={styles.Dashboard}>
+				{props.temp}
 				<Box extendedClass={styles.DashboardTopRow}></Box>
 				<Box extendedClass={styles.DashboardMiddleRow}></Box>
 				<Box extendedClass={styles.DashboardBottomRow}></Box>

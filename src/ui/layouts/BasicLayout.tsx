@@ -8,11 +8,12 @@ import { Icon } from "@components/Icon/Icon";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import React from "react";
 import { Sidebar } from "@features/sidebar/sidebar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ScreenLink } from "@features/screen-link/ScreenLink";
+import type { Theme } from "@mui/material";
 
 
 export type BasicLayoutState = {
@@ -33,6 +34,7 @@ const BasicLayoutContext = React.createContext<BasicLayoutContextType | null>(nu
 
 export function BasicLayout(): React.ReactElement | null {
 	const location = useLocation();
+	const navigate = useNavigate();
 	console.log("Location: ",location.href);
 
 	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -51,6 +53,10 @@ export function BasicLayout(): React.ReactElement | null {
 		setSidebarOpen(!isSidebarOpen);
 	};
 
+	function titleOnClick(){
+		navigate({ to: "/dashboard" });
+	}
+
 
 
 	return (
@@ -58,7 +64,7 @@ export function BasicLayout(): React.ReactElement | null {
 		<Box extendedClass={styles.BasicLayout}>
 			<Box extendedClass={styles.BasicLayoutTop}>
 				<AppBar extendedClass={styles.AppBar}>
-					<Box extendedClass={styles.TitleContainer}>
+					<Box extendedClass={styles.TitleContainer} onClick={titleOnClick} sx={titleContainerSx}>
 						<Typography text={"Market Scope"} variant="h1" extendedClass={styles.Title} sx={titleSx} />
 					</Box>
 
@@ -99,3 +105,21 @@ const titleSx = {
 	fontSize: "2rem",
 	fontFamily: "'Fjalla One', sans-serif",
 };
+
+const titleContainerSx = (theme: Theme) => ({
+	cursor: "pointer",
+	borderRadius: theme.shape.borderRadius,
+	transition: theme.transitions.create(["background-color", "box-shadow"], {
+		duration: theme.transitions.duration.short,
+	}),
+	"&:hover": {
+		backgroundColor: theme.palette.action.hover,
+	},
+	"&:active": {
+		backgroundColor: theme.palette.action.selected,
+	},
+	"&:focus-visible": {
+		outline: `2px solid ${theme.palette.primary.main}`,
+		outlineOffset: 2,
+	},
+});

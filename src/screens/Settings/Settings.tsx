@@ -6,5 +6,7 @@ export interface SettingsProps {
 }
 
 export function Settings(props: SettingsProps): React.ReactElement | null {
-	return <Box extendedClass={styles.Settings}></Box>;
+	return <Box extendedClass={styles.Settings}>
+		{props.temp}
+	</Box>;
 }

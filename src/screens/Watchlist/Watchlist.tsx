@@ -6,5 +6,7 @@ export interface WatchlistProps {
 }
 
 export function Watchlist(props: WatchlistProps): React.ReactElement | null {
-	return <Box extendedClass={styles.Watchlist}></Box>;
+	return <Box extendedClass={styles.Watchlist}>
+		{props.temp}
+	</Box>;
 }
