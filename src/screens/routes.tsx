@@ -3,6 +3,7 @@ import { BasicLayout } from "@layouts/BasicLayout";
 import { Dashboard } from "@screens/Dashboard/Dashboard";
 import { Settings } from "@screens/Settings/Settings";
 import { Watchlist } from "@screens/Watchlist/Watchlist";
+import { Home } from "@screens/Home/Home";
 
 // Root route wraps the persistent layout
 const rootRoute = new RootRoute({
@@ -10,7 +11,7 @@ const rootRoute = new RootRoute({
 	beforeLoad: async ({ location }) => {
 		if (location.pathname === "/") {
 			throw redirect({
-				to: "/dashboard",
+				to: "/home",
 			});
 		}
 	},
@@ -37,8 +38,15 @@ const watchlistRoute = new Route({
 	component: Watchlist,
 });
 
+// Home route
+const homeRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: "/home",
+	component: Home,
+})
+
 // Create the route tree
-const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute]);
+const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute]);
 
 // Create and export the router
 export const router = createRouter({ routeTree });

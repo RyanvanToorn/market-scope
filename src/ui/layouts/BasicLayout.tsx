@@ -10,7 +10,7 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import React from "react";
-import { Sidebar } from "@features/sidebar/sidebar";
+import { Sidebar } from "@features/sidebar/Sidebar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ScreenLink } from "@features/screen-link/ScreenLink";
 import type { Theme } from "@mui/material";
@@ -54,7 +54,7 @@ export function BasicLayout(): React.ReactElement | null {
 	};
 
 	function titleOnClick(){
-		navigate({ to: "/dashboard" });
+		navigate({ to: "/home" });
 	}
 
 
