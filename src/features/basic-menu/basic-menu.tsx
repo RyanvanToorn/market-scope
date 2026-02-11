@@ -1,13 +1,22 @@
+import { Box } from "@components/Box/Box";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import { Menu } from "@components/Menu/Menu";
+import { MenuItem } from "@components/Menu/MenuItem";
 import MenuIcon from '@mui/icons-material/Menu';
+import type { SvgIconProps } from "@mui/material/SvgIcon";
+import styles from "./basic-menu.styles.module.css";
 import { useState } from "react";
+import { Typography } from "@components/Typography/Typography";
 
-
+export interface BasicMenuItems {
+    label: string;
+    icon?: React.ElementType<SvgIconProps>;
+    onClick?: ()=>void;
+}
 
 export interface BasicMenuProps {
-    menuContent?: React.ReactNode;
+    menuItems: BasicMenuItems[];
 }
 
 export function BasicMenu(props: BasicMenuProps): React.ReactElement | null{
@@ -18,13 +27,34 @@ export function BasicMenu(props: BasicMenuProps): React.ReactElement | null{
         setIsMenuOpen(!isMenuOpen);
     }
 
+    function closeMenu(){
+        setIsMenuOpen(false);
+    }
+
     return (
         <>
             <Button onClick={toggleMenu} variant="contained">
                 <Icon icon={MenuIcon}/>
             </Button>
-            <Menu isOpen={isMenuOpen}>
-                {props.menuContent}
+            <Menu isOpen={isMenuOpen} onClose={closeMenu}>
+                {props.menuItems.map((menuItem, index) => (
+                    <MenuItem
+                        key={`${menuItem.label}-${index}`}
+                        extendedClass={styles.MenuItem}
+                        contents={
+                            <Box
+                                extendedClass={styles.MenuItemBox}
+                                onClick={() => {
+                                    menuItem.onClick?.();
+                                    closeMenu();
+                                }}
+                            >
+                                {menuItem.icon ? <Icon icon={menuItem.icon} /> : null}
+                                <Typography text={menuItem.label} />
+                            </Box>
+                        }
+                    />
+                ))}
             </Menu>
         </>
     );
