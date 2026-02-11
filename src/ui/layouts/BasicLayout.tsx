@@ -13,21 +13,36 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation } from "@tanstack/react-router";
+import React from "react";
+
+export type BasicLayoutState = {
+	title: string;
+	layoutBodyContents?: React.ReactNode | null;
+	layoutFooterContents?: React.ReactNode | null;
+	sidebarHeaderContents?: React.ReactNode | null;
+	sidebarBodyContents?: React.ReactNode | null;
+}
+
+type BasicLayoutContextType = {
+	layout: BasicLayoutState;
+	setLayout: React.Dispatch<React.SetStateAction<BasicLayoutState>>
+}
+
+
+const BasicLayoutContext = React.createContext<BasicLayoutContextType | null>(null)
 
 export function BasicLayout(): React.ReactElement | null {
 	const location = useLocation();
-
-	// Map routes to display text
-	const displayTextMap: Record<string, string> = {
-		"/dashboard": "Dashboard",
-		"/settings": "Settings",
-		"/watchlist": "Watchlist",
-	};
-
-	const displayText = displayTextMap[location.pathname] || "";
+	console.log("Location: ",location.href);
 
 	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
 	const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+
+	const [layout, setLayout] = useState<BasicLayoutState>({
+    	title: 'Test',
+    	layoutBodyContents: null,
+    	sidebarBodyContents: null,
+  	})
 
 	const closeSidebar = () => {
 		setSidebarOpen(false);
@@ -37,15 +52,16 @@ export function BasicLayout(): React.ReactElement | null {
 		setSidebarOpen(true);
 	};
 
-	const toggleMenu = () => {
-		setMenuOpen(!setMenuOpen);
+	const closeMenu = () => {
+		setMenuOpen(false);
 	};
 
 	return (
+		<BasicLayoutContext.Provider value={{ layout, setLayout }}>
 		<Box extendedClass={styles.BasicLayout}>
 			<Box extendedClass={styles.BasicLayoutTop}>
 				<AppBar extendedClass={styles.AppBar}>
-					<Menu isOpen={isMenuOpen} />
+					<Menu isOpen={isMenuOpen} onClose={closeMenu} />
 					<Box extendedClass={styles.TitleContainer}>
 						<Typography text={"Market Scope"} variant="h1" extendedClass={styles.Title} sx={titleSx} />
 					</Box>
@@ -74,14 +90,12 @@ export function BasicLayout(): React.ReactElement | null {
 			</Box>
 
 			<Box extendedClass={styles.BasicLayoutBottom}>
-				<Box extendedClass={styles.BottombarContainer}></Box>
-			</Box>
+				<Box extendedClass={styles.BottombarContainer}>
 
-			<Typography
-				text={displayText}
-				sx={{ color: "lime", marginLeft: "0.5rem", marginBottom: "0.5rem", fontSize: "0.5rem", position: "absolute", bottom: "0px", left: "0px" }}
-			/>
+				</Box>
+			</Box>
 		</Box>
+		</BasicLayoutContext.Provider>
 	);
 }
 
