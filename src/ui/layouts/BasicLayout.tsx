@@ -1,7 +1,7 @@
 import { Box } from "@components/Box/Box";
 import styles from "./BasicLayout.module.css";
 import { AppBar } from "@components/AppBar/AppBar";
-import { Sidebar } from "@features/sidebar/sidebar";
+import { Sidebar } from "@features/sidebar/Sidebar";
 import { useState } from "react";
 import { Typography } from "@components/Typography/Typography";
 import { Link } from "@components/Link/Link";
