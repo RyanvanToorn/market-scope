@@ -1,18 +1,19 @@
 import { Box } from "@components/Box/Box";
 import styles from "./BasicLayout.module.css";
 import { AppBar } from "@components/AppBar/AppBar";
-import { Sidebar } from "@features/sidebar/Sidebar";
 import { useState } from "react";
 import { Typography } from "@components/Typography/Typography";
-import { Link } from "@components/Link/Link";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation } from "@tanstack/react-router";
 import React from "react";
+import { Sidebar } from "@features/sidebar/sidebar";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { ScreenLink } from "@features/screen-link/ScreenLink";
+
 
 export type BasicLayoutState = {
 	title: string;
@@ -62,9 +63,9 @@ export function BasicLayout(): React.ReactElement | null {
 					</Box>
 
 					<Box extendedClass={styles.LinkContainer}>
-						<DashboardLink />
-						<WatchlistLink />
-						<SettingsLink />
+						<ScreenLink href={"dashboard"} label={"Dashboard"} icon={SpaceDashboardIcon}/>
+						<ScreenLink href={"watchlist"} label={"Watchlist"} icon={ListAltIcon}/>
+						<ScreenLink href={"settings"} label={"Settings"} icon={SettingsIcon}/>
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
 						<Button onClick={toggleSidebar} extendedClass={styles.AccountButton}>
@@ -98,57 +99,3 @@ const titleSx = {
 	fontSize: "2rem",
 	fontFamily: "'Fjalla One', sans-serif",
 };
-
-const linkTextSx = {
-	fontFamily: "'Fjalla One', sans-serif",
-};
-
-const linkIconSx = {
-	fontSize: "2rem",
-};
-
-// Move to features and make generic
-function DashboardLink(): React.ReactElement | null {
-	return (
-		<Link
-			href={"dashboard"}
-			extendedClass={styles.Link}
-			contents={
-				<Box extendedClass={styles.LinkWrapper}>
-					<Icon icon={SpaceDashboardIcon} extendedClass={styles.LinkIcon} sx={linkIconSx} />
-					<Typography text={"Dashboard"} extendedClass={styles.LinkText} sx={linkTextSx} />
-				</Box>
-			}
-		/>
-	);
-}
-
-function WatchlistLink(): React.ReactElement | null {
-	return (
-		<Link
-			href={"watchlist"}
-			extendedClass={styles.Link}
-			contents={
-				<Box extendedClass={styles.LinkWrapper}>
-					<Icon icon={ListAltIcon} extendedClass={styles.LinkIcon} sx={linkIconSx} />
-					<Typography text={"Watchlist"} extendedClass={styles.LinkText} sx={linkTextSx} />
-				</Box>
-			}
-		/>
-	);
-}
-
-function SettingsLink(): React.ReactElement | null {
-	return (
-		<Link
-			href={"settings"}
-			extendedClass={styles.Link}
-			contents={
-				<Box extendedClass={styles.LinkWrapper}>
-					<Icon icon={SettingsIcon} extendedClass={styles.LinkIcon} sx={linkIconSx} />
-					<Typography text={"Settings"} extendedClass={styles.LinkText} sx={linkTextSx} />
-				</Box>
-			}
-		/>
-	);
-}
