@@ -20,7 +20,6 @@ export function Watchlist(props: WatchlistProps): React.ReactElement | null {
   return (
     <Box extendedClass={styles.Watchlist}>
       {props.temp}
-      <h1>Watchlist</h1>
     </Box>
   );
 }

@@ -19,6 +19,5 @@ export function Settings(props: SettingsProps): React.ReactElement | null {
 
     return <Box extendedClass={styles.Settings}>
         {props.temp}
-        <h1>Settings</h1>
     </Box>;
 }

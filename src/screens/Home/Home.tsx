@@ -19,6 +19,6 @@ export function Home(props: HomeProps): React.ReactElement | null {
 
     return <Box extendedClass={styles.Home}>
         {props.temp}
-        <h1>Home</h1>
+        
     </Box>;
 }

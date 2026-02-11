@@ -20,7 +20,6 @@ export function Dashboard(props: DashboardProps): React.ReactElement | null {
   return (
     <Box extendedClass={styles.Dashboard}>
       {props.temp}
-      <h1>Dashboard</h1>
     </Box>
   );
 }
