@@ -13,7 +13,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation } from "@tanstack/react-router";
 import React from "react";
-import { BasicMenu, type BasicMenuItem } from "@features/basic-menu/basic-menu";
 
 export type BasicLayoutState = {
 	title: string;
@@ -43,8 +42,6 @@ export function BasicLayout(): React.ReactElement | null {
     	sidebarBodyContents: null,
   	})
 
-	const menuItems: BasicMenuItem[] = [{label: "Item 1"},{label: "Item 2"},{label: "Item 3"}]
-
 	const closeSidebar = () => {
 		setSidebarOpen(false);
 	};
@@ -60,7 +57,6 @@ export function BasicLayout(): React.ReactElement | null {
 		<Box extendedClass={styles.BasicLayout}>
 			<Box extendedClass={styles.BasicLayoutTop}>
 				<AppBar extendedClass={styles.AppBar}>
-					<BasicMenu menuItems={menuItems} />
 					<Box extendedClass={styles.TitleContainer}>
 						<Typography text={"Market Scope"} variant="h1" extendedClass={styles.Title} sx={titleSx} />
 					</Box>

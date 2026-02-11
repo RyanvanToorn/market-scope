@@ -1,6 +1,6 @@
 import type { StandardComponentProps } from "@interfaces/standard-component-props";
 import styles from "./MenuItem.module.css"
-import {MenuItem as MUIMenuItem} from '@mui/material/';
+import {MenuItem as MUIMenuItem} from '@mui/material';
 
 export interface MenuItemProps extends StandardComponentProps{
     contents?: React.ReactNode;
