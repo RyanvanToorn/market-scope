@@ -4,6 +4,7 @@ import styles from './Box.module.css';
 
 export interface BoxProps extends StandardComponentProps {
   children?: React.ReactNode;
+  onClick?: ()=>void;
 }
 
 export function Box(props: BoxProps): React.ReactElement | null {
@@ -13,7 +14,7 @@ export function Box(props: BoxProps): React.ReactElement | null {
   }
 
   return (
-    <MUIBox id={props.id} className={`${styles.Box} ${props.extendedClass ?? ''}`} sx={props.sx}>
+    <MUIBox id={props.id} className={`${styles.Box} ${props.extendedClass ?? ''}`} sx={props.sx} onClick={props.onClick}>
       {props.children}
     </MUIBox>
   );
