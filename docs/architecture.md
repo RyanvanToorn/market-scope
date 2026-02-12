@@ -1,1 +1,0 @@
-# MarketScope – Architecture
