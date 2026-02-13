@@ -217,41 +217,52 @@ export class CoinCapClient {
         this.apiKey = apiKey;
     }
 
+    private async fetchWithAuth(url: string): Promise<Response> {
+        return fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${this.apiKey}`,
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+
+
+
     /* Price */
-    public async getPriceBySymbol(symbol: string): Promise<PriceBySymbolResponse>{
+    public async getPriceBySymbol(symbol: string): Promise<PriceBySymbolResponse | Error>{
         try {
-            const url = new URL(`${this.baseUrl}/price/byaddress`);
-            // url.searchParams.append('address', tokenAddress);
-            // url.searchParams.append('network', network);
-            const response = await fetch(url.toString());
+            const url = new URL(`${this.baseUrl}/price/bysymbol`);
+            url.searchParams.append('symbol', symbol);
+            const response = await this.fetchWithAuth(url.toString());
 
             if (!response.ok) {
                 throw new Error(`getPriceBySymbol - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as PriceBySymbolResponse;
 
-            return data;
+            return data as PriceBySymbolResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getPriceByAddress(tokenAddress: string, network: string): Promise<PriceByAddressResponse>{
+    public async getPriceByAddress(tokenAddress: string, network: string): Promise<PriceByAddressResponse | Error>{
         try {
             const url = new URL(`${this.baseUrl}/price/byaddress`);
-            // url.searchParams.append('address', tokenAddress);
-            // url.searchParams.append('network', network);
-            const response = await fetch(url.toString());
+            url.searchParams.append('address', tokenAddress);
+            url.searchParams.append('network', network);
+            const response = await this.fetchWithAuth(url.toString());
 
             if (!response.ok) {
                 throw new Error(`getPriceByAddress - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as PriceByAddressResponse;
 
-            return data;
+            return data as PriceByAddressResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
@@ -260,102 +271,102 @@ export class CoinCapClient {
 
     /* Assets */
 
-    public async getAssets(): Promise<AssetsResponse>{
+    public async getAssets(): Promise<AssetsResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/assets`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/assets`);
 
             if (!response.ok) {
                 throw new Error(`getAssets - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as AssetsResponse;
 
-            return data;
+            return data as AssetsResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getAsset(slug: string): Promise<AssetResponse>{
+    public async getAsset(slug: string): Promise<AssetResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/assets/${slug}`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/assets/${slug}`);
 
             if (!response.ok) {
                 throw new Error(`getAsset - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as AssetResponse;
 
-            return data;
+            return data as AssetResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getAssetMarkets(slug: string): Promise<AssetMarketsResponse>{
+    public async getAssetMarkets(slug: string): Promise<AssetMarketsResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/assets/${slug}/markets`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/assets/${slug}/markets`);
 
             if (!response.ok) {
                 throw new Error(`getAssetMarkets - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as AssetMarketsResponse;
 
-            return data;
+            return data as AssetMarketsResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getAssetHistory(slug: string): Promise<AssetHistoryResponse>{
+    public async getAssetHistory(slug: string): Promise<AssetHistoryResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/assets/${slug}/history`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/assets/${slug}/history`);
 
             if (!response.ok) {
                 throw new Error(`getAssetHistory - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as AssetHistoryResponse;
 
-            return data;
+            return data as AssetHistoryResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getAssetTotalMarketCapHistory(): Promise<MarketCapHistoryResponse>{
+    public async getAssetTotalMarketCapHistory(): Promise<MarketCapHistoryResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/assets/totals/total-marketcap-history`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/assets/totals/total-marketcap-history`);
 
             if (!response.ok) {
                 throw new Error(`getAssetTotalMarketCapHistory - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as MarketCapHistoryResponse;
 
-            return data;
+            return data as MarketCapHistoryResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getAssetMarketCapHistory(slug: string): Promise<MarketCapHistoryResponse>{
+    public async getAssetMarketCapHistory(slug: string): Promise<MarketCapHistoryResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/assets/${slug}/marketcap-history`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/assets/${slug}/marketcap-history`);
 
             if (!response.ok) {
                 throw new Error(`getAssetMarketCapHistory - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as MarketCapHistoryResponse;
 
-            return data;
+            return data as MarketCapHistoryResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
@@ -364,32 +375,32 @@ export class CoinCapClient {
 
     /* Exchanges */
 
-    public async getExchanges(): Promise<ExchangesResponse>{
+    public async getExchanges(): Promise<ExchangesResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/exchanges`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/exchanges`);
 
             if (!response.ok) {
                 throw new Error(`getExchanges - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as ExchangesResponse;
 
-            return data;
+            return data as ExchangesResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getExchange(exchange: string): Promise<ExchangeResponse>{
+    public async getExchange(exchange: string): Promise<ExchangeResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/exchanges/${exchange}`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/exchanges/${exchange}`);
 
             if (!response.ok) {
                 throw new Error(`getExchange - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -400,15 +411,15 @@ export class CoinCapClient {
 
     /* Markets */
 
-    public async getMarkets(): Promise<MarketsResponse>{
+    public async getMarkets(): Promise<MarketsResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/markets`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/markets`);
 
             if (!response.ok) {
                 throw new Error(`getMarkets - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -419,15 +430,15 @@ export class CoinCapClient {
 
     /* Rates */
 
-    public async getRates(): Promise<RatesResponse>{
+    public async getRates(): Promise<RatesResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/rates`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/rates`);
 
             if (!response.ok) {
                 throw new Error(`getRates - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -436,15 +447,15 @@ export class CoinCapClient {
         }
     }
 
-    public async getRate(slug: string): Promise<RateResponse>{
+    public async getRate(slug: string): Promise<RateResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/rates/${slug}`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/rates/${slug}`);
 
             if (!response.ok) {
                 throw new Error(`getRate - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -455,15 +466,15 @@ export class CoinCapClient {
 
     /* Technical Analysis */
     
-    public async getTechnicalAnalysisSMAFull(slug: string): Promise<TASMAResponse>{
+    public async getTechnicalAnalysisSMAFull(slug: string): Promise<TASMAResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/sma`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/sma`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisSMAFull - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -472,15 +483,15 @@ export class CoinCapClient {
         }
     }
 
-    public async getTechnicalAnalysisSMALatest(slug: string): Promise<TASMAResponse>{
+    public async getTechnicalAnalysisSMALatest(slug: string): Promise<TASMAResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/sma/latest`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/sma/latest`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisSMALatest - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -489,15 +500,15 @@ export class CoinCapClient {
         }
     }
 
-    public async getTechnicalAnalysisEMAFull(slug: string): Promise<TAEMAResponse>{
+    public async getTechnicalAnalysisEMAFull(slug: string): Promise<TAEMAResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/ema`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/ema`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisEMAFull - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
 
             return data;
         } catch (error) {
@@ -506,158 +517,139 @@ export class CoinCapClient {
         }
     }
 
-    public async getTechnicalAnalysisEMALatest(slug: string): Promise<TAEMAResponse>{
+    public async getTechnicalAnalysisEMALatest(slug: string): Promise<TAEMAResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/ema/latest`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/ema/latest`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisEMALatest - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TAEMAResponse;
 
-            return data;
+            return data as TAEMAResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisMACDFull(slug: string): Promise<TAMACDResponse>{
+    public async getTechnicalAnalysisMACDFull(slug: string): Promise<TAMACDResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/macd`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/macd`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisMACDFull - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TAMACDResponse;
 
-            return data;
+            return data as TAMACDResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisMACDLatest(slug: string): Promise<TAMACDResponse>{
+    public async getTechnicalAnalysisMACDLatest(slug: string): Promise<TAMACDResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/macd/latest`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/macd/latest`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisMACDLatest - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TAMACDResponse;
 
-            return data;
+            return data as TAMACDResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisVWAPLatest(slug: string): Promise<TAVWAPResponse>{
+    public async getTechnicalAnalysisVWAPLatest(slug: string): Promise<TAVWAPResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/vwap/latest`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/vwap/latest`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisVWAPLatest - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TAVWAPResponse;
 
-            return data;
+            return data as TAVWAPResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisCandlesticks(slug: string): Promise<TACandlestickResponse>{
+    public async getTechnicalAnalysisCandlesticks(slug: string): Promise<TACandlestickResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/candlesticks`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/candlesticks`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisCandlesticks - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TACandlestickResponse;
 
-            return data;
+            return data as TACandlestickResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisRSIFull(slug: string): Promise<TARSIResponse>{
+    public async getTechnicalAnalysisRSIFull(slug: string): Promise<TARSIResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/rsi`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/rsi`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisRSIFull - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TARSIResponse;
 
-            return data;
+            return data as TARSIResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisRSILatest(slug: string): Promise<TARSIResponse>{
+    public async getTechnicalAnalysisRSILatest(slug: string): Promise<TARSIResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/rsi/latest`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/rsi/latest`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisRSILatest - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TARSIResponse;
 
-            return data;
+            return data as TARSIResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
 
-    public async getTechnicalAnalysisGetAllLatest(slug: string): Promise<TAAllLatestResponse>{
+    public async getTechnicalAnalysisGetAllLatest(slug: string): Promise<TAAllLatestResponse | Error>{
         try {
-            const response = await fetch(`${this.baseUrl}/ta/${slug}/allLatest`);
+            const response = await this.fetchWithAuth(`${this.baseUrl}/ta/${slug}/allLatest`);
 
             if (!response.ok) {
                 throw new Error(`getTechnicalAnalysisGetAllLatest - HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.text();
+            const data = await response.json() as TAAllLatestResponse;
 
-            return data;
+            return data as TAAllLatestResponse;
         } catch (error) {
             console.warn(error);
             return error as Error;
         }
     }
-
-    public async getListingStatus(): Promise<Listing[]> {
-        try {
-            const response = await fetch(`${this.baseUrl}?function=LISTING_STATUS&apikey=${this.apiKey}`);
-
-            if (!response.ok) {
-                throw new Error(`getListingStatus - HTTP error! Status: ${response.status}`);
-            }
-
-            const csvData = await response.text();
-            const parsedData = parseCSV(csvData) as Listing[];
-
-            return parsedData;
-        } catch (error) {
-            console.warn(error);
-            return error as Error;
-        }
-    }
-
 }
