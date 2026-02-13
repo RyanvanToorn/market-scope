@@ -1,4 +1,4 @@
-import type { Listing } from "@interfaces/listing";
+import type { Listing } from "@interfaces/Listing";
 import { parseCSV } from "@utils/csv-parser";
 
 export interface MetaData {

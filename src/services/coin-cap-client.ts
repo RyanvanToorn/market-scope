@@ -211,7 +211,7 @@ export interface Listing {
 
 export class CoinCapClient {
     private apiKey: string;
-    private baseUrl: string = " rest.coincap.io/v3";
+    private baseUrl: string = "https://rest.coincap.io/v3";
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;
