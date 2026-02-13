@@ -6,6 +6,7 @@ import { Typography } from "@components/Typography/Typography";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ScienceIcon from '@mui/icons-material/Science';
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useLocation, useNavigate } from "@tanstack/react-router";
@@ -79,6 +80,7 @@ export function BasicLayout(): React.ReactElement | null {
 						<ScreenLink href={"dashboard"} label={"Dashboard"} icon={SpaceDashboardIcon}/>
 						<ScreenLink href={"watchlist"} label={"Watchlist"} icon={ListAltIcon}/>
 						<ScreenLink href={"settings"} label={"Settings"} icon={SettingsIcon}/>
+						<ScreenLink href={"testing"} label={"Testing"} icon={ScienceIcon}/>
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
 						<Button onClick={toggleSidebar} extendedClass={styles.AccountButton}>

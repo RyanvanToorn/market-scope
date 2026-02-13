@@ -3,6 +3,7 @@ import { BasicLayout } from "@layouts/BasicLayout";
 import { Dashboard } from "@screens/Dashboard/Dashboard";
 import { Settings } from "@screens/Settings/Settings";
 import { Watchlist } from "@screens/Watchlist/Watchlist";
+import { Testing } from "@screens/Testing/Testing";
 import { Home } from "@screens/Home/Home";
 
 // Root route wraps the persistent layout
@@ -28,7 +29,7 @@ const dashboardRoute = new Route({
 const settingsRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/settings",
-	component: Settings,
+	component: Testing,
 });
 
 // Watchlist route
@@ -45,8 +46,15 @@ const homeRoute = new Route({
 	component: Home,
 })
 
+// Testing route
+const testingRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: "/testing",
+	component: Testing,
+})
+
 // Create the route tree
-const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute]);
+const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, testingRoute]);
 
 // Create and export the router
 export const router = createRouter({ routeTree });
