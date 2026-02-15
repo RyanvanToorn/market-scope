@@ -21,6 +21,7 @@
       "@assets/*": ["src/assets/*"],
       "@utils/*": ["src/utils/*"],
       "@screens/*": ["src/screens/*"],
+      "@theme/*": ["src/ui/theme/*"],
     },
 
     /* CSS Module type declarations */
