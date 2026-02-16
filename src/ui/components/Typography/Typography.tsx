@@ -4,7 +4,7 @@ import styles from './Typography.module.css';
 
 export interface TypographyProps extends StandardComponentProps {
   noWrap?: boolean;
-  variant?: 	'body1' | 'body2' | 'button' | 'caption' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'inherit' | 'overline' | 'subtitle1' | 'subtitle2' | string;
+  variant?: 	'body1' | 'body2' | 'button' | 'caption' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'inherit' | 'overline' | 'subtitle1' | 'subtitle2';
   text: string;
 }
 
@@ -15,7 +15,7 @@ export function Typography(props: TypographyProps): React.ReactElement | null {
     }
 
   return (
-    <MUITypography id={props.id} className={`${styles.Typography} ${props.extendedClass ?? ''}`} sx={props.sx}>
+    <MUITypography id={props.id} className={`${styles.Typography} ${props.extendedClass ?? ''}`} sx={props.sx} variant={props.variant}>
       {props.text}
     </MUITypography>
   );
