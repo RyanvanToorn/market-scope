@@ -1,0 +1,16 @@
+import type { StandardComponentProps } from '@interfaces/standard-component-props';
+import { NumberField as MUITextField } from '@mui/material';
+import styles from './TextInput.module.css';
+
+export interface TextInputProps extends StandardComponentProps {}
+
+export function TextInput(props: TextInputProps): React.ReactElement | null {
+
+  if (props.isVisible === false){
+        return null;
+    }
+
+  return (
+    <MUITextField id={props.id} className={`${styles.TextInput} ${props.extendedClass ?? ''}`} sx={props.sx} />
+  );
+}
