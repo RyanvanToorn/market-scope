@@ -29,7 +29,7 @@ const dashboardRoute = new Route({
 const settingsRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/settings",
-	component: Testing,
+	component: Settings,
 });
 
 // Watchlist route
