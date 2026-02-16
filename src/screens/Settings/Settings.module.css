@@ -6,4 +6,38 @@
 .SettingsPaper{
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.SettingsForm{
+    min-width: 50%;
+    max-width: 80%;
+    height: 80%;
+    border: 1px solid grey;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--size-m);
+}
+
+.SettingsFormRow{
+    min-height: 0rem;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: var(--size-m) 0;
+}
+
+.SettingsHeading,
+.SettingsSubHeading{
+    margin: var(--size-s) 0;
 }
