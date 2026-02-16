@@ -1,6 +1,6 @@
 import type { AppSettings } from "@interfaces/app-settings";
 import { defaultSettings, settingsStorage } from "@utils/settings-storage";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface AppSettingsContextValue {
     settings: AppSettings;
@@ -31,4 +31,13 @@ export const AppSettingsProvider: React.FC<{children: React.ReactNode }> = ({ ch
       {children}
     </AppSettingsContext.Provider>
   );
+};
+
+
+export const useAppSettings = () => {
+  const context = useContext(AppSettingsContext);
+  if (!context) {
+    throw new Error('useAppSettings must be used within AppSettingsProvider');
+  }
+  return context;
 };

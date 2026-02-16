@@ -1,5 +1,6 @@
 import type { Listing } from "@interfaces/Listing";
 import { parseCSV } from "@utils/csv-parser";
+import { useAppSettings } from "src/context/AppSettingsContext";
 
 export interface MetaData {
 	information: string;
@@ -23,12 +24,8 @@ export interface TimeSeriesData {
 }
 
 export class AlphaVantageClient {
-	private apiKey: string;
+	private apiKey = useAppSettings().settings.apiKeys.alphaVantageKey;
 	private baseUrl: string = "https://www.alphavantage.co/query";
-
-	constructor(apiKey: string) {
-		this.apiKey = apiKey;
-	}
 
 	public async getListingStatus(): Promise<Listing[] | TypeError> {
 		try {
