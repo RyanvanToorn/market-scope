@@ -3,10 +3,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@theme/theme"
 import './index.css';
 import { AppSettingsProvider } from "./context/AppSettingsContext";
+import { StrictMode } from "react";
 
 function App() {
 
   return (
+    <StrictMode>
     <>
     {/* Providers */}
       <ThemeProvider theme={theme}>
@@ -21,6 +23,7 @@ function App() {
         </AppSettingsProvider>
       </ThemeProvider>
     </>
+    </StrictMode>
   )
 }
 
