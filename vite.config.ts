@@ -18,6 +18,7 @@ export default defineConfig({
 			"@utils": path.resolve(__dirname, "./src/utils"),
 			"@screens": path.resolve(__dirname, "./src/screens"),
 			"@theme": path.resolve(__dirname, "./src/ui/theme"),
+			"@context": path.resolve(__dirname, "./src/context"),
 		},
 	},
 });

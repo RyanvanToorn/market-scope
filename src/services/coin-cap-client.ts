@@ -1,7 +1,8 @@
 
 /* NEED TO ADD ACREDITATION/REQUIRED ACKNOWLEDGEMENT !!!!!!!!!*/
 
-import { useAppSettings } from "src/context/AppSettingsContext";
+import { useAppSettings } from "@context/AppSettingsContext";
+
 
 /* ============= Price Response Types ============= */
 

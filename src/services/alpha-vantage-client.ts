@@ -1,6 +1,6 @@
+import { useAppSettings } from "@context/AppSettingsContext";
 import type { Listing } from "@interfaces/Listing";
 import { parseCSV } from "@utils/csv-parser";
-import { useAppSettings } from "src/context/AppSettingsContext";
 
 export interface MetaData {
 	information: string;
