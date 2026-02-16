@@ -1,9 +1,11 @@
 import type { StandardComponentProps } from '@interfaces/standard-component-props';
 import { TextField as MUITextField } from '@mui/material';
-import styles from './TextInput.module.css';
+import styles from './TextField.module.css';
 
 export interface TextFieldProps extends StandardComponentProps {
   onChange?: (event: object) => void;
+  value?: any;
+  label?: string;
   autoFocus?: boolean;
   defaultValue?: string;
   disabled?: boolean;
@@ -26,6 +28,6 @@ export function TextField(props: TextFieldProps): React.ReactElement | null {
     <MUITextField id={props.id} className={`${styles.TextField} ${props.extendedClass ?? ''}`} sx={props.sx} 
     autoFocus={props.autoFocus} defaultValue={props.defaultValue} disabled={props.disabled} error={props.error}
     fullWidth={props.fullWidth} placeholder={props.placeholder} required={props.required} multiline={props.multiline}
-    minRows={props.minRows} maxRows={props.maxRows} onChange={props.onChange}/>
+    minRows={props.minRows} maxRows={props.maxRows} onChange={props.onChange} value={props.value} label={props.label}/>
   );
 }
