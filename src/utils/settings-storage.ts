@@ -1,18 +1,31 @@
 import type { AppSettings } from "@interfaces/app-settings";
 import { safeGetItem, safeRemoveItem, safeSetItem } from "./local-storage";
 
-const SETTINGS_STORAGE_KEY = "userSettings"
+const STORAGE_KEY  = "marketscope.settings";
 
-export function loadAppSettings(): Partial<AppSettings> | null{
-    const appSettings = safeGetItem(SETTINGS_STORAGE_KEY);
-
-    return appSettings;
+export const defaultSettings: AppSettings = {
+    themeMode: "system",
+    apiKeys: {}
 }
 
-export function saveAppSettings( settings: Partial<AppSettings>): void{
-    safeSetItem(settings);
-}
+export const settingsStorage = {
+  load(): AppSettings {
+    try {
+      const raw =  safeGetItem(STORAGE_KEY);
+      if (!raw) return defaultSettings;
 
-export function clearAppSettings(): void{
-    safeRemoveItem(SETTINGS_STORAGE_KEY);
-}
+      const parsed = JSON.parse(raw);
+      return { ...defaultSettings, ...parsed };
+    } catch {
+      return defaultSettings;
+    }
+  },
+
+  save(settings: AppSettings): void {
+    safeSetItem(STORAGE_KEY, JSON.stringify(settings));
+  },
+
+  clear(): void {
+    safeRemoveItem(STORAGE_KEY);
+  },
+};

@@ -2,15 +2,23 @@ import { BasicLayout } from "@layouts/BasicLayout";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@theme/theme"
 import './index.css';
+import { AppSettingsProvider } from "./context/AppSettingsContext";
 
 function App() {
 
   return (
     <>
+    {/* Providers */}
       <ThemeProvider theme={theme}>
-        <BasicLayout>
+        <AppSettingsProvider>
+
+          {/* Persistant Components */}
+          <BasicLayout>
       
-        </BasicLayout>
+          </BasicLayout>
+
+          
+        </AppSettingsProvider>
       </ThemeProvider>
     </>
   )
