@@ -17,7 +17,9 @@ export function Home(): React.ReactElement | null {
 
     return (
     <Box extendedClass={styles.Home}>
-        <Paper extendedClass={styles.HomePaper}>
+        <Paper extendedClass={styles.HomePaper} sx={{
+            borderRadius: "0rem"
+        }}>
             
         </Paper>
     </Box>);
