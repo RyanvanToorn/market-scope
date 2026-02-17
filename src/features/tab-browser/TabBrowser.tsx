@@ -38,12 +38,16 @@ function TabHeader({ onClose, value, ...tabProps }: TabHeaderProps): React.React
 			sx={{
 				display: "flex",
 				flexDirection: "row",
+                justifyContent: "space-between",
 				alignItems: "center",
+                flex:"1",
 			}}
 		>
-			<Tab value={value} {...tabProps} />
+			<Tab value={value} {...tabProps} sx={{
+                flex: "1",
+            }}/>
 			<Button children={<Icon icon={CloseIcon} />} onClick={() => onClose(Number(value))} sx={{
-                p:0,
+                p:"0.5rem",
                 minWidth: "1rem"
             }}/>
 		</Box>
@@ -60,8 +64,10 @@ export type TabBrowserProps = {
 	initialTabs?: TabDefinition[];
 };
 
-const tabSx = {};
-const tabsSx = {};
+
+const tabsSx = {
+    flex:"1",
+};
 
 const defaultTabs: TabDefinition[] = [
 	{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> },
@@ -131,7 +137,6 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 						value={tab.value}
 						label={tab.label}
 						extendedClass={styles.Tab}
-						sx={tabSx}
 						onClose={closeTab}
 					/>
 				))}
