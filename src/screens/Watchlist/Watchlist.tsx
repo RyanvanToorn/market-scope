@@ -20,7 +20,9 @@ export function Watchlist(props: WatchlistProps): React.ReactElement | null {
 
   return (
     <Box extendedClass={styles.Watchlist}>
-        <Paper extendedClass={styles.WatchlistPaper}>
+        <Paper extendedClass={styles.WatchlistPaper} sx={{
+          borderRadius: "0rem"
+        }}>
             {props.temp}
         </Paper>
     </Box>);

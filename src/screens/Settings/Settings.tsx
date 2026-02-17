@@ -1,6 +1,6 @@
 import { Box } from "@components/Box/Box";
 import styles from "./Settings.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useBasicLayout } from "@layouts/BasicLayout";
 import { Paper } from "@components/Paper/Paper";
 import { TextField } from "@components/TextField/TextField";
@@ -12,8 +12,8 @@ import { Icon } from "@components/Icon/Icon";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
-
-export interface SettingsProps {}
+import type { AppSettings } from "@interfaces/app-settings";
+import { useAppSettings } from "@context/AppSettingsContext";
 
 export function Settings(): React.ReactElement | null {
 	const { setLayout } = useBasicLayout();
@@ -24,6 +24,14 @@ export function Settings(): React.ReactElement | null {
             title: 'Settings'
         }));
     }, [setLayout]);
+
+    
+
+    const [settingsScreenState, setSettingsScreenState] = useState<AppSettings>(useAppSettings);
+
+    function updateSettingScreenState(updatedSettings: AppSettings): void{
+        setSettingsScreenState(updatedSettings);
+    }
 
     const labels = {
         coinCapApiKey: "Coin Cap API Key",
@@ -42,7 +50,9 @@ export function Settings(): React.ReactElement | null {
 
     return (
     <Box extendedClass={styles.Settings}>
-        <Paper extendedClass={styles.SettingsPaper}>
+        <Paper extendedClass={styles.SettingsPaper} sx={{
+            borderRadius: "0rem",
+        }}>
             <form className={styles.SettingsForm}>
                 <Box extendedClass={styles.SettingsHeading}>
                     <Typography text={labels.settings} variant="h4" sx={fontSx}/> 

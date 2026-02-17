@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { Paper } from "@components/Paper/Paper";
 import { useTheme } from "@mui/material/styles";
 import {theme} from "@theme/theme"
+import { Tabs } from "@components/Tabs/Tabs";
 
 
 
@@ -21,8 +22,10 @@ export function Browse(): React.ReactElement | null {
 
   return (
     <Box extendedClass={styles.Browse}>
-      <Paper extendedClass={styles.BrowsePaper}>
-       
+      <Paper extendedClass={styles.BrowsePaper} sx={{
+            borderRadius: "0rem",
+        }}>
+        <Tabs />
       </Paper>
     </Box>
   );
