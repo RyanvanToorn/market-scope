@@ -11,7 +11,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import React, { useEffect, useState } from "react";
-import { Sidebar } from "@features/sidebar/sidebar";
+import { Sidebar } from "@features/sidebar/Sidebar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ScreenLink } from "@features/screen-link/ScreenLink";
 import type { Theme } from "@mui/material";

@@ -38,7 +38,6 @@ export function Dashboard(): React.ReactElement | null {
       <Paper
         extendedClass={styles.DashboardPaper}
         sx={{
-          // keep the screen centered and responsive
           p: { xs: 2, sm: 3, md: 4 },
           bgcolor: "background.default",
           borderRadius: "0rem",
