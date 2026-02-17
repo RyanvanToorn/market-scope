@@ -1,7 +1,6 @@
 import { Box } from "@components/Box/Box";
 import styles from "./BasicLayout.module.css";
 import { AppBar } from "@components/AppBar/AppBar";
-import { useState } from "react";
 import { Typography } from "@components/Typography/Typography";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
@@ -10,13 +9,12 @@ import ScienceIcon from '@mui/icons-material/Science';
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
-import { useLocation, useNavigate } from "@tanstack/react-router";
-import React from "react";
+import { Outlet, useNavigate } from "@tanstack/react-router";
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "@features/sidebar/sidebar";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ScreenLink } from "@features/screen-link/ScreenLink";
 import type { Theme } from "@mui/material";
-import { Outlet } from "@tanstack/react-router";
 
 
 export type BasicLayoutState = {
@@ -30,6 +28,7 @@ type BasicLayoutContextType = {
 	setLayout: React.Dispatch<React.SetStateAction<BasicLayoutState>>
 }
 
+const baseTitle = "Market Scope";
 
 const BasicLayoutContext = React.createContext<BasicLayoutContextType | null>(null)
 
@@ -42,17 +41,20 @@ export function useBasicLayout() {
 }
 
 export function BasicLayout(): React.ReactElement | null {
-	const location = useLocation();
 	const navigate = useNavigate();
-	console.log("Location: ",location.href);
 
 	const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
 	const [layout, setLayout] = useState<BasicLayoutState>({
-    	title: 'Initial',
+	    title: baseTitle,
     	sidebarBodyContents: null,
 		sidebarHeaderContents: null,
   	})
+
+	useEffect(() => {
+		const screenTitle = layout.title.trim();
+		document.title = screenTitle ? `${baseTitle} - ${screenTitle}` : baseTitle;
+	}, [layout.title]);
 
 	const closeSidebar = () => {
 		setSidebarOpen(false);
