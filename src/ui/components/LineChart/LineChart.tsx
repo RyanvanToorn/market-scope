@@ -1,16 +1,16 @@
-import { LineChart as MUILineChart, type LineSeries } from "@mui/x-charts/LineChart";
-import styles from "./LineChart.module.css";
 import type { StandardComponentProps } from "@interfaces/standard-component-props";
+import { type LineSeries, LineChart as MUILineChart } from "@mui/x-charts/LineChart";
+import styles from "./LineChart.module.css";
 
 export interface LineChartProps extends StandardComponentProps {
 	series: LineSeries[];
 	axisHighlight?: {
-		x?: 'band' | 'line' | 'none',
-		y?: 'band' | 'line' | 'none',
+		x?: "band" | "line" | "none";
+		y?: "band" | "line" | "none";
 	};
 	grid?: {
-		horizontal?: boolean,
-		vertical?: boolean,
+		horizontal?: boolean;
+		vertical?: boolean;
 	};
 	height?: number;
 	width?: number;
@@ -22,12 +22,14 @@ export function LineChart(props: LineChartProps): React.ReactElement | null {
 		return null;
 	}
 
-	return <MUILineChart 
-			series={props.series} 
-			axisHighlight={props.axisHighlight} 
+	return (
+		<MUILineChart
+			series={props.series}
+			axisHighlight={props.axisHighlight}
 			grid={props.grid}
-			height={props.height} 
-			width={props.width} 
-			className={`${styles.LineChart} ${props.extendedClass ? props.extendedClass : ""}`} 
-		/>;
+			height={props.height}
+			width={props.width}
+			className={`${styles.LineChart} ${props.extendedClass ? props.extendedClass : ""}`}
+		/>
+	);
 }

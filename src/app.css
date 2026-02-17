@@ -1,17 +1,17 @@
-:root{
-    /* App Specific Colour Theme (Palette 3: Graphite + Mint) */
-    --color-background: #0E0F13;
-    --color-surface: #151821;
-    --color-surface-elevated: #1C2230;
+:root {
+	/* App Specific Colour Theme (Palette 3: Graphite + Mint) */
+	--color-background: #0e0f13;
+	--color-surface: #151821;
+	--color-surface-elevated: #1c2230;
 
-    --color-text-primary: #F2F4F8;
-    --color-text-muted: #A6B0C3;
+	--color-text-primary: #f2f4f8;
+	--color-text-muted: #a6b0c3;
 
-    --color-primary: #2DD4BF;
-    --color-secondary: #38BDF8;
-    --color-accent: #F472B6;
+	--color-primary: #2dd4bf;
+	--color-secondary: #38bdf8;
+	--color-accent: #f472b6;
 
-    --color-warning: #EAB308;
-    --color-error: #F43F5E;
-    --color-success: #22C55E;
+	--color-warning: #eab308;
+	--color-error: #f43f5e;
+	--color-success: #22c55e;
 }

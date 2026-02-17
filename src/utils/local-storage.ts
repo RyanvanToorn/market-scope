@@ -8,7 +8,7 @@ export function safeGetItem(key: string): string {
 		return value ?? "";
 	} catch {
 		console.log("[LocalStorageHelper] failed to safely set item within local storage");
-        return "";
+		return "";
 	}
 }
 
@@ -32,6 +32,6 @@ export function safeRemoveItem(key: string): void {
 	try {
 		window.localStorage.removeItem(key);
 	} catch {
-        console.log("[LocalStorageHelper] failed to safely remove item from local storage");
+		console.log("[LocalStorageHelper] failed to safely remove item from local storage");
 	}
 }

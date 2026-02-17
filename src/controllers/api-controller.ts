@@ -1,26 +1,26 @@
 import type { Listing } from "@interfaces/Listing";
 import type { AlphaVantageClient, TimeSeriesData } from "@services/alpha-vantage-client";
 import type {
-	CoinCapClient,
-	PriceBySymbolResponse,
-	PriceByAddressResponse,
-	AssetsResponse,
-	AssetResponse,
-	AssetMarketsResponse,
 	AssetHistoryResponse,
-	MarketCapHistoryResponse,
-	ExchangesResponse,
+	AssetMarketsResponse,
+	AssetResponse,
+	AssetsResponse,
+	CoinCapClient,
 	ExchangeResponse,
+	ExchangesResponse,
+	MarketCapHistoryResponse,
 	MarketsResponse,
-	RatesResponse,
+	PriceByAddressResponse,
+	PriceBySymbolResponse,
 	RateResponse,
-	TASMAResponse,
+	RatesResponse,
+	TAAllLatestResponse,
+	TACandlestickResponse,
 	TAEMAResponse,
 	TAMACDResponse,
-	TAVWAPResponse,
-	TACandlestickResponse,
 	TARSIResponse,
-	TAAllLatestResponse,
+	TASMAResponse,
+	TAVWAPResponse,
 } from "@services/coin-cap-client";
 
 export class APIController {
@@ -64,7 +64,9 @@ export class APIController {
 
 	/* CoinCap */
 	async getPriceByAddress(tokenAddress: string, network: string): Promise<PriceByAddressResponse | undefined> {
-		const data: PriceByAddressResponse | undefined = (await this.coinCapClient.getPriceByAddress(tokenAddress, network)) as PriceByAddressResponse | undefined;
+		const data: PriceByAddressResponse | undefined = (await this.coinCapClient.getPriceByAddress(tokenAddress, network)) as
+			| PriceByAddressResponse
+			| undefined;
 		return data;
 	}
 
@@ -94,13 +96,17 @@ export class APIController {
 
 	/* CoinCap */
 	async getAssetTotalMarketCapHistory(): Promise<MarketCapHistoryResponse | undefined> {
-		const data: MarketCapHistoryResponse | undefined = (await this.coinCapClient.getAssetTotalMarketCapHistory()) as MarketCapHistoryResponse | undefined;
+		const data: MarketCapHistoryResponse | undefined = (await this.coinCapClient.getAssetTotalMarketCapHistory()) as
+			| MarketCapHistoryResponse
+			| undefined;
 		return data;
 	}
 
 	/* CoinCap */
 	async getAssetMarketCapHistory(slug: string): Promise<MarketCapHistoryResponse | undefined> {
-		const data: MarketCapHistoryResponse | undefined = (await this.coinCapClient.getAssetMarketCapHistory(slug)) as MarketCapHistoryResponse | undefined;
+		const data: MarketCapHistoryResponse | undefined = (await this.coinCapClient.getAssetMarketCapHistory(slug)) as
+			| MarketCapHistoryResponse
+			| undefined;
 		return data;
 	}
 
@@ -178,7 +184,9 @@ export class APIController {
 
 	/* CoinCap */
 	async getTechnicalAnalysisCandlesticks(slug: string): Promise<TACandlestickResponse | undefined> {
-		const data: TACandlestickResponse | undefined = (await this.coinCapClient.getTechnicalAnalysisCandlesticks(slug)) as TACandlestickResponse | undefined;
+		const data: TACandlestickResponse | undefined = (await this.coinCapClient.getTechnicalAnalysisCandlesticks(slug)) as
+			| TACandlestickResponse
+			| undefined;
 		return data;
 	}
 
@@ -196,7 +204,9 @@ export class APIController {
 
 	/* CoinCap */
 	async getTechnicalAnalysisGetAllLatest(slug: string): Promise<TAAllLatestResponse | undefined> {
-		const data: TAAllLatestResponse | undefined = (await this.coinCapClient.getTechnicalAnalysisGetAllLatest(slug)) as TAAllLatestResponse | undefined;
+		const data: TAAllLatestResponse | undefined = (await this.coinCapClient.getTechnicalAnalysisGetAllLatest(slug)) as
+			| TAAllLatestResponse
+			| undefined;
 		return data;
 	}
 }

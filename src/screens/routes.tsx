@@ -1,10 +1,10 @@
-import { RootRoute, Route, createRouter, redirect } from "@tanstack/react-router";
 import { BasicLayout } from "@layouts/BasicLayout";
 import { Dashboard } from "@screens/Dashboard/Dashboard";
-import { Settings } from "@screens/Settings/Settings";
-import { Watchlist } from "@screens/Watchlist/Watchlist";
-import { Testing } from "@screens/Testing/Testing";
 import { Home } from "@screens/Home/Home";
+import { Settings } from "@screens/Settings/Settings";
+import { Testing } from "@screens/Testing/Testing";
+import { Watchlist } from "@screens/Watchlist/Watchlist";
+import { createRouter, RootRoute, Route, redirect } from "@tanstack/react-router";
 import { Browse } from "./Browse/Browse";
 
 // Root route wraps the persistent layout
@@ -45,24 +45,24 @@ const homeRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/home",
 	component: Home,
-})
+});
 
 // Browse route
 const browseRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/browse",
 	component: Browse,
-})
+});
 
 // Testing route
 const testingRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/testing",
 	component: Testing,
-})
+});
 
 // Create the route tree
-const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, browseRoute,testingRoute]);
+const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, browseRoute, testingRoute]);
 
 // Create and export the router
 export const router = createRouter({ routeTree });
