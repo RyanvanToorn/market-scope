@@ -1,6 +1,6 @@
 import { Box } from "@components/Box/Box";
 import styles from "./Settings.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useBasicLayout } from "@layouts/BasicLayout";
 import { Paper } from "@components/Paper/Paper";
 import { TextField } from "@components/TextField/TextField";
@@ -12,11 +12,11 @@ import { Icon } from "@components/Icon/Icon";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoModeIcon from '@mui/icons-material/AutoMode';
-import type { AppSettings } from "@interfaces/app-settings";
 import { useAppSettings } from "@context/AppSettingsContext";
 
 export function Settings(): React.ReactElement | null {
 	const { setLayout } = useBasicLayout();
+    const { settings, updateSettings } = useAppSettings();
 
     useEffect(() => {
         setLayout(prev => ({
@@ -24,14 +24,6 @@ export function Settings(): React.ReactElement | null {
             title: 'Settings'
         }));
     }, [setLayout]);
-
-    
-
-    const [settingsScreenState, setSettingsScreenState] = useState<AppSettings>(useAppSettings);
-
-    function updateSettingScreenState(updatedSettings: AppSettings): void{
-        setSettingsScreenState(updatedSettings);
-    }
 
     const labels = {
         coinCapApiKey: "Coin Cap API Key",
@@ -79,7 +71,14 @@ export function Settings(): React.ReactElement | null {
                 </Box>
                 
                 <Box extendedClass={styles.SettingsFormRow}>
-                    <ToggleButtonGroup exclusive={true}>
+                    <ToggleButtonGroup
+                        exclusive={true}
+                        value={settings.themeMode}
+                        onChange={(_, value) => {
+                            if (value === null) return;
+                            updateSettings({ themeMode: value });
+                        }}
+                    >
 
                         <ToggleButton value={"light"} contents={
                             <> 
