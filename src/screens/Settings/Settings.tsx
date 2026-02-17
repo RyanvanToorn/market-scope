@@ -15,7 +15,7 @@ import AutoModeIcon from '@mui/icons-material/AutoMode';
 
 export interface SettingsProps {}
 
-export function Settings(props: SettingsProps): React.ReactElement | null {
+export function Settings(): React.ReactElement | null {
 	const { setLayout } = useBasicLayout();
 
     useEffect(() => {
