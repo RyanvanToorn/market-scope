@@ -3,7 +3,7 @@ import styles from "./Browse.module.css";
 import { useBasicLayout } from "@layouts/BasicLayout";
 import { useEffect } from "react";
 import { Paper } from "@components/Paper/Paper";
-import { Tabs } from "@components/Tabs/Tabs";
+import { TabBrowser } from "@features/tab-browser/TabBrowser";
 
 
 
@@ -17,12 +17,20 @@ export function Browse(): React.ReactElement | null {
     }));
   }, [setLayout]);
 
+  
+
   return (
     <Box extendedClass={styles.Browse}>
-      <Paper extendedClass={styles.BrowsePaper} sx={{
-            borderRadius: "0rem",
-        }}>
-        <Tabs />
+      <Paper
+        extendedClass={styles.BrowsePaper}
+        sx={{
+          p: { xs: 2, sm: 3, md: 4 },
+          bgcolor: "background.default",
+          borderRadius: "0rem",
+        }}
+      >
+        <TabBrowser/>
+        
       </Paper>
     </Box>
   );
