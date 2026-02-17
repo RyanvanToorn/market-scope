@@ -1,10 +1,11 @@
 import { Box } from "@components/Box/Box";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
-import { Tab } from "@components/Tabs/Tab";
+import { Tab, type TabProps } from "@components/Tabs/Tab";
 import { Tabs } from "@components/Tabs/Tabs";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { type ReactNode, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import { type ReactNode, useMemo, useState } from "react";
 import styles from "./TabBrowser.module.css";
 
 type TabPanelProps = {
@@ -16,59 +17,138 @@ type TabPanelProps = {
 function TabPanel({ current, value, children }: TabPanelProps) {
 	const isSelected = current === value;
 
+	if (!isSelected) {
+		return null;
+	}
+
 	return (
-		<Box isVisible={isSelected} aria-labelledby={`tab-${value}`}>
-			{isSelected ? children : null}
+		<Box id={`tabpanel-${value}`} aria-labelledby={`tab-${value}`}>
+			<Box>{children}</Box>
 		</Box>
 	);
 }
 
-export function TabBrowser(): React.ReactElement | null {
-	const tabSx = {};
-	const tabsSx = {};
+type TabHeaderProps = TabProps & {
+	onClose: (tabToClose: number) => void;
+};
 
-	const [currentTabNumber, setCurrentTabNumber] = useState<number>(1);
+function TabHeader({ onClose, value, ...tabProps }: TabHeaderProps): React.ReactElement {
+	return (
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "row",
+				alignItems: "center",
+			}}
+		>
+			<Tab value={value} {...tabProps} />
+			<Button children={<Icon icon={CloseIcon} />} onClick={() => onClose(Number(value))} sx={{
+                p:0,
+                minWidth: "1rem"
+            }}/>
+		</Box>
+	);
+}
+
+type TabDefinition = {
+	value: number;
+	label: string;
+	content: ReactNode;
+};
+
+export type TabBrowserProps = {
+	initialTabs?: TabDefinition[];
+};
+
+const tabSx = {};
+const tabsSx = {};
+
+const defaultTabs: TabDefinition[] = [
+	{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> },
+];
+
+export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
+	const initialTabs = useMemo(() => props.initialTabs ?? defaultTabs, [props.initialTabs]);
+
+	const [tabs, setTabs] = useState<TabDefinition[]>(initialTabs);
+	const [currentTabNumber, setCurrentTabNumber] = useState<number>(tabs[0]?.value ?? 1);
 
 	function setCurrentTab(_event: React.SyntheticEvent, newValue: number): void {
 		setCurrentTabNumber(newValue);
 	}
 
 	function addTab() {
-		console.log("Tab Added");
+		setTabs((previousTabs) => {
+			const maxValue = previousTabs.reduce((max, tab) => Math.max(max, tab.value), 0);
+			const nextValue = maxValue + 1;
+			const nextTab: TabDefinition = {
+				value: nextValue,
+				label: `Tab ${nextValue}`,
+				content: <Box>Content for Tab {nextValue}</Box>,
+			};
+
+			setCurrentTabNumber(nextValue);
+			return [...previousTabs, nextTab];
+		});
+	}
+
+	function closeTab(tabToClose: number) {
+		setTabs((previousTabs) => {
+			const nextTabs = previousTabs.filter((tab) => tab.value !== tabToClose);
+
+			setCurrentTabNumber((previousCurrent) => {
+				if (previousCurrent !== tabToClose) {
+					return previousCurrent;
+				}
+
+				return nextTabs[0]?.value ?? 1;
+			});
+
+			return nextTabs;
+		});
 	}
 
 	return (
 		<Box
 			sx={{
-				display: "flex",
-				flexDirection: "row",
+				width:"100%",
+                height:"100%",
 			}}
 		>
-			<Tabs value={currentTabNumber} extendedClass={styles.Tabs} sx={tabsSx} onChange={setCurrentTab}>
-				<Tab value={1} label="Tab 1" extendedClass={styles.Tab} sx={tabSx} />
-				<Tab value={2} label="Tab 2" extendedClass={styles.Tab} sx={tabSx} />
-				<Tab value={3} label="Tab 3" extendedClass={styles.Tab} sx={tabSx} />
-				<Tab value={4} label="Tab 4" extendedClass={styles.Tab} sx={tabSx} />
-				<Tab value={5} label="Tab 5" extendedClass={styles.Tab} sx={tabSx} />
-			</Tabs>
-			<Button extendedClass={styles.TabAddButton} onClick={addTab} children={<Icon icon={AddCircleOutlineIcon} />} />
-
-			<Box sx={{ padding: 2 }}>
-				<TabPanel current={currentTabNumber} value={1}>
-					<Box>Content for Tab 1</Box>
-				</TabPanel>
-				<TabPanel current={currentTabNumber} value={2}>
-					<Box>Content for Tab 2</Box>
-				</TabPanel>
-				<TabPanel current={currentTabNumber} value={3}>
-					<Box>Content for Tab 3</Box>
-				</TabPanel>
-				<TabPanel current={currentTabNumber} value={4}>
-					<Box>Content for Tab 4</Box>
-				</TabPanel>
-				<TabPanel current={currentTabNumber} value={5}>
-					<Box>Content for Tab 5</Box>
-				</TabPanel>
+            <Box sx={{
+                width: "100%",
+                display: "flex",
+				flexDirection: "row",
+            }}
+            extendedClass={styles.BrowserHeader}
+            >
+			    <Tabs value={currentTabNumber} extendedClass={styles.Tabs} sx={tabsSx} onChange={setCurrentTab}>
+				{tabs.map((tab) => (
+					<TabHeader
+						key={tab.value}
+						id={`tab-${tab.value}`}
+						aria-controls={`tabpanel-${tab.value}`}
+						value={tab.value}
+						label={tab.label}
+						extendedClass={styles.Tab}
+						sx={tabSx}
+						onClose={closeTab}
+					/>
+				))}
+			    </Tabs>
+			    <Button extendedClass={styles.TabAddButton} onClick={addTab} children={<Icon icon={AddCircleOutlineIcon} />} />
+            </Box>
+			<Box extendedClass={styles.BrowserContents} sx={{ 
+                padding: 2,
+                height: "100%",
+                width: "100%",
+                backgroundColor: "var(--color-neutral-7)"
+                }} >
+				{tabs.map((tab) => (
+					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value}>
+						{tab.content}
+					</TabPanel>
+				))}
 			</Box>
 		</Box>
 	);
