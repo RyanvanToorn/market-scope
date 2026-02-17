@@ -9,6 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ScienceIcon from '@mui/icons-material/Science';
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import React from "react";
 import { Sidebar } from "@features/sidebar/sidebar";
@@ -78,9 +79,11 @@ export function BasicLayout(): React.ReactElement | null {
 
 					<Box extendedClass={styles.LinkContainer}>
 						<ScreenLink href={"dashboard"} label={"Dashboard"} icon={SpaceDashboardIcon}/>
+						<ScreenLink href={"browse"} label={"Browse"} icon={TravelExploreIcon}/>
 						<ScreenLink href={"watchlist"} label={"Watchlist"} icon={ListAltIcon}/>
 						<ScreenLink href={"settings"} label={"Settings"} icon={SettingsIcon}/>
 						<ScreenLink href={"testing"} label={"Testing"} icon={ScienceIcon}/>
+						
 					</Box>
 					<Box extendedClass={styles.AccountContainer}>
 						<Button onClick={toggleSidebar} extendedClass={styles.AccountButton}>

@@ -5,11 +5,6 @@ import { useEffect } from "react";
 import { Paper } from "@components/Paper/Paper";
 import { Typography } from "@components/Typography/Typography";
 import { useTheme } from "@mui/material/styles";
-import {theme} from "@theme/theme"
-
-export interface DashboardProps {
-  temp?: string;
-}
 
 const tiles = [
   "Equities",
@@ -22,7 +17,7 @@ const tiles = [
   "Market Overview",
 ];
 
-export function Dashboard(props: DashboardProps): React.ReactElement | null {
+export function Dashboard(): React.ReactElement | null {
   const { setLayout } = useBasicLayout();
   const theme = useTheme();
 
@@ -70,6 +65,7 @@ export function Dashboard(props: DashboardProps): React.ReactElement | null {
                 alignItems: "center",
                 justifyContent: "center",
                 bgcolor: "background.paper",
+                cursor: "pointer",
                 boxShadow: 1,
                 transition: theme.transitions.create(["transform", "box-shadow"], {
                   duration: theme.transitions.duration.short,

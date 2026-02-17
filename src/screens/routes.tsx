@@ -5,6 +5,7 @@ import { Settings } from "@screens/Settings/Settings";
 import { Watchlist } from "@screens/Watchlist/Watchlist";
 import { Testing } from "@screens/Testing/Testing";
 import { Home } from "@screens/Home/Home";
+import { Browse } from "./Browse/Browse";
 
 // Root route wraps the persistent layout
 const rootRoute = new RootRoute({
@@ -46,6 +47,13 @@ const homeRoute = new Route({
 	component: Home,
 })
 
+// Browse route
+const browseRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: "/browse",
+	component: Browse,
+})
+
 // Testing route
 const testingRoute = new Route({
 	getParentRoute: () => rootRoute,
@@ -54,7 +62,7 @@ const testingRoute = new Route({
 })
 
 // Create the route tree
-const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, testingRoute]);
+const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, browseRoute,testingRoute]);
 
 // Create and export the router
 export const router = createRouter({ routeTree });

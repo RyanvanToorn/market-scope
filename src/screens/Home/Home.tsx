@@ -4,11 +4,8 @@ import { useBasicLayout } from "@layouts/BasicLayout";
 import { useEffect } from "react";
 import { Paper } from "@components/Paper/Paper";
 
-export interface HomeProps {
-    temp?: string;
-}
 
-export function Home(props: HomeProps): React.ReactElement | null {
+export function Home(): React.ReactElement | null {
     const { setLayout } = useBasicLayout();
 
     useEffect(() => {
@@ -21,7 +18,7 @@ export function Home(props: HomeProps): React.ReactElement | null {
     return (
     <Box extendedClass={styles.Home}>
         <Paper extendedClass={styles.HomePaper}>
-            {props.temp}
+            
         </Paper>
     </Box>);
 }
