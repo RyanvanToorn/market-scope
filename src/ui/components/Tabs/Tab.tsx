@@ -6,6 +6,9 @@ export interface TabProps extends StandardComponentProps{
     value: string;
     label: string;
     disabled?: boolean;
+    icon?: React.ReactElement;
+    iconPosition?: "bottom" | "end" | "start" | "top";
+    wrapped?: boolean;
 }
 
 export function Tab(props: TabProps): React.ReactElement | null {
@@ -15,6 +18,7 @@ export function Tab(props: TabProps): React.ReactElement | null {
     }
 
     return (
-        <MUITab value={props.value} label={props.label} disabled={props.disabled} className={`${styles.Tab} ${props.extendedClass? props.extendedClass : ''}`}/>
+        <MUITab value={props.value} label={props.label} disabled={props.disabled} className={`${styles.Tab} ${props.extendedClass? props.extendedClass : ''}`}
+        icon={props.icon} iconPosition={props.iconPosition} wrapped={props.wrapped}/>
     );
 }
