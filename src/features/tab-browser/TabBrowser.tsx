@@ -38,18 +38,29 @@ function TabHeader({ onClose, value, ...tabProps }: TabHeaderProps): React.React
 			sx={{
 				display: "flex",
 				flexDirection: "row",
-                justifyContent: "space-between",
+				justifyContent: "space-between",
 				alignItems: "center",
-                flex:"1",
+				flex: "1",
+				maxWidth: "20rem",
+				minWidth: "10rem",
 			}}
 		>
-			<Tab value={value} {...tabProps} sx={{
-                flex: "1",
-            }}/>
-			<Button children={<Icon icon={CloseIcon} />} onClick={() => onClose(Number(value))} sx={{
-                p:"0.5rem",
-                minWidth: "1rem"
-            }}/>
+			<Tab
+				value={value}
+				{...tabProps}
+				sx={{
+					flex: "1",
+				}}
+			/>
+			<Button
+				onClick={() => onClose(Number(value))}
+				sx={{
+					p: "0.5rem",
+					minWidth: "1rem",
+				}}
+			>
+				<Icon icon={CloseIcon} />
+			</Button>
 		</Box>
 	);
 }
@@ -64,14 +75,11 @@ export type TabBrowserProps = {
 	initialTabs?: TabDefinition[];
 };
 
-
 const tabsSx = {
-    flex:"1",
+	flex: "1",
 };
 
-const defaultTabs: TabDefinition[] = [
-	{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> },
-];
+const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> }];
 
 export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 	const initialTabs = useMemo(() => props.initialTabs ?? defaultTabs, [props.initialTabs]);
@@ -117,38 +125,44 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 	return (
 		<Box
 			sx={{
-				width:"100%",
-                height:"100%",
+				width: "100%",
+				height: "100%",
 			}}
 		>
-            <Box sx={{
-                width: "100%",
-                display: "flex",
-				flexDirection: "row",
-            }}
-            extendedClass={styles.BrowserHeader}
-            >
-			    <Tabs value={currentTabNumber} extendedClass={styles.Tabs} sx={tabsSx} onChange={setCurrentTab}>
-				{tabs.map((tab) => (
-					<TabHeader
-						key={tab.value}
-						id={`tab-${tab.value}`}
-						aria-controls={`tabpanel-${tab.value}`}
-						value={tab.value}
-						label={tab.label}
-						extendedClass={styles.Tab}
-						onClose={closeTab}
-					/>
-				))}
-			    </Tabs>
-			    <Button extendedClass={styles.TabAddButton} onClick={addTab} children={<Icon icon={AddCircleOutlineIcon} />} />
-            </Box>
-			<Box extendedClass={styles.BrowserContents} sx={{ 
-                padding: 2,
-                height: "100%",
-                width: "100%",
-                backgroundColor: "var(--color-neutral-7)"
-                }} >
+			<Box
+				sx={{
+					width: "100%",
+					display: "flex",
+					flexDirection: "row",
+				}}
+				extendedClass={styles.BrowserHeader}
+			>
+				<Tabs value={currentTabNumber} extendedClass={styles.Tabs} sx={tabsSx} onChange={setCurrentTab}>
+					{tabs.map((tab) => (
+						<TabHeader
+							key={tab.value}
+							id={`tab-${tab.value}`}
+							aria-controls={`tabpanel-${tab.value}`}
+							value={tab.value}
+							label={tab.label}
+							extendedClass={styles.Tab}
+							onClose={closeTab}
+						/>
+					))}
+				</Tabs>
+				<Button extendedClass={styles.TabAddButton} onClick={addTab}>
+					<Icon icon={AddCircleOutlineIcon} />
+				</Button>
+			</Box>
+			<Box
+				extendedClass={styles.BrowserContents}
+				sx={{
+					padding: 2,
+					height: "100%",
+					width: "100%",
+					backgroundColor: "var(--color-neutral-7)",
+				}}
+			>
 				{tabs.map((tab) => (
 					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value}>
 						{tab.content}
