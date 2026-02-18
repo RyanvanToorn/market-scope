@@ -29,7 +29,7 @@ export function Settings(): React.ReactElement | null {
 		coinCapApiKey: "Coin Cap API Key",
 		alphaVantageApiKey: "Alpha Vantage API Key",
 		themePreference: "Theme Preference",
-		apiKeys: "API Keys",
+		integrations: "Integrations",
 		light: "Light",
 		dark: "Dark",
 		system: "System",
@@ -40,12 +40,19 @@ export function Settings(): React.ReactElement | null {
 		fontFamily: "'Fjalla One', sans-serif",
 	};
 
+	const settingRowSx = {
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+	};
+
 	return (
 		<Box extendedClass={styles.Settings}>
 			<Paper
 				extendedClass={styles.SettingsPaper}
 				sx={{
 					borderRadius: "0rem",
+					backgroundColor: "background.paper",
 				}}
 			>
 				<form className={styles.SettingsForm}>
@@ -56,15 +63,41 @@ export function Settings(): React.ReactElement | null {
 					<Divider orientation="horizontal" variant="fullWidth" flexItem />
 
 					<Box extendedClass={styles.SettingsSubHeading}>
-						<Typography text={labels.apiKeys} variant="h5" sx={fontSx} />
+						<Typography text={labels.integrations} variant="h5" sx={fontSx} />
 					</Box>
 
-					<Box extendedClass={styles.SettingsFormRow}>
-						<TextField extendedClass={styles.SettingsTextField} label={labels.alphaVantageApiKey} />
+					<Box extendedClass={styles.SettingsFormRow} sx={settingRowSx}>
+						<TextField
+							extendedClass={styles.SettingsTextField}
+							label={labels.alphaVantageApiKey}
+							value={settings.apiKeys.alphaVantageKey ?? ""}
+							onChange={(event: any) => {
+								const value = event.target.value as string;
+								updateSettings({
+									apiKeys: {
+										...settings.apiKeys,
+										alphaVantageKey: value,
+									},
+								});
+							}}
+						/>
 					</Box>
 
-					<Box extendedClass={styles.SettingsFormRow}>
-						<TextField extendedClass={styles.SettingsTextField} label={labels.coinCapApiKey} />
+					<Box extendedClass={styles.SettingsFormRow} sx={settingRowSx}>
+						<TextField
+							extendedClass={styles.SettingsTextField}
+							label={labels.coinCapApiKey}
+							value={settings.apiKeys.coinCapKey ?? ""}
+							onChange={(event: any) => {
+								const value = event.target.value as string;
+								updateSettings({
+									apiKeys: {
+										...settings.apiKeys,
+										coinCapKey: value,
+									},
+								});
+							}}
+						/>
 					</Box>
 
 					<Divider orientation="horizontal" variant="fullWidth" flexItem />
