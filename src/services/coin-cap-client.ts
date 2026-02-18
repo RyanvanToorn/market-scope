@@ -1,7 +1,5 @@
 /* NEED TO ADD ACREDITATION/REQUIRED ACKNOWLEDGEMENT !!!!!!!!!*/
 
-import { useAppSettings } from "@context/AppSettingsContext";
-
 /* ============= Price Response Types ============= */
 
 export interface PriceBySymbolResponse {
@@ -212,7 +210,11 @@ export interface Listing {
 
 export class CoinCapClient {
 	private baseUrl: string = "https://rest.coincap.io/v3";
-	private apiKey = useAppSettings().settings.apiKeys.coinCapKey;
+	private apiKey: string;
+
+	constructor(apiKey: string) {
+		this.apiKey = apiKey;
+	}
 
 	private async fetchWithAuth(url: string): Promise<Response> {
 		return fetch(url, {
