@@ -3,7 +3,7 @@ import { type AutocompleteRenderInputParams, Autocomplete as MUIAutocomplete } f
 import type { AutocompleteProps as MUIAutocompleteProps } from "@mui/material/Autocomplete";
 import styles from "./Autocomplete.module.css";
 
-export type AutoCompleteProps<
+export type AutocompleteProps<
 	TOption,
 	Multiple extends boolean | undefined = false,
 	DisableClearable extends boolean | undefined = false,
@@ -13,12 +13,12 @@ export type AutoCompleteProps<
 		renderInput: (params: AutocompleteRenderInputParams) => React.ReactNode;
 	};
 
-export function AutoComplete<
+export function Autocomplete<
 	TOption,
 	Multiple extends boolean | undefined = false,
 	DisableClearable extends boolean | undefined = false,
 	FreeSolo extends boolean | undefined = false,
->(props: AutoCompleteProps<TOption, Multiple, DisableClearable, FreeSolo>): React.ReactElement | null {
+>(props: AutocompleteProps<TOption, Multiple, DisableClearable, FreeSolo>): React.ReactElement | null {
 	if (props.isVisible === false) {
 		return null;
 	}
