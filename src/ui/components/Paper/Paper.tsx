@@ -4,6 +4,7 @@ import styles from "./Paper.module.css";
 
 export interface PaperProps extends StandardComponentProps {
 	children?: React.ReactNode;
+	onClick?: () => void;
 }
 
 export function Paper(props: PaperProps): React.ReactElement | null {
@@ -12,7 +13,7 @@ export function Paper(props: PaperProps): React.ReactElement | null {
 	}
 
 	return (
-		<MUIPaper id={props.id} className={`${styles.Paper} ${props.extendedClass ?? ""}`} sx={props.sx}>
+		<MUIPaper id={props.id} className={`${styles.Paper} ${props.extendedClass ?? ""}`} sx={props.sx} onClick={props.onClick}>
 			{props.children}
 		</MUIPaper>
 	);

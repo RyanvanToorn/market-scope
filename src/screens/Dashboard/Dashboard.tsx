@@ -3,14 +3,32 @@ import { Paper } from "@components/Paper/Paper";
 import { Typography } from "@components/Typography/Typography";
 import { useBasicLayout } from "@layouts/BasicLayout";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import styles from "./Dashboard.module.css";
 
-const tiles = ["Equities", "ETFs", "Indices", "Commodities", "Crypto", "Currencies", "Bonds", "Market Overview"];
+//const tiles = ["Equities", "ETFs", "Indices", "Commodities", "Crypto", "Currencies", "Bonds", "Market Overview"];
+
+interface Tile {
+	label: string;
+	href: string;
+}
+
+const tiles: Tile[] = [
+	{ label: "Equities", href: "equities" },
+	{ label: "ETFs", href: "etfs" },
+	{ label: "Indices", href: "indices" },
+	{ label: "Commodities", href: "commodities" },
+	{ label: "Crypto", href: "crypto" },
+	{ label: "Currencies", href: "currencies" },
+	{ label: "Bonds", href: "bonds" },
+	{ label: "Market Overview", href: "marketoverview" },
+];
 
 export function Dashboard(): React.ReactElement | null {
 	const { setLayout } = useBasicLayout();
 	const theme = useTheme();
+	const navigate = useNavigate();
 
 	const tileBorderRadius = typeof theme.shape.borderRadius === "number" ? theme.shape.borderRadius * 2 : `calc(${theme.shape.borderRadius} * 2)`;
 
@@ -20,6 +38,10 @@ export function Dashboard(): React.ReactElement | null {
 			title: "Dashboard",
 		}));
 	}, [setLayout]);
+
+	const handleTileClick = (href: string) => {
+		navigate({ to: "/browse", search: { market: href } });
+	};
 
 	return (
 		<Box extendedClass={styles.Dashboard}>
@@ -43,9 +65,10 @@ export function Dashboard(): React.ReactElement | null {
 						gap: { xs: 2, sm: 2.5, md: 3 }, // theme spacing scale
 					}}
 				>
-					{tiles.map((label) => (
+					{tiles.map((tile) => (
 						<Paper
-							key={label}
+							key={tile.label}
+							onClick={() => handleTileClick(tile.href)}
 							sx={{
 								borderRadius: tileBorderRadius,
 								minHeight: 140,
@@ -65,7 +88,7 @@ export function Dashboard(): React.ReactElement | null {
 							}}
 						>
 							<Typography
-								text={label}
+								text={tile.label}
 								sx={{
 									fontFamily: theme.typography.fontFamily,
 									fontSize: { xs: "1.5rem", md: "2rem" },

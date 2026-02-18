@@ -52,6 +52,11 @@ const browseRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: "/browse",
 	component: Browse,
+	validateSearch: (search: Record<string, unknown>) => {
+		const market = typeof search.market === "string" ? search.market : undefined;
+
+		return { market };
+	},
 });
 
 // Testing route
