@@ -1,5 +1,7 @@
 import { Box } from "@components/Box/Box";
 import { Paper } from "@components/Paper/Paper";
+import { Typography } from "@components/Typography/Typography";
+import { MarketSearch } from "@features/market-search/MarketSearch";
 import { useBasicLayout } from "@layouts/BasicLayout";
 import { useEffect } from "react";
 import styles from "./Home.module.css";
@@ -21,7 +23,10 @@ export function Home(): React.ReactElement | null {
 				sx={{
 					borderRadius: "0rem",
 				}}
-			></Paper>
+			>
+				<Typography text="CoinCap Credit" sx={{ color: "brand.warning" }} />
+				<MarketSearch />
+			</Paper>
 		</Box>
 	);
 }
