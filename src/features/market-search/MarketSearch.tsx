@@ -54,6 +54,8 @@ const MOCK_LISTINGS: Listing[] = [
 	},
 ];
 
+interface MarketSearchProps {}
+
 export function MarketSearch(): React.ReactElement | null {
 	const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
 	const [inputValue, setInputValue] = useState("");

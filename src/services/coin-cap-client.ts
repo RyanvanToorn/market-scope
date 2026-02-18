@@ -267,9 +267,11 @@ export class CoinCapClient {
 
 	/* Assets */
 
-	public async getAssets(): Promise<AssetsResponse | Error> {
+	public async getAssets(limit: number = 2000): Promise<AssetsResponse | Error> {
 		try {
-			const response = await this.fetchWithAuth(`${this.baseUrl}/assets`);
+			const url = new URL(`${this.baseUrl}/assets`);
+			url.searchParams.append("limit", limit.toString());
+			const response = await this.fetchWithAuth(url.toString());
 
 			if (!response.ok) {
 				throw new Error(`getAssets - HTTP error! Status: ${response.status}`);
