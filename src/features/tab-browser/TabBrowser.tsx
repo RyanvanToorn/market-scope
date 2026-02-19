@@ -128,6 +128,8 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 			sx={{
 				width: "100%",
 				height: "100%",
+				display: "flex",
+				flexDirection: "column",
 			}}
 		>
 			<Box
@@ -159,15 +161,20 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 				extendedClass={styles.BrowserContents}
 				sx={{
 					padding: 2,
-					height: "100%",
 					width: "100%",
+					height: "100%",
+					boxSizing: "border-box",
 					backgroundColor: "var(--color-neutral-7)",
 				}}
 			>
 				{tabs.map((tab) => (
 					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value}>
-						<MarketSearch />
-						{tab.content}
+						<Box>
+							<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
+								<MarketSearch />
+							</Box>
+							{tab.content}
+						</Box>
 					</TabPanel>
 				))}
 			</Box>
