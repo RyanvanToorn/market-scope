@@ -3,6 +3,7 @@ import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import { Tab, type TabProps } from "@components/Tabs/Tab";
 import { Tabs } from "@components/Tabs/Tabs";
+import { MarketSearch } from "@features/market-search/MarketSearch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { type ReactNode, useMemo, useState } from "react";
@@ -165,6 +166,7 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 			>
 				{tabs.map((tab) => (
 					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value}>
+						<MarketSearch />
 						{tab.content}
 					</TabPanel>
 				))}
