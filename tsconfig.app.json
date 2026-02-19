@@ -22,7 +22,8 @@
 			"@utils/*": ["src/utils/*"],
 			"@screens/*": ["src/screens/*"],
 			"@theme/*": ["src/ui/theme/*"],
-			"@context/*": ["src/context/*"]
+			"@context/*": ["src/context/*"],
+			"@query/*": ["src/query/*"]
 		},
 
 		/* CSS Module type declarations */

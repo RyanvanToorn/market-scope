@@ -19,6 +19,7 @@ export default defineConfig({
 			"@screens": path.resolve(__dirname, "./src/screens"),
 			"@theme": path.resolve(__dirname, "./src/ui/theme"),
 			"@context": path.resolve(__dirname, "./src/context"),
+			"@query": path.resolve(__dirname, "./src/query"),
 		},
 	},
 });
