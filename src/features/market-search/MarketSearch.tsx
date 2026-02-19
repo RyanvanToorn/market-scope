@@ -2,68 +2,48 @@ import { Autocomplete } from "@components/Autocomplete/Autocomplete";
 import { Box } from "@components/Box/Box";
 import { TextField } from "@components/TextField/TextField";
 import type { Listing } from "@interfaces/Listing";
+import { useAssetsQuery, useListingsQuery } from "@query/cached-api-controller-methods";
+import type { Asset } from "@services/coin-cap-client";
 import { useState } from "react";
 import styles from "./MarketSearch.styles.module.css";
 
-// Mock data - TODO: Replace with API calls
-const MOCK_LISTINGS: Listing[] = [
-	{
-		symbol: "AAPL",
-		name: "Apple Inc.",
-		exchange: "NASDAQ",
-		assetType: "Equities",
-		ipoDate: new Date("1980-12-12"),
-		delistingDate: null,
-		status: "Active",
-	},
-	{
-		symbol: "GOOGL",
-		name: "Alphabet Inc.",
-		exchange: "NASDAQ",
-		assetType: "Equities",
-		ipoDate: new Date("2004-08-19"),
-		delistingDate: null,
-		status: "Active",
-	},
-	{
-		symbol: "MSFT",
-		name: "Microsoft Corporation",
-		exchange: "NASDAQ",
-		assetType: "Equities",
-		ipoDate: new Date("1986-03-13"),
-		delistingDate: null,
-		status: "Active",
-	},
-	{
-		symbol: "TSLA",
-		name: "Tesla Inc.",
-		exchange: "NASDAQ",
-		assetType: "Equities",
-		ipoDate: new Date("2010-06-29"),
-		delistingDate: null,
-		status: "Active",
-	},
-	{
-		symbol: "META",
-		name: "Meta Platforms Inc.",
-		exchange: "NASDAQ",
-		assetType: "Equities",
-		ipoDate: new Date("2012-05-18"),
-		delistingDate: null,
-		status: "Active",
-	},
-];
+type MarketSearchProps = {
+	mode: "crypto" | "stock" | "other";
+};
 
-type MarketSearchProps = {};
-
-export function MarketSearch(): React.ReactElement | null {
-	const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
+export function MarketSearch(props: MarketSearchProps): React.ReactElement | null {
+	const [selectedListing, setSelectedListing] = useState<Listing | Asset | null>(null);
 	const [inputValue, setInputValue] = useState("");
+	const [shouldFetch, setShouldFetch] = useState(false);
+
+	const assetsQuery = useAssetsQuery({ enabled: props.mode === "crypto" && shouldFetch });
+	const listingsQuery = useListingsQuery({ enabled: props.mode === "stock" && shouldFetch });
+
+	const isLoading = props.mode === "crypto" ? assetsQuery.isFetching : props.mode === "stock" ? listingsQuery.isFetching : false;
+
+	let listings: Listing[] | Asset[];
+	switch (props.mode) {
+		case "crypto": {
+			// CoinCap assets are a different shape than `Listing`; keep empty until mapped.
+			listings = assetsQuery.data?.data ?? [];
+			break;
+		}
+		case "stock": {
+			listings = listingsQuery.data ?? [];
+			break;
+		}
+		default: {
+			listings = [];
+			break;
+		}
+	}
 
 	return (
 		<Box extendedClass={styles.MarketSearch}>
-			<Autocomplete<Listing>
-				options={MOCK_LISTINGS}
+			<Autocomplete<Listing | Asset>
+				options={listings}
+				loading={isLoading}
+				onOpen={() => setShouldFetch(true)}
 				value={selectedListing}
 				onChange={(_, newValue) => {
 					setSelectedListing(newValue);
@@ -71,6 +51,9 @@ export function MarketSearch(): React.ReactElement | null {
 				inputValue={inputValue}
 				onInputChange={(_, newInputValue) => {
 					setInputValue(newInputValue);
+					if (newInputValue.trim().length > 0) {
+						setShouldFetch(true);
+					}
 				}}
 				getOptionLabel={(option) => `${option.symbol} - ${option.name}`}
 				isOptionEqualToValue={(option, value) => option.symbol === value.symbol}

@@ -1,22 +1,29 @@
 import { useAPIController } from "@context/APIControllerContext";
 import { useQuery } from "@tanstack/react-query";
 
-export function useListingsQuery() {
+type CachedQueryOptions = {
+	enabled?: boolean;
+	staleTime?: number;
+};
+
+export function useListingsQuery(options: CachedQueryOptions = {}) {
 	const api = useAPIController();
 
 	return useQuery({
 		queryKey: ["listings"],
 		queryFn: () => api.getAllSymbols(),
-		staleTime: 5 * 60 * 1000,
+		enabled: options.enabled ?? true,
+		staleTime: options.staleTime ?? 24 * 60 * 1000,
 	});
 }
 
-export function useAssetsQuery() {
+export function useAssetsQuery(options: CachedQueryOptions = {}) {
 	const api = useAPIController();
 
 	return useQuery({
 		queryKey: ["assets"],
-		queryFn: () => api.getAssets(), // adjust to your real signature
-		staleTime: 5 * 60 * 1000,
+		queryFn: () => api.getAssets(),
+		enabled: options.enabled ?? true,
+		staleTime: options.staleTime ?? 24 * 60 * 1000,
 	});
 }
