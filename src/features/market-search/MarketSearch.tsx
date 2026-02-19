@@ -3,7 +3,6 @@ import { Box } from "@components/Box/Box";
 import { MenuItem } from "@components/MenuItem/MenuItem";
 import { Select } from "@components/Select/Select";
 import { TextField } from "@components/TextField/TextField";
-import { Typography } from "@components/Typography/Typography";
 import type { Listing } from "@interfaces/Listing";
 import { useAssetsQuery, useListingsQuery } from "@query/cached-api-controller-methods";
 import type { Asset } from "@services/coin-cap-client";
@@ -22,21 +21,41 @@ export function MarketSearch({ startingMode = "Currencies" }: MarketSearchProps)
 	const [shouldFetch, setShouldFetch] = useState(false);
 
 	const assetsQuery = useAssetsQuery({ enabled: currentAssetTypeFilter === "Crypto" && shouldFetch });
-	const listingsQuery = useListingsQuery({ enabled: currentAssetTypeFilter === "Equities" && shouldFetch });
+	const listingsQuery = useListingsQuery({ enabled: (currentAssetTypeFilter === "Equities" || currentAssetTypeFilter === "ETFs") && shouldFetch });
 
 	const isLoading =
-		currentAssetTypeFilter === "Crypto" ? assetsQuery.isFetching : currentAssetTypeFilter === "Equities" ? listingsQuery.isFetching : false;
+		currentAssetTypeFilter === "Crypto"
+			? assetsQuery.isFetching
+			: currentAssetTypeFilter === "Equities" || currentAssetTypeFilter === "ETFs"
+				? listingsQuery.isFetching
+				: false;
 
 	let listings: Listing[] | Asset[];
 
 	switch (currentAssetTypeFilter) {
 		case "Crypto": {
-			// CoinCap assets are a different shape than `Listing`; keep empty until mapped.
 			listings = assetsQuery.data?.data ?? [];
+			console.log("Listings Crypto: ", listings);
 			break;
 		}
 		case "Equities": {
-			listings = listingsQuery.data ?? [];
+			if (listingsQuery.data) {
+				listings = listingsQuery.data.filter((l) => l.assetType === "Stock" && l.status === "Active");
+				console.log("Listings Equities: ", listings);
+			} else {
+				listings = [];
+			}
+
+			break;
+		}
+		case "ETFs": {
+			if (listingsQuery.data) {
+				listings = listingsQuery.data.filter((l) => l.assetType === "ETF" && l.status === "Active");
+				console.log("Listings ETFs: ", listings);
+			} else {
+				listings = [];
+			}
+
 			break;
 		}
 		default: {
@@ -44,6 +63,7 @@ export function MarketSearch({ startingMode = "Currencies" }: MarketSearchProps)
 			break;
 		}
 	}
+	console.log("Listings test");
 
 	return (
 		<Box extendedClass={styles.MarketSearch}>
@@ -93,12 +113,15 @@ function MarketFilter({ value, onChange }: MarketFilterProps): React.ReactElemen
 		<Box extendedClass={styles.MarketFilter}>
 			<Select<AssetType>
 				value={value}
+				fullWidth={true}
 				onChange={(event) => {
 					onChange(event.target.value as AssetType);
 				}}
 			>
 				{filterOptions.map((t) => (
-					<MenuItem key={t} value={t} contents={t} />
+					<MenuItem key={t} value={t}>
+						{t}
+					</MenuItem>
 				))}
 			</Select>
 		</Box>
