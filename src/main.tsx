@@ -4,15 +4,18 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./app.css";
-import { AppSettingsProvider } from "@context/AppSettingsContext";
 import { AppThemeProvider } from "@theme/AppThemeProvider";
+import { APIControllerProvider } from "@context/APIControllerProvider";
+import { AppSettingsProvider } from "@context/AppSettingsProvider";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<AppSettingsProvider>
-			<AppThemeProvider>
-				<RouterProvider router={router} />
-			</AppThemeProvider>
+			<APIControllerProvider>
+				<AppThemeProvider>
+					<RouterProvider router={router} />
+				</AppThemeProvider>
+			</APIControllerProvider>
 		</AppSettingsProvider>
 	</StrictMode>,
 );
