@@ -7,13 +7,12 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import styles from "./Dashboard.module.css";
 
-//const tiles = ["Equities", "ETFs", "Indices", "Commodities", "Crypto", "Currencies", "Bonds", "Market Overview"];
-
 interface Tile {
 	label: string;
 	href: string;
 }
 
+// Keep parity with AssetType in src/types/asset-type
 const tiles: Tile[] = [
 	{ label: "Equities", href: "equities" },
 	{ label: "ETFs", href: "etfs" },
