@@ -81,7 +81,6 @@ export function BasicLayout(): React.ReactElement | null {
 							<ScreenLink href={"browse"} label={"Browse"} icon={TravelExploreIcon} />
 							<ScreenLink href={"watchlist"} label={"Watchlist"} icon={ListAltIcon} />
 							<ScreenLink href={"settings"} label={"Settings"} icon={SettingsIcon} />
-							<ScreenLink href={"testing"} label={"Testing"} icon={ScienceIcon} />
 						</Box>
 						<Box extendedClass={styles.AccountContainer}>
 							<Button onClick={toggleSidebar} extendedClass={styles.AccountButton}>

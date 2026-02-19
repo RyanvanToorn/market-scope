@@ -2,7 +2,6 @@ import { BasicLayout } from "@layouts/BasicLayout";
 import { Dashboard } from "@screens/Dashboard/Dashboard";
 import { Home } from "@screens/Home/Home";
 import { Settings } from "@screens/Settings/Settings";
-import { Testing } from "@screens/Testing/Testing";
 import { Watchlist } from "@screens/Watchlist/Watchlist";
 import { createRouter, RootRoute, Route, redirect } from "@tanstack/react-router";
 import { Browse } from "./Browse/Browse";
@@ -59,15 +58,8 @@ const browseRoute = new Route({
 	},
 });
 
-// Testing route
-const testingRoute = new Route({
-	getParentRoute: () => rootRoute,
-	path: "/testing",
-	component: Testing,
-});
-
 // Create the route tree
-const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, browseRoute, testingRoute]);
+const routeTree = rootRoute.addChildren([dashboardRoute, settingsRoute, watchlistRoute, homeRoute, browseRoute]);
 
 // Create and export the router
 export const router = createRouter({ routeTree });
