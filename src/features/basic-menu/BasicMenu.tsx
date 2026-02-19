@@ -2,7 +2,7 @@ import { Box } from "@components/Box/Box";
 import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import { Menu } from "@components/Menu/Menu";
-import { MenuItem } from "@components/Menu/MenuItem";
+import { MenuItem } from "@components/MenuItem/MenuItem";
 import { Typography } from "@components/Typography/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import type { SvgIconProps } from "@mui/material/SvgIcon";

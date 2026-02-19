@@ -1,6 +1,7 @@
 import { Autocomplete } from "@components/Autocomplete/Autocomplete";
 import { Box } from "@components/Box/Box";
-import { Button } from "@components/Button/Button";
+import { MenuItem } from "@components/MenuItem/MenuItem";
+import { Select } from "@components/Select/Select";
 import { TextField } from "@components/TextField/TextField";
 import { Typography } from "@components/Typography/Typography";
 import type { Listing } from "@interfaces/Listing";
@@ -46,24 +47,7 @@ export function MarketSearch({ startingMode = "Currencies" }: MarketSearchProps)
 
 	return (
 		<Box extendedClass={styles.MarketSearch}>
-			<Box
-				sx={{
-					width: "100%",
-					minHeight: "3rem",
-					backgroundColor: "white",
-					display: "flex",
-					flexDirection: "row",
-				}}
-			>
-				{/* Temporary display of filter state */}
-				<Typography variant="body1" text={currentAssetTypeFilter} sx={{ color: "red" }} />
-
-				{/* Temporary test of filter state */}
-				<Button onClick={() => setCurrentAssetTypeFilter("Equities")}>Equities</Button>
-				<Button onClick={() => setCurrentAssetTypeFilter("Crypto")}>Crypto</Button>
-				<Button onClick={() => setCurrentAssetTypeFilter("Currencies")}>Currencies</Button>
-			</Box>
-
+			<MarketFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} />
 			<Autocomplete<Listing | Asset>
 				options={listings}
 				loading={isLoading}
@@ -92,6 +76,31 @@ export function MarketSearch({ startingMode = "Currencies" }: MarketSearchProps)
 				noOptionsText="No markets found"
 				loadingText="Loading..."
 			/>
+		</Box>
+	);
+}
+
+// Keep parity with AssetType in src/types/asset-type
+const filterOptions: AssetType[] = ["Equities", "ETFs", "Indices", "Commodities", "Crypto", "Currencies", "Bonds"];
+
+type MarketFilterProps = {
+	value: AssetType;
+	onChange: (value: AssetType) => void;
+};
+
+function MarketFilter({ value, onChange }: MarketFilterProps): React.ReactElement | null {
+	return (
+		<Box extendedClass={styles.MarketFilter}>
+			<Select<AssetType>
+				value={value}
+				onChange={(event) => {
+					onChange(event.target.value as AssetType);
+				}}
+			>
+				{filterOptions.map((t) => (
+					<MenuItem key={t} value={t} contents={t} />
+				))}
+			</Select>
 		</Box>
 	);
 }
