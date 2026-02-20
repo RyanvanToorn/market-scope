@@ -76,9 +76,6 @@ export type TabBrowserProps = {
 	initialTabs?: TabDefinition[];
 };
 
-const tabsSx = {
-	flex: "1",
-};
 
 const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> }];
 
@@ -116,6 +113,21 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 					return previousCurrent;
 				}
 
+				const closedIndex = previousTabs.findIndex((tab) => tab.value === tabToClose);
+				if (closedIndex === -1) {
+					return previousCurrent;
+				}
+
+				const previousTab = previousTabs[closedIndex - 1];
+				if (previousTab != null) {
+					return previousTab.value;
+				}
+
+				const nextTab = previousTabs[closedIndex + 1];
+				if (nextTab != null) {
+					return nextTab.value;
+				}
+
 				return nextTabs[0]?.value ?? 1;
 			});
 
@@ -140,7 +152,7 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 				}}
 				extendedClass={styles.BrowserHeader}
 			>
-				<Tabs value={currentTabNumber} extendedClass={styles.Tabs} sx={tabsSx} onChange={setCurrentTab}>
+				<Tabs value={currentTabNumber} extendedClass={styles.Tabs} onChange={setCurrentTab}>
 					{tabs.map((tab) => (
 						<TabHeader
 							key={tab.value}
