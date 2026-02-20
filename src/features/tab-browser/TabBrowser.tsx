@@ -3,7 +3,7 @@ import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import { Tab, type TabProps } from "@components/Tabs/Tab";
 import { Tabs } from "@components/Tabs/Tabs";
-import { MarketSearch } from "@features/market-search/MarketSearch";
+import { AssetTypeAutocomplete } from "@features/asset-type-autocomplete/AssetTypeAutocomplete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { type ReactNode, useMemo, useState } from "react";
@@ -80,8 +80,9 @@ export type TabBrowserProps = {
 	initialTabs?: TabDefinition[];
 };
 
-
-const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> , assetType: undefined, identifier: undefined}];
+const defaultTabs: TabDefinition[] = [
+	{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box>, assetType: undefined, identifier: undefined },
+];
 
 export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 	const initialTabs = useMemo(() => props.initialTabs ?? defaultTabs, [props.initialTabs]);
@@ -189,10 +190,10 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value}>
 						<Box>
 							<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-								<MarketSearch />
+								<AssetTypeAutocomplete />
 							</Box>
 							{tab.content}
-							<AssetOverview assetType={tab.assetType} identifier={tab.identifier}/>
+							<AssetOverview assetType={tab.assetType} identifier={tab.identifier} />
 						</Box>
 					</TabPanel>
 				))}
