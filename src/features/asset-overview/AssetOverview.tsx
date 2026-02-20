@@ -6,7 +6,10 @@ import type { AssetType } from "@type/asset-type";
 
 
 export interface AssetOverviewProps{
-    assetType: AssetType;
+    /** The asset's type */
+    assetType: AssetType | undefined;
+    /** The asset's unique identifier @example symbol value or coin name */
+    identifier: string | undefined;
 }
 
 
@@ -52,6 +55,11 @@ function OverviewBonds(): React.ReactElement | null{
 
 
 export function AssetOverview(props: AssetOverviewProps): React.ReactElement | null{
+
+    if (props.assetType === undefined){
+        return null;
+    }
+
     return (
         <Box extendedClass={styles.AssetOverview}>
             {overviewMap[props.assetType]}

@@ -8,6 +8,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { type ReactNode, useMemo, useState } from "react";
 import styles from "./TabBrowser.module.css";
+import type { AssetType } from "@type/asset-type";
+import { AssetOverview } from "@features/asset-overview/AssetOverview";
 
 type TabPanelProps = {
 	current: number;
@@ -70,6 +72,8 @@ type TabDefinition = {
 	value: number;
 	label: string;
 	content: ReactNode;
+	assetType: AssetType | undefined;
+	identifier: string | undefined;
 };
 
 export type TabBrowserProps = {
@@ -77,7 +81,7 @@ export type TabBrowserProps = {
 };
 
 
-const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> }];
+const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", content: <Box>Content for Tab 1</Box> , assetType: undefined, identifier: undefined}];
 
 export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 	const initialTabs = useMemo(() => props.initialTabs ?? defaultTabs, [props.initialTabs]);
@@ -97,6 +101,8 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 				value: nextValue,
 				label: `Tab ${nextValue}`,
 				content: <Box>Content for Tab {nextValue}</Box>,
+				assetType: undefined,
+				identifier: undefined,
 			};
 
 			setCurrentTabNumber(nextValue);
@@ -186,6 +192,7 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 								<MarketSearch />
 							</Box>
 							{tab.content}
+							<AssetOverview assetType={tab.assetType} identifier={tab.identifier}/>
 						</Box>
 					</TabPanel>
 				))}
