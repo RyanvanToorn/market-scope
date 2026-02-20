@@ -66,11 +66,13 @@ export function MarketSearch({ startingMode = "Currencies" }: MarketSearchProps)
 	console.log("Listings test");
 
 	return (
-		<Box extendedClass={styles.MarketSearch}>
-			<MarketFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} />
+		<Box extendedClass={styles.MarketSearch} sx={{
+			display: "flex", flexDirection: "row", width: "100%", p: "0.5rem", alignItems: "center", justifyContent: "flex-end"
+		}}>
 			<Autocomplete<Listing | Asset>
 				options={listings}
 				loading={isLoading}
+				sx={{minWidth: "20%"}}
 				onOpen={() => setShouldFetch(true)}
 				value={selectedListing}
 				onChange={(_, newValue) => {
@@ -96,6 +98,7 @@ export function MarketSearch({ startingMode = "Currencies" }: MarketSearchProps)
 				noOptionsText="No markets found"
 				loadingText="Loading..."
 			/>
+			<MarketFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} />
 		</Box>
 	);
 }
@@ -110,7 +113,7 @@ type MarketFilterProps = {
 
 function MarketFilter({ value, onChange }: MarketFilterProps): React.ReactElement | null {
 	return (
-		<Box extendedClass={styles.MarketFilter}>
+		<Box extendedClass={styles.MarketFilter} sx={{m: "0.5rem", minWidth: "20%"}}>
 			<Select<AssetType>
 				value={value}
 				fullWidth={true}
