@@ -12,9 +12,15 @@ import styles from "./AssetTypeAutocomplete.styles.module.css";
 
 type AssetTypeAutocompleteProps = {
 	startingMode?: AssetType;
+	onAssetSelect: (asset: string) => void;
+	onAssetTypeChange?: (assetType: AssetType) => void;
 };
 
-export function AssetTypeAutocomplete({ startingMode = "Currencies" }: AssetTypeAutocompleteProps): React.ReactElement | null {
+export function AssetTypeAutocomplete({
+	startingMode = "Currencies",
+	onAssetSelect,
+	onAssetTypeChange,
+}: AssetTypeAutocompleteProps): React.ReactElement | null {
 	const [currentAssetTypeFilter, setCurrentAssetTypeFilter] = useState<AssetType>(startingMode);
 	const [selectedListing, setSelectedListing] = useState<Listing | Asset | null>(null);
 	const [inputValue, setInputValue] = useState("");
@@ -31,6 +37,13 @@ export function AssetTypeAutocomplete({ startingMode = "Currencies" }: AssetType
 				: false;
 
 	let listings: Listing[] | Asset[];
+
+	function handleListingSelect(value: Listing | Asset | null) {
+		if (value) {
+			onAssetSelect(value.symbol);
+		}
+		setSelectedListing(value);
+	}
 
 	switch (currentAssetTypeFilter) {
 		case "Crypto": {
@@ -84,7 +97,7 @@ export function AssetTypeAutocomplete({ startingMode = "Currencies" }: AssetType
 				onOpen={() => setShouldFetch(true)}
 				value={selectedListing}
 				onChange={(_, newValue) => {
-					setSelectedListing(newValue);
+					handleListingSelect(newValue);
 				}}
 				inputValue={inputValue}
 				onInputChange={(_, newInputValue) => {
@@ -106,7 +119,7 @@ export function AssetTypeAutocomplete({ startingMode = "Currencies" }: AssetType
 				noOptionsText="No markets found"
 				loadingText="Loading..."
 			/>
-			<AssetTypeFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} />
+			<AssetTypeFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} onAssetTypeChange={onAssetTypeChange} />
 		</Box>
 	);
 }
@@ -119,14 +132,20 @@ type MarketFilterProps = {
 	onChange: (value: AssetType) => void;
 };
 
-function AssetTypeFilter({ value, onChange }: MarketFilterProps): React.ReactElement | null {
+type AssetTypeFilterProps = MarketFilterProps & {
+	onAssetTypeChange?: (assetType: AssetType) => void;
+};
+
+function AssetTypeFilter({ value, onChange, onAssetTypeChange }: AssetTypeFilterProps): React.ReactElement | null {
 	return (
 		<Box extendedClass={styles.AssetTypeFilter} sx={{ m: "0.5rem", minWidth: "20%" }}>
 			<Select<AssetType>
 				value={value}
 				fullWidth={true}
 				onChange={(event) => {
-					onChange(event.target.value as AssetType);
+					const newValue = event.target.value as AssetType;
+					onChange(newValue);
+					onAssetTypeChange?.(newValue);
 				}}
 			>
 				{filterOptions.map((t) => (
