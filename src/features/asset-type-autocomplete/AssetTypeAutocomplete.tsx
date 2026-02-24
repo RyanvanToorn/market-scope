@@ -48,13 +48,13 @@ export function AssetTypeAutocomplete({
 	switch (currentAssetTypeFilter) {
 		case "Crypto": {
 			listings = assetsQuery.data?.data ?? [];
-			console.log("Listings Crypto: ", listings);
+			//console.log("Listings Crypto: ", listings);
 			break;
 		}
 		case "Equities": {
 			if (listingsQuery.data) {
 				listings = listingsQuery.data.filter((l) => l.assetType === "Stock" && l.status === "Active");
-				console.log("Listings Equities: ", listings);
+				//console.log("Listings Equities: ", listings);
 			} else {
 				listings = [];
 			}
@@ -64,7 +64,7 @@ export function AssetTypeAutocomplete({
 		case "ETFs": {
 			if (listingsQuery.data) {
 				listings = listingsQuery.data.filter((l) => l.assetType === "ETF" && l.status === "Active");
-				console.log("Listings ETFs: ", listings);
+				//console.log("Listings ETFs: ", listings);
 			} else {
 				listings = [];
 			}
@@ -76,7 +76,6 @@ export function AssetTypeAutocomplete({
 			break;
 		}
 	}
-	console.log("Listings test");
 
 	return (
 		<Box

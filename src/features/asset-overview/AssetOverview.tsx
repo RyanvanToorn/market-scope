@@ -1,68 +1,43 @@
 import { Box } from "@components/Box/Box";
-import styles from "./AssetOverview.styles.module.css"
+import { LineChart } from "@components/LineChart/LineChart";
 import type { AssetType } from "@type/asset-type";
 
 /* Parity needs to be ensured with AssetTypes from src/types/AssetTypes */
 
-
-export interface AssetOverviewProps{
-    /** The asset's type */
-    assetType: AssetType | undefined;
-    /** The asset's unique identifier @example symbol value or coin name */
-    identifier: string | undefined;
+export interface AssetOverviewProps {
+	/** The asset's type */
+	assetType: AssetType | undefined;
+	/** The asset's unique identifier @example symbol value or coin name */
+	identifier: string | undefined;
 }
 
+const AssetOverviewRootSx = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
+	flex: "1",
+};
 
-const overviewMap = {
-    "Equities" : OverviewEquities(),
-    "ETFs": OverviewETFs(),
-    "Indices":OverviewIndices(),
-    "Commodities":OverviewCommodities(),
-    "Crypto":OverviewCrypto(),
-    "Currencies":OverviewCurrencies(),
-    "Bonds": OverviewBonds(),
-}
+const TitleRowSx = {};
 
-function OverviewEquities(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewEquities} ${styles.OverviewShared}`}></Box>);
-}
+const GraphRowSx = {};
 
-function OverviewETFs(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewETFs} ${styles.OverviewShared}`}></Box>);
-}
+const DetailRowSx = {};
 
-function OverviewIndices(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewIndices} ${styles.OverviewShared}`}></Box>);
-}
+export function AssetOverview(props: AssetOverviewProps): React.ReactElement | null {
+	if (props.assetType === undefined) {
+		return null;
+	}
 
-function OverviewCommodities(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewCommodities} ${styles.OverviewShared}`}></Box>);
-}
-
-function OverviewCrypto(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewCrypto} ${styles.OverviewShared}`}></Box>);
-}
-
-function OverviewCurrencies(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewCurrencies} ${styles.OverviewShared}`}></Box>);
-}
-
-function OverviewBonds(): React.ReactElement | null{
-    return (<Box extendedClass={`${styles.OverviewBonds} ${styles.OverviewShared}`}></Box>);
-}
-
-
-
-
-export function AssetOverview(props: AssetOverviewProps): React.ReactElement | null{
-
-    if (props.assetType === undefined){
-        return null;
-    }
-
-    return (
-        <Box extendedClass={styles.AssetOverview}>
-            {overviewMap[props.assetType]}
-        </Box>
-    )
+	return (
+		<Box sx={AssetOverviewRootSx}>
+			<Box extendedClass="TitleRow" sx={TitleRowSx}></Box>
+			<Box extendedClass="GraphRow" sx={GraphRowSx}>
+				<LineChart series={[]} />
+				<LineChart series={[]} />
+				<LineChart series={[]} />
+			</Box>
+			<Box extendedClass="DetailRow" sx={DetailRowSx}></Box>
+		</Box>
+	);
 }
