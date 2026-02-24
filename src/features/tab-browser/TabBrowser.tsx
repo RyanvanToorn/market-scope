@@ -3,21 +3,23 @@ import { Button } from "@components/Button/Button";
 import { Icon } from "@components/Icon/Icon";
 import { Tab, type TabProps } from "@components/Tabs/Tab";
 import { Tabs } from "@components/Tabs/Tabs";
+import { AssetOverview } from "@features/asset-overview/AssetOverview";
 import { AssetTypeAutocomplete } from "@features/asset-type-autocomplete/AssetTypeAutocomplete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
+import type { SxProps, Theme } from "@mui/material";
+import type { AssetType } from "@type/asset-type";
 import { type ReactNode, useMemo, useState } from "react";
 import styles from "./TabBrowser.module.css";
-import type { AssetType } from "@type/asset-type";
-import { AssetOverview } from "@features/asset-overview/AssetOverview";
 
 type TabPanelProps = {
 	current: number;
 	value: number;
 	children: ReactNode;
+	sx: SxProps<Theme>;
 };
 
-function TabPanel({ current, value, children }: TabPanelProps) {
+function TabPanel({ current, value, children, sx }: TabPanelProps) {
 	const isSelected = current === value;
 
 	if (!isSelected) {
@@ -25,8 +27,8 @@ function TabPanel({ current, value, children }: TabPanelProps) {
 	}
 
 	return (
-		<Box id={`tabpanel-${value}`} aria-labelledby={`tab-${value}`}>
-			<Box>{children}</Box>
+		<Box id={`tabpanel-${value}`} aria-labelledby={`tab-${value}`} sx={sx}>
+			{children}
 		</Box>
 	);
 }
@@ -102,6 +104,8 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 		setTabs((previousTabs) =>
 			previousTabs.map((tab) => (tab.value === currentTabNumber ? { ...tab, identifier, assetType: currentAssetType } : tab)),
 		);
+
+		console.log("Tab selected - identifier: ", identifier);
 	}
 
 	function addTab() {
@@ -188,16 +192,18 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 			<Box
 				extendedClass={styles.BrowserContents}
 				sx={{
-					padding: 2,
+					padding: 1,
 					width: "100%",
 					height: "100%",
+					flex: "1",
 					boxSizing: "border-box",
 					backgroundColor: "var(--color-neutral-7)",
+					display: "flex",
 				}}
 			>
 				{tabs.map((tab) => (
-					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value}>
-						<Box>
+					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value} sx={{ display: "flex", flex: "1" }}>
+						<Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
 							<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
 								<AssetTypeAutocomplete startingMode={currentAssetType} onAssetSelect={handleAssetSelect} onAssetTypeChange={handleAssetTypeChange} />
 							</Box>
