@@ -207,7 +207,7 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 							<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
 								<AssetTypeAutocomplete startingMode={currentAssetType} onAssetSelect={handleAssetSelect} onAssetTypeChange={handleAssetTypeChange} />
 							</Box>
-							<AssetOverview assetType={tab.assetType} identifier={tab.identifier} />
+							<AssetOverview assetType={tab.assetType} symbol={tab.identifier} />
 						</Box>
 					</TabPanel>
 				))}
