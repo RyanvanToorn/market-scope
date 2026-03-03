@@ -46,8 +46,8 @@ export function useAssetsQuery(options: CachedQueryOptions = {}) {
 
 /** Fetch daily data for equities - alpha vantage */
 export function useTimeSeriesDailyQuery(options: AssetSpecificQueryOptions) {
+	console.log("Fetching time series daily data for: ", options.assetSymbol);
 	const api = useAPIController();
-
 	const key = buildQueryKey(options.assetSymbol, options.assetType, "Daily");
 
 	return useQuery({
@@ -60,8 +60,8 @@ export function useTimeSeriesDailyQuery(options: AssetSpecificQueryOptions) {
 
 /** Fetch weekly data for equities - alpha vantage */
 export function useTimeSeriesWeeklyQuery(options: AssetSpecificQueryOptions) {
+	console.log("Fetching time series weekly data for: ", options.assetSymbol);
 	const api = useAPIController();
-
 	const key = buildQueryKey(options.assetSymbol, options.assetType, "Weekly");
 
 	return useQuery({
@@ -74,8 +74,8 @@ export function useTimeSeriesWeeklyQuery(options: AssetSpecificQueryOptions) {
 
 /** Fetch monthly data for equities - alpha vantage */
 export function useTimeSeriesMonthlyQuery(options: AssetSpecificQueryOptions) {
+	console.log("Fetching time series monthly data for: ", options.assetSymbol);
 	const api = useAPIController();
-
 	const key = buildQueryKey(options.assetSymbol, options.assetType, "Monthly");
 
 	return useQuery({
