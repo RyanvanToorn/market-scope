@@ -1,5 +1,7 @@
 import { Box } from "@components/Box/Box";
+import { Divider } from "@components/Divider/Divider";
 import { LineChart } from "@components/LineChart/LineChart";
+import { Paper } from "@components/Paper/Paper";
 import { Typography } from "@components/Typography/Typography";
 import type { AssetType } from "@type/asset-type";
 
@@ -22,6 +24,8 @@ const AssetOverviewRootSx = {
 	alignItems: "center",
 	maxWidth: "100%",
 	maxHeight: "100%",
+	overflowX: "hidden",
+	overflowY: "auto",
 };
 
 const TitleRowSx = {
@@ -35,6 +39,9 @@ const TitleRowSx = {
 
 const GraphRowSx = {
 	flex: "1",
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "space-between",
 	maxHeight: "100%",
 	maxWidth: "100%",
 };
@@ -58,9 +65,17 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 				<Typography text={`${props.symbol} - ${props.name}`} />
 			</Box>
 			<Box extendedClass="GraphRow" sx={GraphRowSx}>
-				<LineChart series={[]} loading={loaders.isLoadingChart1} width={200} height={200} />
-				<LineChart series={[]} loading={loaders.isLoadingChart2} width={200} height={200} />
-				<LineChart series={[]} loading={loaders.isLoadingChart3} width={200} height={200} />
+				<Paper>
+					<LineChart series={[]} loading={loaders.isLoadingChart1} width={500} height={300} />
+				</Paper>
+
+				<Paper>
+					<LineChart series={[]} loading={loaders.isLoadingChart1} width={500} height={300} />
+				</Paper>
+
+				<Paper>
+					<LineChart series={[]} loading={loaders.isLoadingChart1} width={500} height={300} />
+				</Paper>
 			</Box>
 			<Box extendedClass="DetailRow" sx={DetailRowSx}></Box>
 		</Box>
