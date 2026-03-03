@@ -29,6 +29,7 @@ export function LineChart(props: LineChartProps): React.ReactElement | null {
 			grid={props.grid}
 			height={props.height}
 			width={props.width}
+			loading={props.loading}
 			className={`${styles.LineChart} ${props.extendedClass ? props.extendedClass : ""}`}
 		/>
 	);
