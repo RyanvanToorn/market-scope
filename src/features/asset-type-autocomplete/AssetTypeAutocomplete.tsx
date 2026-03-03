@@ -12,7 +12,7 @@ import styles from "./AssetTypeAutocomplete.styles.module.css";
 
 type AssetTypeAutocompleteProps = {
 	startingMode?: AssetType;
-	onAssetSelect: (asset: string) => void;
+	onAssetSelect: (identifier: string, name: string) => void;
 	onAssetTypeChange?: (assetType: AssetType) => void;
 };
 
@@ -40,7 +40,7 @@ export function AssetTypeAutocomplete({
 
 	function handleListingSelect(value: Listing | Asset | null) {
 		if (value) {
-			onAssetSelect(value.symbol);
+			onAssetSelect(value.symbol, value.name);
 		}
 		setSelectedListing(value);
 	}
@@ -140,6 +140,7 @@ function AssetTypeFilter({ value, onChange, onAssetTypeChange }: AssetTypeFilter
 		<Box extendedClass={styles.AssetTypeFilter} sx={{ m: "0.5rem", minWidth: "20%" }}>
 			<Select<AssetType>
 				value={value}
+				label={"Asset type"}
 				fullWidth={true}
 				onChange={(event) => {
 					const newValue = event.target.value as AssetType;
