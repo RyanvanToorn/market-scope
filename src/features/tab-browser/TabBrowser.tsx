@@ -72,16 +72,21 @@ function TabHeader({ onClose, value, ...tabProps }: TabHeaderProps): React.React
 
 type TabDefinition = {
 	value: number;
+	/** The tab's label */
 	label: string;
+	/** The asset's type or undefined */
 	assetType: AssetType | undefined;
+	/** The asset's identifier or undefined */
 	identifier: string | undefined;
+	/** The asset's name or undefined*/
+	name: string | undefined;
 };
 
 export type TabBrowserProps = {
 	initialTabs?: TabDefinition[];
 };
 
-const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", assetType: undefined, identifier: undefined }];
+const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", assetType: undefined, identifier: undefined, name: undefined }];
 
 export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 	const initialTabs = useMemo(() => props.initialTabs ?? defaultTabs, [props.initialTabs]);
@@ -100,12 +105,14 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 		setCurrentAssetType(assetType);
 	}
 
-	function handleAssetSelect(identifier: string): void {
+	function handleAssetSelect(identifier: string, name: string): void {
 		setTabs((previousTabs) =>
-			previousTabs.map((tab) => (tab.value === currentTabNumber ? { ...tab, identifier, assetType: currentAssetType } : tab)),
+			previousTabs.map((tab) =>
+				tab.value === currentTabNumber ? { ...tab, identifier, assetType: currentAssetType, label: name, name: name } : tab,
+			),
 		);
 
-		console.log("Tab selected - identifier: ", identifier);
+		console.log(`Tab selected - identifier = ${identifier} name = ${name}`);
 	}
 
 	function addTab() {
@@ -117,6 +124,7 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 				label: `Tab ${nextValue}`,
 				assetType: undefined,
 				identifier: undefined,
+				name: undefined,
 			};
 
 			setCurrentTabNumber(nextValue);
@@ -207,7 +215,7 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 							<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
 								<AssetTypeAutocomplete startingMode={currentAssetType} onAssetSelect={handleAssetSelect} onAssetTypeChange={handleAssetTypeChange} />
 							</Box>
-							<AssetOverview assetType={tab.assetType} symbol={tab.identifier} />
+							<AssetOverview assetType={tab.assetType} symbol={tab.identifier} name={tab.name} />
 						</Box>
 					</TabPanel>
 				))}
