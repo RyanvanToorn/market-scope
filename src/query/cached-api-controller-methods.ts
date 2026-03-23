@@ -46,42 +46,48 @@ export function useAssetsQuery(options: CachedQueryOptions = {}) {
 
 /** Fetch daily data for equities - alpha vantage */
 export function useTimeSeriesDailyQuery(options: AssetSpecificQueryOptions) {
-	console.log("Fetching time series daily data for: ", options.assetSymbol);
 	const api = useAPIController();
 	const key = buildQueryKey(options.assetSymbol, options.assetType, "Daily");
 
 	return useQuery({
 		queryKey: [key],
-		queryFn: () => api.getTimeSeriesDaily(options.assetSymbol),
-		enabled: options.enabled ?? true,
+		queryFn: () => {
+			console.log("Fetching time series daily data for: ", options.assetSymbol);
+			return api.getTimeSeriesDaily(options.assetSymbol);
+		},
+		enabled: (options.enabled ?? true) && !!options.assetSymbol,
 		staleTime: options.staleTime ?? defaultStateTime,
 	});
 }
 
 /** Fetch weekly data for equities - alpha vantage */
 export function useTimeSeriesWeeklyQuery(options: AssetSpecificQueryOptions) {
-	console.log("Fetching time series weekly data for: ", options.assetSymbol);
 	const api = useAPIController();
 	const key = buildQueryKey(options.assetSymbol, options.assetType, "Weekly");
 
 	return useQuery({
 		queryKey: [key],
-		queryFn: () => api.getTimeSeriesWeekly(options.assetSymbol),
-		enabled: options.enabled ?? true,
+		queryFn: () => {
+			console.log("Fetching time series weekly data for: ", options.assetSymbol);
+			return api.getTimeSeriesWeekly(options.assetSymbol);
+		},
+		enabled: (options.enabled ?? true) && !!options.assetSymbol,
 		staleTime: options.staleTime ?? defaultStateTime,
 	});
 }
 
 /** Fetch monthly data for equities - alpha vantage */
 export function useTimeSeriesMonthlyQuery(options: AssetSpecificQueryOptions) {
-	console.log("Fetching time series monthly data for: ", options.assetSymbol);
 	const api = useAPIController();
 	const key = buildQueryKey(options.assetSymbol, options.assetType, "Monthly");
 
 	return useQuery({
 		queryKey: [key],
-		queryFn: () => api.getTimeSeriesMonthly(options.assetSymbol),
-		enabled: options.enabled ?? true,
+		queryFn: () => {
+			console.log("Fetching time series monthly data for: ", options.assetSymbol);
+			return api.getTimeSeriesMonthly(options.assetSymbol);
+		},
+		enabled: (options.enabled ?? true) && !!options.assetSymbol,
 		staleTime: options.staleTime ?? defaultStateTime,
 	});
 }
