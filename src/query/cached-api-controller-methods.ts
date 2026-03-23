@@ -1,7 +1,6 @@
 import { useAPIController } from "@context/APIControllerContext";
 import { useQuery } from "@tanstack/react-query";
 import type { AssetType } from "@type/asset-type";
-import type { ChartType } from "@type/chart-type";
 
 interface CachedQueryOptions {
 	enabled?: boolean;
@@ -15,17 +14,12 @@ interface AssetSpecificQueryOptions extends CachedQueryOptions {
 
 const defaultStateTime = 24 * 60 * 1000;
 
-/** Util function to ensure keys are standardized */
-function buildQueryKey(assetSymbol: string, assetType: AssetType, chartType: ChartType): string {
-	return `${assetSymbol}-${assetType}-${chartType}`;
-}
-
 /** Fetch all listings - alpha vantage */
 export function useListingsQuery(options: CachedQueryOptions = {}) {
 	const api = useAPIController();
 
 	return useQuery({
-		queryKey: ["listings"],
+		queryKey: ["listings", "all"],
 		queryFn: () => api.getAllSymbols(),
 		enabled: options.enabled ?? true,
 		staleTime: options.staleTime ?? defaultStateTime,
@@ -37,7 +31,7 @@ export function useAssetsQuery(options: CachedQueryOptions = {}) {
 	const api = useAPIController();
 
 	return useQuery({
-		queryKey: ["assets"],
+		queryKey: ["assets", "all"],
 		queryFn: () => api.getAssets(),
 		enabled: options.enabled ?? true,
 		staleTime: options.staleTime ?? defaultStateTime,
@@ -47,10 +41,9 @@ export function useAssetsQuery(options: CachedQueryOptions = {}) {
 /** Fetch daily data for equities - alpha vantage */
 export function useTimeSeriesDailyQuery(options: AssetSpecificQueryOptions) {
 	const api = useAPIController();
-	const key = buildQueryKey(options.assetSymbol, options.assetType, "Daily");
 
 	return useQuery({
-		queryKey: [key],
+		queryKey: ["timeSeries", options.assetType, options.assetSymbol, "Daily"],
 		queryFn: () => {
 			console.log("Fetching time series daily data for: ", options.assetSymbol);
 			return api.getTimeSeriesDaily(options.assetSymbol);
@@ -63,10 +56,9 @@ export function useTimeSeriesDailyQuery(options: AssetSpecificQueryOptions) {
 /** Fetch weekly data for equities - alpha vantage */
 export function useTimeSeriesWeeklyQuery(options: AssetSpecificQueryOptions) {
 	const api = useAPIController();
-	const key = buildQueryKey(options.assetSymbol, options.assetType, "Weekly");
 
 	return useQuery({
-		queryKey: [key],
+		queryKey: ["timeSeries", options.assetType, options.assetSymbol, "Weekly"],
 		queryFn: () => {
 			console.log("Fetching time series weekly data for: ", options.assetSymbol);
 			return api.getTimeSeriesWeekly(options.assetSymbol);
@@ -79,10 +71,9 @@ export function useTimeSeriesWeeklyQuery(options: AssetSpecificQueryOptions) {
 /** Fetch monthly data for equities - alpha vantage */
 export function useTimeSeriesMonthlyQuery(options: AssetSpecificQueryOptions) {
 	const api = useAPIController();
-	const key = buildQueryKey(options.assetSymbol, options.assetType, "Monthly");
 
 	return useQuery({
-		queryKey: [key],
+		queryKey: ["timeSeries", options.assetType, options.assetSymbol, "Monthly"],
 		queryFn: () => {
 			console.log("Fetching time series monthly data for: ", options.assetSymbol);
 			return api.getTimeSeriesMonthly(options.assetSymbol);
