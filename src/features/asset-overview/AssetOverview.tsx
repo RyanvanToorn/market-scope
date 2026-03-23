@@ -27,9 +27,18 @@ export interface AssetOverviewProps {
 }
 
 export function AssetOverview(props: AssetOverviewProps): React.ReactElement | null {
-	const timeSeriesDailyQuery = useTimeSeriesDailyQuery({ enabled: props.symbol !== "", assetSymbol: props.symbol, assetType: props.assetType });
-	const timeSeriesWeeklyQuery = useTimeSeriesWeeklyQuery({ enabled: props.symbol !== "", assetSymbol: props.symbol, assetType: props.assetType });
-	const timeSeriesMonthlyQuery = useTimeSeriesMonthlyQuery({ enabled: props.symbol !== "", assetSymbol: props.symbol, assetType: props.assetType });
+	const timeSeriesDailyQuery = useTimeSeriesDailyQuery({
+		assetSymbol: props.symbol,
+		assetType: props.assetType,
+	});
+	const timeSeriesWeeklyQuery = useTimeSeriesWeeklyQuery({
+		assetSymbol: props.symbol,
+		assetType: props.assetType,
+	});
+	const timeSeriesMonthlyQuery = useTimeSeriesMonthlyQuery({
+		assetSymbol: props.symbol,
+		assetType: props.assetType,
+	});
 
 	const dailySeries = toLineSeries(timeSeriesDailyQuery.data);
 	const weeklySeries = toLineSeries(timeSeriesWeeklyQuery.data);

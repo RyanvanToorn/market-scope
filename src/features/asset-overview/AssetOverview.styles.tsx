@@ -21,9 +21,10 @@ export const GraphRowSx = {
 	flex: "1",
 	display: "flex",
 	flexDirection: "row",
-	justifyContent: "space-between",
+	justifyContent: "space-evenly",
 	maxHeight: "100%",
-	maxWidth: "100%",
+	width: "100%",
+	padding: "var(--space-l)",
 };
 
 export const DetailRowSx = {};
