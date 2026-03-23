@@ -34,10 +34,12 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 	const timeSeriesWeeklyQuery = useTimeSeriesWeeklyQuery({
 		assetSymbol: props.symbol,
 		assetType: props.assetType,
+		enabled: !timeSeriesDailyQuery.isFetching,
 	});
 	const timeSeriesMonthlyQuery = useTimeSeriesMonthlyQuery({
 		assetSymbol: props.symbol,
 		assetType: props.assetType,
+		enabled: !timeSeriesWeeklyQuery.isFetching,
 	});
 
 	const dailySeries = toLineSeries(timeSeriesDailyQuery.data);
@@ -58,11 +60,11 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 					</Paper>
 
 					<Paper>
-						<LineChart series={weeklySeries} loading={timeSeriesWeeklyQuery.isFetching} width={500} height={300} />
+						<LineChart series={weeklySeries} loading={timeSeriesWeeklyQuery.isPending} width={500} height={300} />
 					</Paper>
 
 					<Paper>
-						<LineChart series={monthlySeries} loading={timeSeriesMonthlyQuery.isFetching} width={500} height={300} />
+						<LineChart series={monthlySeries} loading={timeSeriesMonthlyQuery.isPending} width={500} height={300} />
 					</Paper>
 				</Box>
 			)}
