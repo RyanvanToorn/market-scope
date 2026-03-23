@@ -1,4 +1,4 @@
-interface GraphDataParams {
+export interface GraphDataParams {
 	symbol: string;
 	languageCode?: string;
 	region?: string;
@@ -89,7 +89,7 @@ export interface YahooFinancePlotPoint {
 	volume: number | null;
 }
 
-export interface YahooFinanceChartData {
+export interface GraphData {
 	meta: YahooFinanceMeta;
 	plotPoints: YahooFinancePlotPoint[];
 }
@@ -97,7 +97,7 @@ export interface YahooFinanceChartData {
 export class YahooFinanceClient {
 	private baseUrl: string = "https://query1.finance.yahoo.com/";
 
-	public async getGraphData(params: Partial<GraphDataParams>): Promise<YahooFinanceChartData | Error> {
+	public async getGraphData(params: Partial<GraphDataParams>): Promise<GraphData | Error> {
 		const symbol = params.symbol;
 		const languageCode = params.languageCode || "en-US";
 		const region = params.region || "US";
@@ -122,7 +122,7 @@ export class YahooFinanceClient {
 		}
 	}
 
-	private transformGraphData(rawData: YahooFinanceChartResponse): YahooFinanceChartData {
+	private transformGraphData(rawData: YahooFinanceChartResponse): GraphData {
 		const result = rawData.chart.result[0];
 		const quote = result.indicators.quote[0];
 

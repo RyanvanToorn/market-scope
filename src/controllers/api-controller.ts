@@ -22,14 +22,17 @@ import type {
 	TASMAResponse,
 	TAVWAPResponse,
 } from "@services/coin-cap-client";
+import type { GraphData, GraphDataParams, YahooFinanceClient } from "@services/yahoo-finance-client";
 
 export class APIController {
 	private alphaClient: AlphaVantageClient;
 	private coinCapClient: CoinCapClient;
+	private yahooFinanceClient: YahooFinanceClient;
 
-	constructor(alphaClient: AlphaVantageClient, coinCapClient: CoinCapClient) {
+	constructor(alphaClient: AlphaVantageClient, coinCapClient: CoinCapClient, yahooFinanceClient: YahooFinanceClient) {
 		this.alphaClient = alphaClient;
 		this.coinCapClient = coinCapClient;
+		this.yahooFinanceClient = yahooFinanceClient;
 	}
 
 	/* Alpha Vantage */
@@ -207,6 +210,12 @@ export class APIController {
 		const data: TAAllLatestResponse | undefined = (await this.coinCapClient.getTechnicalAnalysisGetAllLatest(slug)) as
 			| TAAllLatestResponse
 			| undefined;
+		return data;
+	}
+
+	/* Yahoo Finance */
+	async getGraphData(params: GraphDataParams): Promise<GraphData | undefined> {
+		const data: GraphData | undefined = (await this.yahooFinanceClient.getGraphData(params)) as GraphData | undefined;
 		return data;
 	}
 }
