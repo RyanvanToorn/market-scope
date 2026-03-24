@@ -9,7 +9,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import type { SxProps, Theme } from "@mui/material";
 import type { AssetType } from "@type/asset-type";
-import { type ReactNode, useMemo, useState } from "react";
+import { tabBrowserStorage } from "@utils/tab-browser-storage";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import styles from "./TabBrowser.module.css";
 
 type TabPanelProps = {
@@ -70,7 +71,7 @@ function TabHeader({ onClose, value, ...tabProps }: TabHeaderProps): React.React
 	);
 }
 
-type TabDefinition = {
+export type TabDefinition = {
 	value: number;
 	/** The tab's label */
 	label: string;
@@ -91,9 +92,22 @@ const defaultTabs: TabDefinition[] = [{ value: 1, label: "Tab 1", assetType: und
 export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 	const initialTabs = useMemo(() => props.initialTabs ?? defaultTabs, [props.initialTabs]);
 
-	const [tabs, setTabs] = useState<TabDefinition[]>(initialTabs);
-	const [currentTabNumber, setCurrentTabNumber] = useState<number>(tabs[0]?.value ?? 1);
-	const [currentAssetType, setCurrentAssetType] = useState<AssetType | undefined>(undefined);
+	const [tabs, setTabs] = useState<TabDefinition[]>(() => {
+		return tabBrowserStorage.load()?.tabs ?? initialTabs;
+	});
+	const [currentTabNumber, setCurrentTabNumber] = useState<number>(() => {
+		const persisted = tabBrowserStorage.load();
+		return persisted?.currentTabNumber ?? persisted?.tabs[0]?.value ?? initialTabs[0]?.value ?? 1;
+	});
+	const [currentAssetType, setCurrentAssetType] = useState<AssetType | undefined>(() => {
+		const persisted = tabBrowserStorage.load();
+		if (!persisted) return undefined;
+		return persisted.tabs.find((t) => t.value === persisted.currentTabNumber)?.assetType;
+	});
+
+	useEffect(() => {
+		tabBrowserStorage.save({ tabs, currentTabNumber });
+	}, [tabs, currentTabNumber]);
 
 	function setCurrentTab(_event: React.SyntheticEvent, newValue: number): void {
 		setCurrentTabNumber(newValue);
