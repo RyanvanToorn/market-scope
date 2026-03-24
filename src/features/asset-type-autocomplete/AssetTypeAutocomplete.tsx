@@ -13,15 +13,13 @@ import styles from "./AssetTypeAutocomplete.styles.module.css";
 type AssetTypeAutocompleteProps = {
 	startingMode?: AssetType;
 	startingAsset?: { symbol: string; name: string };
-	onAssetSelect: (identifier: string, name: string) => void;
-	onAssetTypeChange?: (assetType: AssetType) => void;
+	onAssetSelect: (identifier: string, name: string, assetType: AssetType) => void;
 };
 
 export function AssetTypeAutocomplete({
 	startingMode = "Equities",
 	startingAsset,
 	onAssetSelect,
-	onAssetTypeChange,
 }: AssetTypeAutocompleteProps): React.ReactElement | null {
 	const [currentAssetTypeFilter, setCurrentAssetTypeFilter] = useState<AssetType>(startingMode);
 	const [selectedListing, setSelectedListing] = useState<Listing | Asset | null>(
@@ -44,7 +42,7 @@ export function AssetTypeAutocomplete({
 
 	function handleListingSelect(value: Listing | Asset | null) {
 		if (value) {
-			onAssetSelect(value.symbol, value.name);
+			onAssetSelect(value.symbol, value.name, currentAssetTypeFilter);
 		}
 		setSelectedListing(value);
 	}
@@ -122,7 +120,7 @@ export function AssetTypeAutocomplete({
 				noOptionsText="No markets found"
 				loadingText="Loading..."
 			/>
-			<AssetTypeFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} onAssetTypeChange={onAssetTypeChange} />
+			<AssetTypeFilter value={currentAssetTypeFilter} onChange={setCurrentAssetTypeFilter} />
 		</Box>
 	);
 }
@@ -135,11 +133,9 @@ type MarketFilterProps = {
 	onChange: (value: AssetType) => void;
 };
 
-type AssetTypeFilterProps = MarketFilterProps & {
-	onAssetTypeChange?: (assetType: AssetType) => void;
-};
+type AssetTypeFilterProps = MarketFilterProps;
 
-function AssetTypeFilter({ value, onChange, onAssetTypeChange }: AssetTypeFilterProps): React.ReactElement | null {
+function AssetTypeFilter({ value, onChange }: AssetTypeFilterProps): React.ReactElement | null {
 	return (
 		<Box extendedClass={styles.AssetTypeFilter} sx={{ m: "0.5rem", minWidth: "20%" }}>
 			<Select<AssetType>
@@ -149,7 +145,6 @@ function AssetTypeFilter({ value, onChange, onAssetTypeChange }: AssetTypeFilter
 				onChange={(event) => {
 					const newValue = event.target.value as AssetType;
 					onChange(newValue);
-					onAssetTypeChange?.(newValue);
 				}}
 			>
 				{filterOptions.map((t) => (

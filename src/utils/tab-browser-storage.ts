@@ -24,7 +24,15 @@ export const tabBrowserStorage = {
 				return null;
 			}
 
-			return parsed as PersistedTabState;
+			const state = parsed as PersistedTabState;
+
+			// Migration: tabs saved before assetType was persisted will have identifier set
+			// but assetType missing. Default those to "Equities" (matches the autocomplete default).
+			const migratedTabs = state.tabs.map((tab) =>
+				tab.identifier != null && tab.assetType == null ? { ...tab, assetType: "Equities" as const } : tab,
+			);
+
+			return { ...state, tabs: migratedTabs };
 		} catch {
 			return null;
 		}

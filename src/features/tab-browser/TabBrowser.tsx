@@ -99,34 +99,18 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 		const persisted = tabBrowserStorage.load();
 		return persisted?.currentTabNumber ?? persisted?.tabs[0]?.value ?? initialTabs[0]?.value ?? 1;
 	});
-	const [currentAssetType, setCurrentAssetType] = useState<AssetType | undefined>(() => {
-		const persisted = tabBrowserStorage.load();
-		if (!persisted) return undefined;
-		return persisted.tabs.find((t) => t.value === persisted.currentTabNumber)?.assetType;
-	});
-
 	useEffect(() => {
 		tabBrowserStorage.save({ tabs, currentTabNumber });
 	}, [tabs, currentTabNumber]);
 
 	function setCurrentTab(_event: React.SyntheticEvent, newValue: number): void {
 		setCurrentTabNumber(newValue);
-		const selectedTab = tabs.find((tab) => tab.value === newValue);
-		setCurrentAssetType(selectedTab?.assetType);
 	}
 
-	function handleAssetTypeChange(assetType: AssetType): void {
-		setCurrentAssetType(assetType);
-	}
-
-	function handleAssetSelect(identifier: string, name: string): void {
+	function handleAssetSelect(identifier: string, name: string, assetType: AssetType): void {
 		setTabs((previousTabs) =>
-			previousTabs.map((tab) =>
-				tab.value === currentTabNumber ? { ...tab, identifier, assetType: currentAssetType, label: name, name: name } : tab,
-			),
+			previousTabs.map((tab) => (tab.value === currentTabNumber ? { ...tab, identifier, assetType, label: name, name: name } : tab)),
 		);
-
-		console.log(`Tab selected - identifier = ${identifier} name = ${name}`);
 	}
 
 	function addTab() {
@@ -231,7 +215,6 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 									startingMode={tab.assetType}
 									startingAsset={tab.identifier && tab.name ? { symbol: tab.identifier, name: tab.name } : undefined}
 									onAssetSelect={handleAssetSelect}
-									onAssetTypeChange={handleAssetTypeChange}
 								/>
 							</Box>
 							{tab.assetType != null && tab.identifier != null && <AssetOverview assetType={tab.assetType} symbol={tab.identifier} name={tab.name} />}
