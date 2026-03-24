@@ -213,9 +213,14 @@ export function TabBrowser(props: TabBrowserProps): React.ReactElement | null {
 					<TabPanel key={tab.value} current={currentTabNumber} value={tab.value} sx={{ display: "flex", flex: "1" }}>
 						<Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
 							<Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-								<AssetTypeAutocomplete startingMode={currentAssetType} onAssetSelect={handleAssetSelect} onAssetTypeChange={handleAssetTypeChange} />
+								<AssetTypeAutocomplete
+									startingMode={tab.assetType}
+									startingAsset={tab.identifier && tab.name ? { symbol: tab.identifier, name: tab.name } : undefined}
+									onAssetSelect={handleAssetSelect}
+									onAssetTypeChange={handleAssetTypeChange}
+								/>
 							</Box>
-							<AssetOverview assetType={tab.assetType} symbol={tab.identifier} name={tab.name} />
+							{tab.assetType != null && tab.identifier != null && <AssetOverview assetType={tab.assetType} symbol={tab.identifier} name={tab.name} />}
 						</Box>
 					</TabPanel>
 				))}

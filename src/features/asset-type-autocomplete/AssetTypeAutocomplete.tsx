@@ -12,18 +12,22 @@ import styles from "./AssetTypeAutocomplete.styles.module.css";
 
 type AssetTypeAutocompleteProps = {
 	startingMode?: AssetType;
+	startingAsset?: { symbol: string; name: string };
 	onAssetSelect: (identifier: string, name: string) => void;
 	onAssetTypeChange?: (assetType: AssetType) => void;
 };
 
 export function AssetTypeAutocomplete({
-	startingMode = "Currencies",
+	startingMode = "Equities",
+	startingAsset,
 	onAssetSelect,
 	onAssetTypeChange,
 }: AssetTypeAutocompleteProps): React.ReactElement | null {
 	const [currentAssetTypeFilter, setCurrentAssetTypeFilter] = useState<AssetType>(startingMode);
-	const [selectedListing, setSelectedListing] = useState<Listing | Asset | null>(null);
-	const [inputValue, setInputValue] = useState("");
+	const [selectedListing, setSelectedListing] = useState<Listing | Asset | null>(
+		startingAsset ? ({ symbol: startingAsset.symbol, name: startingAsset.name } as Listing) : null,
+	);
+	const [inputValue, setInputValue] = useState(startingAsset ? `${startingAsset.symbol} - ${startingAsset.name}` : "");
 	const [shouldFetch, setShouldFetch] = useState(false);
 
 	const assetsQuery = useAssetsQuery({ enabled: currentAssetTypeFilter === "Crypto" && shouldFetch });
