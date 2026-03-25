@@ -7,7 +7,7 @@ import { Typography } from "@components/Typography/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import type { SvgIconProps } from "@mui/material/SvgIcon";
 import { useState } from "react";
-import styles from "./basic-menu.styles.module.css";
+import styles from "./BasicMenu.styles.module.css";
 
 export interface BasicMenuItem {
 	label: string;
