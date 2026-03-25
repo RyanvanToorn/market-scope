@@ -1,7 +1,10 @@
 import { Box } from "@components/Box/Box";
+import { IconButton } from "@components/IconButton/IconButton";
 import { LineChart } from "@components/LineChart/LineChart";
 import { Paper } from "@components/Paper/Paper";
 import { Typography } from "@components/Typography/Typography";
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import type { LineSeries } from "@mui/x-charts/LineChart";
 import { useTimeSeriesDailyQuery, useTimeSeriesMonthlyQuery, useTimeSeriesWeeklyQuery } from "@query/cached-api-controller-methods";
 import type { TimeSeriesData } from "@services/alpha-vantage-client";
@@ -46,6 +49,10 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 	const weeklySeries = toLineSeries(timeSeriesWeeklyQuery.data);
 	const monthlySeries = toLineSeries(timeSeriesMonthlyQuery.data);
 
+	function handleDailyRefresh(){
+		
+	}
+
 	return (
 		<Box sx={Styles.AssetOverviewRootSx} extendedClass="AssetOverview">
 			{props.symbol && (
@@ -56,14 +63,50 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 			{props.symbol && (
 				<Box extendedClass="GraphRow" sx={Styles.GraphRowSx}>
 					<Paper>
+						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
+							<Typography text="Daily" sx={Styles.GraphTitleTitleSx} />
+							<Box>
+								<IconButton id="daily-graph-refresh-btn">
+									<RefreshIcon />
+								</IconButton>
+								<IconButton id="daily-graph-expand-btn">
+									<OpenInFullIcon />
+								</IconButton>
+							</Box>
+						</Box>
+
 						<LineChart series={dailySeries} loading={timeSeriesDailyQuery.isFetching} width={500} height={300} />
 					</Paper>
 
 					<Paper>
+						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
+							<Typography text="Weekly" sx={Styles.GraphTitleTitleSx} />
+							<Box>
+								<IconButton id="weekly-graph-refresh-btn" onClick={}>
+									<RefreshIcon />
+								</IconButton>
+								<IconButton id="weekly-graph-expand-btn">
+									<OpenInFullIcon />
+								</IconButton>
+							</Box>
+						</Box>
+
 						<LineChart series={weeklySeries} loading={timeSeriesWeeklyQuery.isPending} width={500} height={300} />
 					</Paper>
 
 					<Paper>
+						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
+							<Typography text="Monthly" sx={Styles.GraphTitleTitleSx} />
+							<Box>
+								<IconButton id="monthly-graph-refresh-btn">
+									<RefreshIcon />
+								</IconButton>
+								<IconButton id="monthly-graph-expand-btn">
+									<OpenInFullIcon />
+								</IconButton>
+							</Box>
+						</Box>
+
 						<LineChart series={monthlySeries} loading={timeSeriesMonthlyQuery.isPending} width={500} height={300} />
 					</Paper>
 				</Box>

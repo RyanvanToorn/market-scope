@@ -15,6 +15,7 @@ export const TitleRowSx = {
 	justifyContent: "flex-end",
 	width: "100%",
 	p: 2,
+	marginRight: "2rem",
 };
 
 export const GraphRowSx = {
@@ -28,3 +29,18 @@ export const GraphRowSx = {
 };
 
 export const DetailRowSx = {};
+
+export const GraphTitleRowSx = {
+	display: "flex",
+	flexDirection: "row",
+	alignItems: "center",
+	justifyContent: "space-between",
+	marginRight: 2,
+	marginLeft: 2,
+	marginTop: 1,
+	marginBottom: 1,
+};
+
+export const GraphTitleTitleSx = {
+	fontSize: "1.25rem",
+};
