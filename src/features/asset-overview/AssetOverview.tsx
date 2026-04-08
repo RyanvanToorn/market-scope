@@ -49,8 +49,19 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 	const weeklySeries = toLineSeries(timeSeriesWeeklyQuery.data);
 	const monthlySeries = toLineSeries(timeSeriesMonthlyQuery.data);
 
-	function handleDailyRefresh(){
-		
+	function handleDailyRefresh() {
+		timeSeriesDailyQuery.refetch();
+		return;
+	}
+
+	function handleWeeklyRefresh() {
+		timeSeriesWeeklyQuery.refetch();
+		return;
+	}
+
+	function handleMonthlyRefresh() {
+		timeSeriesMonthlyQuery.refetch();
+		return;
 	}
 
 	return (
@@ -66,7 +77,7 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
 							<Typography text="Daily" sx={Styles.GraphTitleTitleSx} />
 							<Box>
-								<IconButton id="daily-graph-refresh-btn">
+								<IconButton id="daily-graph-refresh-btn" onClick={handleDailyRefresh}>
 									<RefreshIcon />
 								</IconButton>
 								<IconButton id="daily-graph-expand-btn">
@@ -82,7 +93,7 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
 							<Typography text="Weekly" sx={Styles.GraphTitleTitleSx} />
 							<Box>
-								<IconButton id="weekly-graph-refresh-btn" onClick={}>
+								<IconButton id="weekly-graph-refresh-btn" onClick={handleWeeklyRefresh}>
 									<RefreshIcon />
 								</IconButton>
 								<IconButton id="weekly-graph-expand-btn">
@@ -98,7 +109,7 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
 							<Typography text="Monthly" sx={Styles.GraphTitleTitleSx} />
 							<Box>
-								<IconButton id="monthly-graph-refresh-btn">
+								<IconButton id="monthly-graph-refresh-btn" onClick={handleMonthlyRefresh}>
 									<RefreshIcon />
 								</IconButton>
 								<IconButton id="monthly-graph-expand-btn">
