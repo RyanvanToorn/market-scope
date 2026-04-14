@@ -53,33 +53,38 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 
 	useEffect(() => {
 		if (!props.symbol) return;
+
+		const controller = new AbortController();
 		async function fetchSequentially() {
 			await refetchDaily();
-			// Wait for the first fetch + 1.6s to avoid hitting the API rate limit
-			await new Promise((resolve) => setTimeout(resolve, 1600));
+			if (controller.signal.aborted) return;
+			// Wait for the first fetch + 2s to avoid hitting the API rate limit
+			await new Promise((resolve) => setTimeout(resolve, 2000));
 			await refetchWeekly();
-			// Wait for the first fetch + 1.6s to avoid hitting the API rate limit
-			await new Promise((resolve) => setTimeout(resolve, 1600));
+			if (controller.signal.aborted) return;
+			// Wait for the first fetch + 2s to avoid hitting the API rate limit
+			await new Promise((resolve) => setTimeout(resolve, 2000));
 			await refetchMonthly();
 		}
 		fetchSequentially();
+		return () => controller.abort();
 	}, [props.symbol, refetchDaily, refetchWeekly, refetchMonthly]);
 
 	const dailySeries = toLineSeries(timeSeriesDailyQuery.data);
 	const weeklySeries = toLineSeries(timeSeriesWeeklyQuery.data);
 	const monthlySeries = toLineSeries(timeSeriesMonthlyQuery.data);
 
-	function handleDailyRefresh() {
+	function dailyRefresh() {
 		timeSeriesDailyQuery.refetch();
 		return;
 	}
 
-	function handleWeeklyRefresh() {
+	function weeklyRefresh() {
 		timeSeriesWeeklyQuery.refetch();
 		return;
 	}
 
-	function handleMonthlyRefresh() {
+	function monthlyRefresh() {
 		timeSeriesMonthlyQuery.refetch();
 		return;
 	}
@@ -97,7 +102,7 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
 							<Typography text="Daily" sx={Styles.GraphTitleTitleSx} />
 							<Box>
-								<IconButton id="daily-graph-refresh-btn" onClick={handleDailyRefresh}>
+								<IconButton id="daily-graph-refresh-btn" onClick={dailyRefresh}>
 									<RefreshIcon />
 								</IconButton>
 								<IconButton id="daily-graph-expand-btn">
@@ -113,7 +118,7 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
 							<Typography text="Weekly" sx={Styles.GraphTitleTitleSx} />
 							<Box>
-								<IconButton id="weekly-graph-refresh-btn" onClick={handleWeeklyRefresh}>
+								<IconButton id="weekly-graph-refresh-btn" onClick={weeklyRefresh}>
 									<RefreshIcon />
 								</IconButton>
 								<IconButton id="weekly-graph-expand-btn">
@@ -129,7 +134,7 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 						<Box extendedClass="GraphTitleRow" sx={Styles.GraphTitleRowSx}>
 							<Typography text="Monthly" sx={Styles.GraphTitleTitleSx} />
 							<Box>
-								<IconButton id="monthly-graph-refresh-btn" onClick={handleMonthlyRefresh}>
+								<IconButton id="monthly-graph-refresh-btn" onClick={monthlyRefresh}>
 									<RefreshIcon />
 								</IconButton>
 								<IconButton id="monthly-graph-expand-btn">
