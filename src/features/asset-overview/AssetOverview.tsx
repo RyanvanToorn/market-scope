@@ -9,6 +9,7 @@ import type { LineSeries } from "@mui/x-charts/LineChart";
 import { useTimeSeriesDailyQuery, useTimeSeriesMonthlyQuery, useTimeSeriesWeeklyQuery } from "@query/cached-api-controller-methods";
 import type { TimeSeriesData } from "@services/alpha-vantage-client";
 import type { AssetType } from "@type/asset-type";
+import { useEffect } from "react";
 import * as Styles from "./AssetOverview.styles";
 
 /* Parity needs to be ensured with AssetTypes from src/types/AssetTypes */
@@ -33,17 +34,36 @@ export function AssetOverview(props: AssetOverviewProps): React.ReactElement | n
 	const timeSeriesDailyQuery = useTimeSeriesDailyQuery({
 		assetSymbol: props.symbol,
 		assetType: props.assetType,
+		enabled: false,
 	});
 	const timeSeriesWeeklyQuery = useTimeSeriesWeeklyQuery({
 		assetSymbol: props.symbol,
 		assetType: props.assetType,
-		enabled: !timeSeriesDailyQuery.isFetching,
+		enabled: false,
 	});
 	const timeSeriesMonthlyQuery = useTimeSeriesMonthlyQuery({
 		assetSymbol: props.symbol,
 		assetType: props.assetType,
-		enabled: !timeSeriesWeeklyQuery.isFetching,
+		enabled: false,
 	});
+
+	const { refetch: refetchDaily } = timeSeriesDailyQuery;
+	const { refetch: refetchWeekly } = timeSeriesWeeklyQuery;
+	const { refetch: refetchMonthly } = timeSeriesMonthlyQuery;
+
+	useEffect(() => {
+		if (!props.symbol) return;
+		async function fetchSequentially() {
+			await refetchDaily();
+			// Wait for the first fetch + 1.6s to avoid hitting the API rate limit
+			await new Promise((resolve) => setTimeout(resolve, 1600));
+			await refetchWeekly();
+			// Wait for the first fetch + 1.6s to avoid hitting the API rate limit
+			await new Promise((resolve) => setTimeout(resolve, 1600));
+			await refetchMonthly();
+		}
+		fetchSequentially();
+	}, [props.symbol, refetchDaily, refetchWeekly, refetchMonthly]);
 
 	const dailySeries = toLineSeries(timeSeriesDailyQuery.data);
 	const weeklySeries = toLineSeries(timeSeriesWeeklyQuery.data);
